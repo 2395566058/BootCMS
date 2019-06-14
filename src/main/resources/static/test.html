@@ -12,13 +12,14 @@
 	</head>
 
 	<body>
+		<form action="/BootCMS/login.action" method="post">
 		<div class="container">
 			<div class="form row">
 				<div class="form-horizontal col-md-offset-3" id="login_form">
 					<div class="col-md-9">
 						<div class="form-group">
 							<i class="fa fa-user fa-lg"></i>
-							<input class="form-control required" type="text" placeholder="用户名" id="username" name="username" autofocus="autofocus"
+							<input class="form-control required" type="text" placeholder="用户名" id="username" name="usercode" autofocus="autofocus"
 							 maxlength="20" style="color: #ACACAC;" />
 						</div>
 						<div class="form-group">
@@ -29,12 +30,13 @@
 							<button type="button" class="btn btn-link">忘记密码？</button>
 						</div>
 						<div class="form-group col-md-offset-9">
-							<button type="button" class="btn btn-outline-primary" onfocus="this.blur();">登录</button>
+							<input type="submit" name="submit" value="登录" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		</form>
 
 	</body>
 </html>
