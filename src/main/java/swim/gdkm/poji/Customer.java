@@ -8,7 +8,6 @@ import java.io.Serializable;
 
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int Field;// Comment
 	private String cust_id;// 客户编号
 	private int cust_name;// 客户名称
 	private int cust_user_id;// 负责人id
@@ -22,13 +21,23 @@ public class Customer implements Serializable {
 	private String cust_zipcode;// 邮政编码
 	private String cust_address;// 联系地址
 	private String cust_createtime;// 创建时间
+	private Integer start;//起始行
+	private Integer rows;//所取行数
 
-	public int getField() {
-		return Field;
+	public Integer getStart() {
+		return start;
 	}
 
-	public void setField(int field) {
-		Field = field;
+	public void setStart(Integer start) {
+		this.start = start;
+	}
+
+	public Integer getRows() {
+		return rows;
+	}
+
+	public void setRows(Integer rows) {
+		this.rows = rows;
 	}
 
 	public String getCust_id() {
