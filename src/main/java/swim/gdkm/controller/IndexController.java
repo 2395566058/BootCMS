@@ -5,14 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class IndexController {
-
-	/*
-	 * 默认页面
-	 * 
-	 */
-
-	@RequestMapping("/")
-	public String getIndex() {
+	@RequestMapping(value="/error.action")
+	public String toIndex() {
 		return "login.html";
 	}
+
 }

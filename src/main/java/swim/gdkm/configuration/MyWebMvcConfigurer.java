@@ -11,7 +11,7 @@ import swim.gdkm.interceptor.LoginInterceptor;
 
 @Configuration
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
-	String[] exclude = { "/", "/login.html", "/css/**", "/img/**", "/js/**" };
+	String[] exclude = { "/css/*", "/img/*", "/js/*", "/error.action" };
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {

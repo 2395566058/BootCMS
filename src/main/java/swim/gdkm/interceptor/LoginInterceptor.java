@@ -14,25 +14,24 @@ import swim.gdkm.poji.Sys_user;
  * 
  * */
 
-public class LoginInterceptor implements HandlerInterceptor{
+public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		String url = request.getRequestURI();
-		System.out.print("拦截了路径:  " + url);
 		if (url.indexOf("/login.action") >= 0) {
-			System.out.println("    通过");
+			System.out.println("拦截了路径:" + url+"    通过");
 			return true;
 		}
 		HttpSession session = request.getSession();
 		Sys_user user = (Sys_user) session.getAttribute("USER_SESSION");
 		if (user != null) {
-			System.out.println("    通过");
+			System.out.println("拦截了路径:" + url+"    通过");
 			return true;
 		}
 		request.setAttribute("msg", "您还没有登录，请先登录!");
-		request.getRequestDispatcher("/login.html").forward(request, response);
-		System.out.println("    不通过");
+		request.getRequestDispatcher("/error.action").forward(request, response);
+		System.out.println("拦截了路径:" + url+"    不通过，执行跳转");
 		return false;
 	}
 
