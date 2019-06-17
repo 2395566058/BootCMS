@@ -2,10 +2,12 @@ package swim.gdkm.service.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import swim.gdkm.dao.StudentDao;
 import swim.gdkm.poji.Student;
 import swim.gdkm.service.StudentService;
-
+@Service("studentService")
 public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private StudentDao studentDao;

@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="swim.gdkm.dao.SysuserDao">
-	<select id="getAllList" resultType="List">
+	<select id="getAllList" resultType="sysuser">
 		select * from sysuser
 	</select>
 	<select id="getSysuserByScanner" parameterType="String" resultType="sysuser">

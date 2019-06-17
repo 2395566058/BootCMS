@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="swim.gdkm.dao.StudentDao">
-	<select id="getAllList" resultType="List">
+	<select id="getAllList" resultType="student">
 		select * from student
 	</select>
 	<select id="getStudentByScanner" parameterType="String"
