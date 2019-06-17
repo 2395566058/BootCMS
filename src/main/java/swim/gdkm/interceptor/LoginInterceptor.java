@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import swim.gdkm.poji.Sys_user;
+import swim.gdkm.poji.Sysuser;
 
 /*
  * 登录拦截器
@@ -24,7 +24,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			return true;
 		}
 		HttpSession session = request.getSession();
-		Sys_user user = (Sys_user) session.getAttribute("USER_SESSION");
+		Sysuser user = (Sysuser) session.getAttribute("USER_SESSION");
 		if (user != null) {
 			System.out.println("拦截了路径:" + url+"    通过");
 			return true;
