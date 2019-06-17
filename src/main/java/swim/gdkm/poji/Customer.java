@@ -1,6 +1,7 @@
 package swim.gdkm.poji;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /*
  *	系统用户表
@@ -8,10 +9,10 @@ import java.io.Serializable;
 
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String cust_id;// 客户编号
-	private int cust_name;// 客户名称
-	private int cust_user_id;// 负责人id
-	private String cust_create_id;// 创建人id
+	private Integer cust_id;// 客户编号
+	private String cust_name;// 客户名称
+	private Integer cust_user_id;// 负责人id
+	private Integer cust_create_id;// 创建人id
 	private String cust_source;// 客户信息来源
 	private String cust_industry;// 客户所属行业
 	private String cust_level;// 客户级别
@@ -20,9 +21,9 @@ public class Customer implements Serializable {
 	private String cust_mobile;// 移动电话
 	private String cust_zipcode;// 邮政编码
 	private String cust_address;// 联系地址
-	private String cust_createtime;// 创建时间
-	private Integer start;//起始行
-	private Integer rows;//所取行数
+	private Date cust_createtime;// 创建时间
+	private Integer start;// 起始行
+	private Integer rows;// 所取行数
 
 	public Integer getStart() {
 		return start;
@@ -40,19 +41,19 @@ public class Customer implements Serializable {
 		this.rows = rows;
 	}
 
-	public String getCust_id() {
+	public Integer getCust_id() {
 		return cust_id;
 	}
 
-	public void setCust_id(String cust_id) {
+	public void setCust_id(Integer cust_id) {
 		this.cust_id = cust_id;
 	}
 
-	public int getCust_name() {
+	public String getCust_name() {
 		return cust_name;
 	}
 
-	public void setCust_name(int cust_name) {
+	public void setCust_name(String cust_name) {
 		this.cust_name = cust_name;
 	}
 
@@ -64,11 +65,11 @@ public class Customer implements Serializable {
 		this.cust_user_id = cust_user_id;
 	}
 
-	public String getCust_create_id() {
+	public Integer getCust_create_id() {
 		return cust_create_id;
 	}
 
-	public void setCust_create_id(String cust_create_id) {
+	public void setCust_create_id(Integer cust_create_id) {
 		this.cust_create_id = cust_create_id;
 	}
 
@@ -136,11 +137,11 @@ public class Customer implements Serializable {
 		this.cust_address = cust_address;
 	}
 
-	public String getCust_createtime() {
+	public Date getCust_createtime() {
 		return cust_createtime;
 	}
 
-	public void setCust_createtime(String cust_createtime) {
+	public void setCust_createtime(Date cust_createtime) {
 		this.cust_createtime = cust_createtime;
 	}
 
