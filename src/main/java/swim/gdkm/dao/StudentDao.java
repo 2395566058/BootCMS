@@ -1,11 +1,25 @@
 package swim.gdkm.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import swim.gdkm.poji.Student;
 import org.apache.ibatis.annotations.Param;
 
 public interface StudentDao {
 	public List<Student> getAllList();
 
-	public Student getStudentByScanner(@Param("type")String type, @Param("code")String code);
+	public List<Student> getStudentByScannerUpDown(@Param("type") String type, @Param("code") String code,
+			@Param("updown") String updown, @Param("updowntype") int updowntype);
+
+	public List<Student> getStudentByScanner(@Param("type") String type, @Param("code") String code);
+
+	public List<Student> getStudentByScanner(@Param("map") Map map, @Param("updown") String updown,
+			@Param("updowntype") int updowntype);
+
+	public int addStudent(Student student);
+
+	public int deleteStudent(int st_id);
+	
+	public int updateStudent(Student student);
 }

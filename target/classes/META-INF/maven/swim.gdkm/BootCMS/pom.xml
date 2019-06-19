@@ -77,9 +77,15 @@
 
 	<build>
 		<plugins>
+			<!-- Spring Boot提供的打包插件，能够在把项目打包的时候，自动把依赖的jar文件一并打包 -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+					<fork>true</fork>
+					<jmxPort>5000</jmxPort>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

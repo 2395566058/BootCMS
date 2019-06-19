@@ -4,10 +4,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="swim.gdkm.dao.ScheduleDao">
 	<select id="getAllList" resultType="schedule">
-		select * from schedule
+		SELECT * FROM schedule
 	</select>
+	
 	<select id="getScheduleByScanner" parameterType="String"
 		resultType="schedule">
-		select * from schedule where #{type} = #{code}
+		SELECT * FROM schedule WHERE #{type} = #{code}
 	</select>
+	
+	<insert id="addSchedule" parameterType="schedule">
+		INSERT INTO schedule VALUES (0,#{sc_name},#{sc_start},#{sc_end},#{sc_week},
+				#{sc_time},#{sc_classroom},#{sc_user_id})
+	</insert>
+	
+	<delete id="deleteSchedule" parameterType="Integer">
+		DELETE FROM schedule WHERE sc_id = #{sc_id}
+	</delete>
+	
+	<update id="updateSchedule" parameterType="schedule">
+		UPDATE schedule SET 
+			<if test="#{sc_name}!=null">
+				sc_name=#{sc_name},
+			</if>
+			<if test="#{sc_start}!=null">
+				sc_start=#{sc_start},
+			</if>
+			<if test="#{sc_end}!=null">
+				sc_end=#{sc_end},
+			</if>
+			<if test="#{sc_week}!=null">
+				sc_week=#{sc_week},
+			</if>
+			<if test="#{sc_time}!=null">
+				sc_time=#{sc_time},
+			</if>
+			<if test="#{sc_classroom}!=null">
+				sc_classroom=#{sc_classroom}
+			</if>
+			<if test="#{sc_user_id}!=null">
+				sc_user_id=#{sc_user_id}
+			</if>
+			WHERE sc_id=#{sc_id}
+	</update>
 </mapper>
