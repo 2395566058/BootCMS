@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import swim.gdkm.poji.Sysuser;
 import swim.gdkm.service.SysuserService;
-import swim.gdkm.service.impl.SysuserServiceImpl;
 /*
  * 登录页面
  */
