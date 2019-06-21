@@ -12,4 +12,5 @@ public class WeixinApplication {
 		SpringApplication.run(WeixinApplication.class, args);
 	}
 
+	
 }
