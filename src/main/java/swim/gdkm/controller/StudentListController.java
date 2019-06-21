@@ -2,21 +2,14 @@ package swim.gdkm.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.HashMap;
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import swim.gdkm.poji.Major;
-import swim.gdkm.poji.Schedule;
 import swim.gdkm.poji.Student;
 import swim.gdkm.poji.Sysuser;
 import swim.gdkm.service.MajorService;
@@ -224,7 +216,7 @@ public class StudentListController {
 		String exName = data.getOriginalFilename().substring(data.getOriginalFilename().lastIndexOf("."));
 		String fileName = UUID.randomUUID().toString().replaceAll("-", "") + exName;
 		String uploadPicPath = "file:/root/BootCMSData/images/" + fileName;
-		File file = new File(uploadPicPath.toString());
+		File file = new File(new URI(uploadPicPath));
 		if (!file.getParentFile().exists()) {
 			file.getParentFile().mkdirs();
 		}
