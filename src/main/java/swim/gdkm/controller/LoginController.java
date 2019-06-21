@@ -43,14 +43,14 @@ public class LoginController {
 					}
 					request.getSession().setAttribute("USER", sys.get(i));
 					request.setAttribute("USER", sys.get(i));
-					return "StudentList.html";
+					return "StudentList.action";
 				}
 				request.setAttribute("msg", "账号或密码错误！");
-				return "Login.html";
+				return "Login.action";
 			}
 		}
 		request.setAttribute("msg", "账号不存在！");
-		return "Login.html";
+		return "Login.action";
 	}
 
 	/*
@@ -60,7 +60,7 @@ public class LoginController {
 	@RequestMapping(value = "/Logout.action", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request) {
 		request.getSession().invalidate();
-		return "Login.html";
+		return "Login.action";
 	}
 
 }
