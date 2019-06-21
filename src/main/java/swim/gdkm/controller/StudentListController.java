@@ -215,7 +215,7 @@ public class StudentListController {
 	private String storePic(MultipartFile data) throws Exception {
 		String exName = data.getOriginalFilename().substring(data.getOriginalFilename().lastIndexOf("."));
 		String fileName = UUID.randomUUID().toString().replaceAll("-", "") + exName;
-		String uploadPicPath = "file://root/BootCMSData/images/" + fileName;
+		String uploadPicPath = "file:///root/BootCMSData/images/" + fileName;
 		File file = new File(new URI(uploadPicPath));
 		if (!file.getParentFile().exists()) {
 			file.getParentFile().mkdirs();
