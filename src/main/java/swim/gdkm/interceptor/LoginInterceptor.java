@@ -22,6 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		System.out.println("拦截了路径="+url);
 		if (url.indexOf("/Login.action") == 8) {
 			// 访问主页，直接进入
+			System.out.println("通过");
 			return true;
 		}
 		if (request.getSession().getAttribute("USER") != null) {
@@ -35,9 +36,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 						// 权限不够
 						request.setAttribute("msg", "你的权限不够！");
 						request.getRequestDispatcher("/StudentList.action").forward(request, response);
+						System.out.println("不通过");
 						return false;
 					}
 				}
+				System.out.println("通过");
 				return true;
 			}
 			// 路径错误
@@ -49,13 +52,15 @@ public class LoginInterceptor implements HandlerInterceptor {
 				// 路径无误，不允许访问
 				request.setAttribute("msg", "登录之后才能访问！");
 				request.getRequestDispatcher("/Login.action").forward(request, response);
+				System.out.println("不通过");
 				return false;
 			}
 			request.setAttribute("msg", "找不到该页面！");
 			request.getRequestDispatcher("/Login.action").forward(request, response);
+			System.out.println("不通过");
 			return false;
 		}
-
+		System.out.println("不通过");
 		return false;
 	}
 
