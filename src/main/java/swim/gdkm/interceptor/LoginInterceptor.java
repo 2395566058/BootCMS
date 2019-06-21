@@ -24,6 +24,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 			// 访问主页，直接进入
 			System.out.println("通过");
 			return true;
+		}else {
+			System.out.println("非访问主页，继续判断");
 		}
 		if (request.getSession().getAttribute("USER") != null) {
 			Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
