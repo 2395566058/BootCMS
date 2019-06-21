@@ -1,5 +1,7 @@
 package swim.gdkm.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,18 +33,21 @@ public class LoginController {
 
 	@RequestMapping(value = "/Login.action", method = RequestMethod.POST)
 	public String checkSysuser(String user_code, String user_password, HttpServletRequest request, Model model) {
-		Sysuser sys = sysuserService.getSysuserByScanner("user_code", user_code);
+		List<Sysuser> sys = sysuserService.getSysuserByScanner("user_code", user_code);
 		if (sys != null) {
-			if (sys.getUser_passowrd().equals(user_password)) {
-				if (sys.getUser_state().equals("0")) {
-					request.setAttribute("msg", "账号已被停用！");
-					return "Login.html";
+			for (int i = 0; i < sys.size(); i++) {
+				if (sys.get(i).getUser_passowrd().equals(user_password)) {
+					if (sys.get(i).getUser_state().equals("0")) {
+						request.setAttribute("msg", "账号已被停用！");
+						return "Login.html";
+					}
+					request.getSession().setAttribute("USER", sys.get(i));
+					request.setAttribute("USER", sys.get(i));
+					return "StudentList.html";
 				}
-				request.getSession().setAttribute("USER", sys);
-				return "StudentList.html";
+				request.setAttribute("msg", "账号或密码错误！");
+				return "Login.html";
 			}
-			request.setAttribute("msg", "账号或密码错误！");
-			return "Login.html";
 		}
 		request.setAttribute("msg", "账号不存在！");
 		return "Login.html";

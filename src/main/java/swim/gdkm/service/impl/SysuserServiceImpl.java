@@ -21,8 +21,8 @@ public class SysuserServiceImpl implements SysuserService {
 	}
 
 	@Override
-	public Sysuser getSysuserByScanner(String type, String code) {
-		Sysuser sysuser = sysuserDao.getSysuserByScanner(type, code);
+	public List<Sysuser> getSysuserByScanner(String type, String code) {
+		List<Sysuser> sysuser = sysuserDao.getSysuserByScanner(type, code);
 		return sysuser;
 	}
 

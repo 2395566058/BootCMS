@@ -6,23 +6,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getAllList" resultType="schedule">
 		SELECT * FROM schedule
 	</select>
-	
+
 	<select id="getScheduleByScanner" parameterType="String"
 		resultType="schedule">
-		SELECT * FROM schedule WHERE #{type} = #{code}
+		SELECT * FROM schedule WHERE ${type} = #{code}
 	</select>
-	
+
 	<insert id="addSchedule" parameterType="schedule">
-		INSERT INTO schedule VALUES (0,#{sc_name},#{sc_start},#{sc_end},#{sc_week},
-				#{sc_time},#{sc_classroom},#{sc_user_id})
+		INSERT INTO schedule
+		VALUES (0,#{sc_name},#{sc_start},#{sc_end},#{sc_week},
+		#{sc_time},#{sc_classroom},#{sc_user_id})
 	</insert>
-	
+
 	<delete id="deleteSchedule" parameterType="Integer">
-		DELETE FROM schedule WHERE sc_id = #{sc_id}
+		DELETE FROM schedule
+		WHERE sc_id = #{sc_id}
 	</delete>
-	
+
 	<update id="updateSchedule" parameterType="schedule">
-		UPDATE schedule SET 
+		UPDATE schedule
+		<set>
 			<if test="#{sc_name}!=null">
 				sc_name=#{sc_name},
 			</if>
@@ -44,6 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="#{sc_user_id}!=null">
 				sc_user_id=#{sc_user_id}
 			</if>
-			WHERE sc_id=#{sc_id}
+		</set>
+		WHERE sc_id=#{sc_id}
 	</update>
 </mapper>

@@ -1,6 +1,7 @@
 package swim.gdkm.poji;
 
 import java.util.Date;
+import java.util.Map;
 
 public class Student {
 	private int st_id;
@@ -8,14 +9,60 @@ public class Student {
 	private int st_user_id;
 	private int st_as_id;
 	private int st_ma_id;
-	private Date st_admissiondate;
-	private int st_phone;
+	private String st_admissiondate;
+	private String st_phone;
 	private String st_address;
-	private Date st_registerdate;
-	private Date st_born;
+	private String st_registerdate;
+	private String st_born;
 	private char st_sex;
 	private String st_sc;
 	private String st_image;
+
+	public Student() {
+
+	}
+
+	public Student(Map map) {
+		if (map.get("st_address") != null) {
+			this.st_address = (String) map.get("st_address");
+		}
+		if (map.get("st_name") != null) {
+			this.st_name = (String) map.get("st_name");
+		}
+		if (map.get("st_sc") != null) {
+			this.st_sc = (String) map.get("st_sc");
+		}
+		if (map.get("st_image") != null) {
+			this.st_image = (String) map.get("st_image");
+		}
+		if (map.get("st_admissiondate") != null) {
+			this.st_admissiondate = (String) map.get("st_admissiondate");
+		}
+		if (map.get("st_registerdate") != null) {
+			this.st_registerdate = (String) map.get("st_registerdate");
+		}
+		if (map.get("st_born") != null) {
+			this.st_born = (String) map.get("st_born");
+		}
+		if (map.get("st_id") != null) {
+			this.st_id = (Integer) map.get("st_id");
+		}
+		if (map.get("st_user_id") != null) {
+			this.st_user_id = (Integer) map.get("st_user_id");
+		}
+		if (map.get("st_as_id") != null) {
+			this.st_as_id = (Integer) map.get("st_as_id");
+		}
+		if (map.get("st_ma_id") != null) {
+			this.st_ma_id = (Integer) map.get("st_ma_id");
+		}
+		if (map.get("st_phone") != null) {
+			this.st_phone = (String) map.get("st_phone");
+		}
+		if (map.get("st_sex") != null) {
+			this.st_sex = (Character) map.get("st_sex");
+		}
+	}
 
 	public int getSt_id() {
 		return st_id;
@@ -57,19 +104,19 @@ public class Student {
 		this.st_ma_id = st_ma_id;
 	}
 
-	public Date getSt_admissiondate() {
+	public String getSt_admissiondate() {
 		return st_admissiondate;
 	}
 
-	public void setSt_admissiondate(Date st_admissiondate) {
+	public void setSt_admissiondate(String st_admissiondate) {
 		this.st_admissiondate = st_admissiondate;
 	}
 
-	public int getSt_phone() {
+	public String getSt_phone() {
 		return st_phone;
 	}
 
-	public void setSt_phone(int st_phone) {
+	public void setSt_phone(String st_phone) {
 		this.st_phone = st_phone;
 	}
 
@@ -81,19 +128,19 @@ public class Student {
 		this.st_address = st_address;
 	}
 
-	public Date getSt_registerdate() {
+	public String getSt_registerdate() {
 		return st_registerdate;
 	}
 
-	public void setSt_registerdate(Date st_registerdate) {
+	public void setSt_registerdate(String st_registerdate) {
 		this.st_registerdate = st_registerdate;
 	}
 
-	public Date getSt_born() {
+	public String getSt_born() {
 		return st_born;
 	}
 
-	public void setSt_born(Date st_born) {
+	public void setSt_born(String st_born) {
 		this.st_born = st_born;
 	}
 

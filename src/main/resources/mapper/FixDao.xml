@@ -6,12 +6,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getAllList" resultType="fix">
 		SELECT * FROM fix
 	</select>
-	
+
 	<select id="getFixByScanner" parameterType="String"
 		resultType="fix">
-		SELECT * FROM fix WHERE #{type} = #{code}
+		SELECT * FROM fix WHERE ${type} = #{code}
 	</select>
-	
+
 	<insert id="addFix" parameterType="fix">
 		INSERT INTO fix VALUES (0,#{f_repair},#{f_info},#{f_st_id},
 		<if test="#{f_user_id}!=null">
@@ -20,22 +20,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="#{f_user_id}==null">
 			null,
 		</if>
-			#{f_status},#{f_ st_ as_id},#{f_time},
+		#{f_status},#{f_ st_ as_id},#{f_time},
 		<if test="#{f_accomplish}!=null">
 			#{f_accomplish}
 		</if>
 		<if test="#{f_accomplish}==null">
 			null
 		</if>
-			)
+		)
 	</insert>
-	
+
 	<delete id="deleteFix" parameterType="Integer">
-		DELETE FROM fix WHERE f_id = #{f_id}
+		DELETE FROM fix WHERE f_id
+		= #{f_id}
 	</delete>
-	
+
 	<update id="updateFix" parameterType="fix">
-		UPDATE fix SET 
+		UPDATE fix
+		<set>
 			<if test="#{f_repair}!=null">
 				f_repair=#{f_repair},
 			</if>
@@ -60,6 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="#{f_accomplish}!=null">
 				f_accomplish=#{f_accomplish}
 			</if>
-			WHERE user_id=#{user_id}
+		</set>
+		WHERE user_id=#{user_id}
 	</update>
 </mapper>

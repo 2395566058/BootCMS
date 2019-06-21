@@ -8,6 +8,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="getClassesByScanner" parameterType="String"
 		resultType="classes">
-		select * from classes where #{type} = #{code}
+		select * from classes where ${type} = #{code}
 	</select>
 </mapper>

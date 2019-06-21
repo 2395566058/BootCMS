@@ -4,10 +4,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="swim.gdkm.dao.AssociatecollegeDao">
 	<select id="getAllList" resultType="associatecollege">
-		select * from associatecollege
+		SELECT * FROM associatecollege
 	</select>
 	<select id="getAssociatecollegeByScanner" parameterType="String"
 		resultType="associatecollege">
-		select * from associatecollege where #{type} = #{code}
+		SELECT * FROM associatecollege WHERE ${type} = #{code}
 	</select>
 </mapper>

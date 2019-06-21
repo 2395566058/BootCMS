@@ -1,5 +1,7 @@
 package swim.gdkm.poji;
 
+import java.util.Map;
+
 public class Sysuser {
 	private int user_id;
 	private String user_code;
@@ -8,6 +10,33 @@ public class Sysuser {
 	private String user_state;
 	private int user_as_id;
 	private String user_authorization;
+	
+	public Sysuser(){
+	}
+	public Sysuser(Map map) {
+		if(map.get("user_id") != null){
+			this.user_id=(Integer) map.get("user_id");
+		}
+		if(map.get("user_as_id") != null){
+			this.user_as_id=(Integer) map.get("user_as_id");
+		}
+		if(map.get("user_code") != null){
+			this.user_code=(String) map.get("user_code");
+		}
+		if(map.get("user_name") != null){
+			this.user_name=(String) map.get("user_name");
+		}
+		if(map.get("user_passowrd") != null){
+			this.user_passowrd=(String) map.get("user_passowrd");
+		}
+		if(map.get("user_state") != null){
+			this.user_state=(String) map.get("user_state");
+		}
+		if(map.get("user_authorization") != null){
+			this.user_authorization=(String) map.get("user_authorization");
+		}
+	}
+	
 	public int getUser_id() {
 		return user_id;
 	}

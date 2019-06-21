@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import swim.gdkm.interceptor.LoginInterceptor;
 
 @Configuration
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
-	String[] exclude = { "/css/*", "/img/*", "/js/*", "/error.action" };
+	String[] exclude = { "/css/*", "/img/*", "/js/*", "/images/*" };
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -20,4 +21,9 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		WebMvcConfigurer.super.addInterceptors(registry);
 	}
 
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/images/**").addResourceLocations("file:/root/BootCMSData/images/");
+		WebMvcConfigurer.super.addResourceHandlers(registry);
+	}
 }

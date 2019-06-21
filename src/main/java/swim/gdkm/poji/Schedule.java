@@ -1,15 +1,43 @@
 package swim.gdkm.poji;
 
 import java.util.Date;
+import java.util.Map;
 
 public class Schedule {
 	private int sc_id;
 	private String sc_name;
-	private Date sc_start;
-	private Date sc_end;
+	private String sc_start;
+	private String sc_end;
 	private String sc_week;
-	private Date sc_time;
+	private String sc_time;
 	private String sc_classroom;
+	
+	public Schedule(){
+	}
+	public Schedule(Map map) {
+		if(map.get("sc_id") != null){
+			this.sc_id=(Integer) map.get("sc_id");
+		}
+		if(map.get("sc_name") != null){
+			this.sc_name=(String) map.get("sc_name");
+		}
+		if(map.get("sc_week") != null){
+			this.sc_week=(String) map.get("sc_week");
+		}
+		if(map.get("sc_classroom") != null){
+			this.sc_classroom=(String) map.get("sc_classroom");
+		}
+		if(map.get("sc_start") != null){
+			this.sc_start=(String) map.get("sc_start");
+		}
+		if(map.get("sc_end") != null){
+			this.sc_end=(String) map.get("sc_end");
+		}
+		if(map.get("sc_time") != null){
+			this.sc_time=(String) map.get("sc_time");
+		}
+	}
+	
 	public int getSc_id() {
 		return sc_id;
 	}
@@ -22,16 +50,16 @@ public class Schedule {
 	public void setSc_name(String sc_name) {
 		this.sc_name = sc_name;
 	}
-	public Date getSc_start() {
+	public String getSc_start() {
 		return sc_start;
 	}
-	public void setSc_start(Date sc_start) {
+	public void setSc_start(String sc_start) {
 		this.sc_start = sc_start;
 	}
-	public Date getSc_end() {
+	public String getSc_end() {
 		return sc_end;
 	}
-	public void setSc_end(Date sc_end) {
+	public void setSc_end(String sc_end) {
 		this.sc_end = sc_end;
 	}
 	public String getSc_week() {
@@ -40,10 +68,10 @@ public class Schedule {
 	public void setSc_week(String sc_week) {
 		this.sc_week = sc_week;
 	}
-	public Date getSc_time() {
+	public String getSc_time() {
 		return sc_time;
 	}
-	public void setSc_time(Date sc_time) {
+	public void setSc_time(String sc_time) {
 		this.sc_time = sc_time;
 	}
 	public String getSc_classroom() {

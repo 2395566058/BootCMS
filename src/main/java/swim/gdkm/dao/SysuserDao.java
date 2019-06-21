@@ -8,7 +8,7 @@ import swim.gdkm.poji.Sysuser;
 public interface SysuserDao {
 	public List<Sysuser> getAllList();
 
-	public Sysuser getSysuserByScanner(@Param("type") String type, @Param("code") String code);
+	public List<Sysuser> getSysuserByScanner(@Param("type") String type, @Param("code") String code);
 
 	public int addSysuser(Sysuser sysuser);
 

@@ -1,0 +1,11 @@
+.nav {
+	height: 100%;
+	width: 240px;
+	background: #F4452E;
+}
+
+.content-body {
+	width: auto;
+	margin-left: 240px;
+	background: #857A81;
+}

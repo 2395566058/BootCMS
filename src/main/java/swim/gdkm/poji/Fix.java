@@ -1,6 +1,6 @@
 package swim.gdkm.poji;
 
-import java.util.Date;
+import java.util.Map;
 
 public class Fix {
 	private int f_id;
@@ -10,8 +10,40 @@ public class Fix {
 	private int f_user_id;
 	private char f_status;
 	private int f_st_as_id;
-	private Date f_time;
-	private Date f_accomplish;
+	private String f_time;
+	private String f_accomplish;
+
+	public Fix(){
+	}
+	public Fix(Map map) {
+		if(map.get("f_st_id") != null){
+			this.f_st_id=(Integer) map.get("f_id");
+		}
+		if(map.get("f_st_id") != null){
+			this.f_st_id=(Integer) map.get("f_st_id");
+		}
+		if(map.get("f_user_id") != null){
+			this.f_user_id=(Integer) map.get("f_user_id");
+		}
+		if(map.get("f_st_as_id") != null){
+			this.f_st_as_id=(Integer) map.get("f_st_as_id");
+		}
+		if(map.get("f_repair") != null){
+			this.f_repair=(String) map.get("f_repair");
+		}
+		if(map.get("f_info") != null){
+			this.f_info=(String) map.get("f_info");
+		}
+		if(map.get("f_time") != null){
+			this.f_time=(String) map.get("f_time");
+		}
+		if(map.get("f_accomplish") != null){
+			this.f_accomplish=(String) map.get("f_accomplish");
+		}
+		if(map.get("f_status") != null){
+			this.f_status=(Character) map.get("f_status");
+		}
+	}
 	public int getF_id() {
 		return f_id;
 	}
@@ -54,16 +86,16 @@ public class Fix {
 	public void setF_st_as_id(int f_st_as_id) {
 		this.f_st_as_id = f_st_as_id;
 	}
-	public Date getF_time() {
+	public String getF_time() {
 		return f_time;
 	}
-	public void setF_time(Date f_time) {
+	public void setF_time(String f_time) {
 		this.f_time = f_time;
 	}
-	public Date getF_accomplish() {
+	public String getF_accomplish() {
 		return f_accomplish;
 	}
-	public void setF_accomplish(Date f_accomplish) {
+	public void setF_accomplish(String f_accomplish) {
 		this.f_accomplish = f_accomplish;
 	}
 	@Override

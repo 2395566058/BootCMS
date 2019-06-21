@@ -1,8 +1,21 @@
 package swim.gdkm.poji;
 
+import java.util.Map;
+
 public class Classes {
 	private int cl_id;
 	private String cl_name;
+	public Classes(){
+	}
+	public Classes(Map map) {
+		if(map.get("cl_id") != null){
+			this.cl_id=(Integer) map.get("cl_id");
+		}
+		if(map.get("cl_name") != null){
+			this.cl_name=(String) map.get("cl_name");
+		}
+	
+}
 	public int getCl_id() {
 		return cl_id;
 	}

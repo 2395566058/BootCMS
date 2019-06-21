@@ -8,18 +8,19 @@ import org.apache.ibatis.annotations.Param;
 
 public interface StudentDao {
 	public List<Student> getAllList();
+	
+
+	public List<Student> getStudentByScanner(@Param("type") String type, @Param("code") String code);
 
 	public List<Student> getStudentByScannerUpDown(@Param("type") String type, @Param("code") String code,
 			@Param("updown") String updown, @Param("updowntype") int updowntype);
 
-	public List<Student> getStudentByScanner(@Param("type") String type, @Param("code") String code);
-
-	public List<Student> getStudentByScanner(@Param("map") Map map, @Param("updown") String updown,
+	public List<Student> getStudentByScannerMap(@Param("map") Map map, @Param("updown") String updown,
 			@Param("updowntype") int updowntype);
 
-	public int addStudent(Student student);
+	public boolean addStudent(Student student);
 
-	public int deleteStudent(int st_id);
+	public boolean deleteStudent(int st_id);
 	
-	public int updateStudent(Student student);
+	public boolean updateStudent(Student student);
 }

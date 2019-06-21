@@ -6,5 +6,5 @@ import swim.gdkm.poji.Sysuser;
 public interface SysuserService {
 	public List<Sysuser> getAllList();
 
-	public Sysuser getSysuserByScanner(String type, String code);
+	public List<Sysuser> getSysuserByScanner(String type, String code);
 }

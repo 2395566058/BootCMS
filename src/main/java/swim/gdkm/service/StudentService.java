@@ -12,6 +12,8 @@ public interface StudentService {
 
 	public List<Student> getStudentByScannerUpDown(String type, String code, String updown, int updowntype);
 
-	public List<Student> getStudentByScanner(Map map, String updown, int updowntype);
+	public List<Student> getStudentByScannerMap(Map map, String updown, int updowntype);
+
+	public boolean addStudentList(Student student);
 
 }

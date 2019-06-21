@@ -1,56 +1,33 @@
-body {
-	background-image: linear-gradient(180deg, #FF7200, #FFC007);
+.register {
+	width: 365px;
+	height: auto;
+	position: absolute;
+	left: 47%;
+	top: 50%;
+	margin: -100px 0 0 -150px;
 }
 
-.form {
-	margin: 120px auto;
-	background: #FFFFFF;
-	width: 350px;
-	border-radius: 5px;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+.form-control{
+	height: 45px;
+	width: 300px;
+	background: #857A81;
+	border: 0;
+	color: white;
+}
+.form-control:focus {
+	background: #857A81;
+	color: white;
 }
 
-.fa {
-	display: inline-block;
-	position: relative;
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */ 
+	color: white !important;
 }
 
-
-input[type="text"],
-input[type="password"] {
-	padding-left: 26px;
-}
-
-.form-group{
-	width: 260px;
-}
-.form-control {
-	margin-top: 20px;
-	margin-left: 30px;
-	color: #555555;
-	-webkit-text-fill-color: #ACACAC;
-	font-size: 10px;
-}
-
-
-.btn-link {
-	float: right;
-	font-size: 14px;
-	color: #FFA000;
-}
-
-.btn-link:hover {
-	color: #B37000;
-}
-
-.btn-outline-primary {
-	width: 320px;
-	color: #FFC15A;
-	border-color: #FFC15A;
-	border-radius: 50px;
-}
-
-.btn-outline-primary:hover {
-	background-color: #FFC15A !important;
-	border-color: #FFC15A;
+.btn-primary{
+	height: 106px;
+	background : #F4452E !important;
+	border: 0;
+	position: absolute;
+	right: 1px;
+	top: 54px;
 }

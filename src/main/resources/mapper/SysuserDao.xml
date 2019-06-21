@@ -6,22 +6,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getAllList" resultType="sysuser">
 		SELECT * FROM sysuser
 	</select>
-	
-	<select id="getSysuserByScanner" parameterType="String" resultType="sysuser">
-		SELECT * FROM sysuser WHERE #{type} = #{code}
+
+	<select id="getSysuserByScanner" parameterType="String"
+		resultType="sysuser">
+		SELECT * FROM sysuser WHERE ${type} = #{code}
 	</select>
-	
+
 	<insert id="addSysuser" parameterType="sysuser">
-		INSERT INTO sysuser VALUES (0,#{user_code},#{user_name},#{user_password},#{user_state},
-				#{user_as_id},#{user_authorization})
+		INSERT INTO sysuser VALUES
+		(0,#{user_code},#{user_name},#{user_password},#{user_state},
+		#{user_as_id},#{user_authorization})
 	</insert>
-	
+
 	<delete id="deleteSysuser" parameterType="Integer">
-		DELETE FROM sysuser WHERE user_id = #{user_id}
+		DELETE FROM sysuser
+		WHERE user_id = #{user_id}
 	</delete>
-	
+
 	<update id="updateSysuser" parameterType="sysuser">
-		UPDATE sysuser SET 
+		UPDATE sysuser
+		<set>
 			<if test="#{user_code}!=null">
 				user_code=#{user_code},
 			</if>
@@ -40,6 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="#{user_authorization}!=null">
 				user_authorization=#{user_authorization}
 			</if>
-			WHERE user_id=#{user_id}
+		</set>
+		WHERE user_id=#{user_id}
 	</update>
 </mapper>
