@@ -39,18 +39,19 @@ public class LoginController {
 				if (sys.get(i).getUser_passowrd().equals(user_password)) {
 					if (sys.get(i).getUser_state().equals("0")) {
 						request.setAttribute("msg", "账号已被停用！");
+						System.out.println("执行跳转");
 						return "Login.html";
 					}
 					request.getSession().setAttribute("USER", sys.get(i));
 					request.setAttribute("USER", sys.get(i));
-					return "StudentList.action";
+					return "StudentList.html";
 				}
 				request.setAttribute("msg", "账号或密码错误！");
-				return "Login.action";
+				return "Login.html";
 			}
 		}
 		request.setAttribute("msg", "账号不存在！");
-		return "Login.action";
+		return "Login.html";
 	}
 
 	/*
