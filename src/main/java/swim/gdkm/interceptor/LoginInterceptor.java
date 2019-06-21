@@ -19,12 +19,12 @@ public class LoginInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		String url = request.getRequestURI();
+		System.out.println("拦截了路径="+url);
 		if (url.indexOf("/Login.action") == 8) {
 			// 访问主页，直接进入
 			return true;
 		}
 		if (request.getSession().getAttribute("USER") != null) {
-			// 已登录
 			Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
 			String authorization = sy.getUser_authorization();
 			if (url.indexOf("BootCMS/error") < 0) {
