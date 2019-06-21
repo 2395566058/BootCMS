@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="swim.gdkm.dao.MajorDao">
+	<select id="getAllList" resultType="major">
+		SELECT * FROM major
+	</select>
+
+	<select id="getMajorByScanner" parameterType="String"
+		resultType="major">
+		SELECT * FROM major WHERE ${type} = #{code}
+	</select>
+
+	<insert id="addMajor" parameterType="major">
+		INSERT INTO major VALUES
+		(0,#{ma_name},#{ma_as_id})
+	</insert>
+
+	<delete id="deleteMajor" parameterType="Integer">
+		DELETE FROM major WHERE
+		ma_id = #{ma_id}
+	</delete>
+
+	<update id="updateMajor" parameterType="major">
+		UPDATE major
+		<set>
+			<if test="#{ma_name}!=null">
+				ma_name=#{ma_name},
+			</if>
+			<if test="#{ma_as_id}!=null">
+				ma_as_id=#{ma_as_id}
+			</if>
+		</set>
+		WHERE ma_id=#{ma_id}
+	</update>
+</mapper>

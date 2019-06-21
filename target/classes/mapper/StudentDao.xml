@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="swim.gdkm.dao.StudentDao">
+	<select id="getAllList" resultType="student">
+		SELECT * FROM student ORDER
+		BY st_name
+	</select>
+
+	<select id="getStudentByScanner" parameterType="String"
+		resultType="student">
+		SELECT * FROM student WHERE ${type} = #{code} ORDER BY
+		st_name
+	</select>
+
+	<select id="getStudentByScannerUpDown" resultType="student">
+		SELECT * FROM student WHERE ${type} = #{code} ORDER BY ${updown}
+		<if test="updowntype==1">
+			DESC
+		</if>
+	</select>
+
+	<select id="getStudentByScannerMap" resultType="student">
+		SELECT * FROM student WHERE 1=1
+		<foreach item="item" index="key" collection="map" open="AND"
+			separator="AND" close="">
+			${key} = #{item}
+		</foreach>
+		ORDER BY #{updown}
+		<if test="updowntype==1">
+			DESC
+		</if>
+	</select>
+
+	<insert id="addStudent" parameterType="student">
+		INSERT INTO student VALUES
+		(0,#{st_name},#{st_user_id},#{st_as_id},#{st_ma_id},
+		#{st_admissiondate},#{st_phone},#{st_address},#{st_registerdate},#{st_born},#{st_sex},
+		<if test="#{st_sc}==null">
+			NULL,#{st_image})
+		</if>
+		<if test="#{st_sc}!=null">
+			#{st_sc},#{st_image})
+		</if>
+	</insert>
+	<delete id="deleteStudent" parameterType="Integer">
+		DELETE FROM student
+		WHERE st_id = #{st_id}
+	</delete>
+	<update id="updateStudent" parameterType="student">
+		UPDATE student
+		<set>
+			<if test="#{st_name}!=null">
+				st_name=#{st_name},
+			</if>
+			<if test="#{st_user_id}!=null">
+				st_user_id=#{st_user_id},
+			</if>
+			<if test="#{st_name}!=null">
+				st_name=#{st_name},
+			</if>
+			<if test="#{st_ as_id}!=null">
+				st_ as_id=#{st_ as_id},
+			</if>
+			<if test="#{st_ma_id}!=null">
+				st_ma_id=#{st_ma_id},
+			</if>
+			<if test="#{st_admissiondate}!=null">
+				st_admissiondate=#{st_admissiondate},
+			</if>
+			<if test="#{st_phone}!=null">
+				st_phone=#{st_phone},
+			</if>
+			<if test="#{st_address}!=null">
+				st_address=#{st_address},
+			</if>
+			<if test="#{st_registerdate}!=null">
+				st_registerdate=#{st_registerdate},
+			</if>
+			<if test="#{st_born}!=null">
+				st_born=#{st_born},
+			</if>
+			<if test="#{st_sex}!=null">
+				st_sex=#{st_sex},
+			</if>
+			<if test="#{st_sc}!=null">
+				st_sc=#{st_sc},
+			</if>
+			<if test="#{st_image}!=null">
+				st_image=#{st_image}
+			</if>
+		</set>
+		WHERE st_id=#{st_id}
+	</update>
+</mapper>

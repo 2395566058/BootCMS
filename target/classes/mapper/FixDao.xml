@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="swim.gdkm.dao.FixDao">
+	<select id="getAllList" resultType="fix">
+		SELECT * FROM fix
+	</select>
+
+	<select id="getFixByScanner" parameterType="String"
+		resultType="fix">
+		SELECT * FROM fix WHERE ${type} = #{code}
+	</select>
+
+	<insert id="addFix" parameterType="fix">
+		INSERT INTO fix VALUES (0,#{f_repair},#{f_info},#{f_st_id},
+		<if test="#{f_user_id}!=null">
+			#{f_user_id},
+		</if>
+		<if test="#{f_user_id}==null">
+			null,
+		</if>
+		#{f_status},#{f_ st_ as_id},#{f_time},
+		<if test="#{f_accomplish}!=null">
+			#{f_accomplish}
+		</if>
+		<if test="#{f_accomplish}==null">
+			null
+		</if>
+		)
+	</insert>
+
+	<delete id="deleteFix" parameterType="Integer">
+		DELETE FROM fix WHERE f_id
+		= #{f_id}
+	</delete>
+
+	<update id="updateFix" parameterType="fix">
+		UPDATE fix
+		<set>
+			<if test="#{f_repair}!=null">
+				f_repair=#{f_repair},
+			</if>
+			<if test="#{f_info}!=null">
+				f_info=#{f_info},
+			</if>
+			<if test="#{f_st_id}!=null">
+				f_st_id=#{f_st_id},
+			</if>
+			<if test="#{f_user_id}!=null">
+				f_user_id=#{f_user_id},
+			</if>
+			<if test="#{f_status}!=null">
+				f_status=#{f_status},
+			</if>
+			<if test="#{f_ st_ as_id}!=null">
+				f_ st_ as_id=#{f_ st_ as_id},
+			</if>
+			<if test="#{f_time}!=null">
+				f_time=#{f_time},
+			</if>
+			<if test="#{f_accomplish}!=null">
+				f_accomplish=#{f_accomplish}
+			</if>
+		</set>
+		WHERE user_id=#{user_id}
+	</update>
+</mapper>
