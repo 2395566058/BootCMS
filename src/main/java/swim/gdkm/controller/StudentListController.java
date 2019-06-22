@@ -157,7 +157,6 @@ public class StudentListController {
 		map.put("st_name", request.getParameter("st_name"));
 		map.put("st_user_id", user_id);
 		map.put("st_as_id", user_as_id);
-		map.put("st_registerdate", st_registerdate);
 		Major major = majorService.getMajorByScanner("ma_name", request.getParameter("st_ma_id"));
 		if (String.valueOf(major.getMa_id()) != null || !String.valueOf(major.getMa_id()).equals("")) {
 			map.put("st_ma_id", major.getMa_id());
@@ -167,7 +166,7 @@ public class StudentListController {
 		map.put("st_admissiondate", request.getParameter("st_admissiondate"));
 		map.put("st_phone", request.getParameter("st_phone"));
 		map.put("st_address", request.getParameter("st_address"));
-		map.put("st_registerdate", request.getParameter("st_registerdate"));
+		map.put("st_registerdate",st_registerdate);
 		map.put("st_born", request.getParameter("st_born"));
 		String sex = request.getParameter("st_sex");
 		if (sex.equals("男") || sex.equals("1")) {
