@@ -14,7 +14,7 @@ public class Student {
 	private String st_address;
 	private String st_registerdate;
 	private String st_born;
-	private char st_sex;
+	private String st_sex;
 	private String st_sc;
 	private String st_image;
 
@@ -60,7 +60,7 @@ public class Student {
 			this.st_phone = (String) map.get("st_phone");
 		}
 		if (map.get("st_sex") != null) {
-			this.st_sex = (Character) map.get("st_sex");
+			this.st_sex = (String) map.get("st_sex");
 		}
 	}
 
@@ -144,11 +144,11 @@ public class Student {
 		this.st_born = st_born;
 	}
 
-	public int getSt_sex() {
+	public String getSt_sex() {
 		return st_sex;
 	}
 
-	public void setSt_sex(char st_sex) {
+	public void setSt_sex(String st_sex) {
 		this.st_sex = st_sex;
 	}
 
