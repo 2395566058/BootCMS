@@ -158,8 +158,8 @@ public class StudentListController {
 		map.put("st_user_id", user_id);
 		map.put("st_as_id", user_as_id);
 		map.put("st_registerdate", st_registerdate);
-		Major major = majorService.getMajorByScanner("ma_name", (String) map.get("st_ma_id"));
-		if (String.valueOf(major.getMa_id()) != null) {
+		Major major = majorService.getMajorByScanner("ma_name", request.getParameter("st_ma_id"));
+		if (String.valueOf(major.getMa_id()) != null || !String.valueOf(major.getMa_id()).equals("")) {
 			map.put("st_ma_id", major.getMa_id());
 		} else {
 			return "找不到专业:" + map.get("st_ma_id");
