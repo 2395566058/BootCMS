@@ -120,7 +120,7 @@ public class StudentListController {
 			sb.append("\"st_name\":\"" + list.get(i).getSt_name() + "\",");
 			sb.append("\"st_admissiondate\":\"" + list.get(i).getSt_admissiondate() + "\",");
 			sb.append("\"st_born\":\"" + list.get(i).getSt_born() + "\",");
-			if (list.get(i).getSt_sex() == 1) {
+			if (list.get(i).getSt_sex().equals("1")) {
 				sb.append("\"st_sex\":\"男\",");
 			}
 			sb.append("\"st_sex\":\"女\",");
