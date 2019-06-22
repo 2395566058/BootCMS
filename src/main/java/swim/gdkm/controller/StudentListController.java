@@ -3,10 +3,15 @@ package swim.gdkm.controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.stereotype.Controller;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import swim.gdkm.poji.Major;
+import swim.gdkm.poji.Schedule;
 import swim.gdkm.poji.Student;
 import swim.gdkm.poji.Sysuser;
 import swim.gdkm.service.MajorService;
@@ -136,39 +142,43 @@ public class StudentListController {
 	 */
 	@RequestMapping(value = "/AddStudentList.action", method = RequestMethod.POST)
 	@ResponseBody
-	public String addStudentList(String json, @RequestParam("file") MultipartFile file, HttpServletRequest request) {
-		/*
-		System.out.println("json=" + json);
+	public String addStudentList(@RequestParam("st_image") MultipartFile file, HttpServletRequest request) {
 		Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
 		String user_authorization = sy.getUser_authorization();
 		int user_id = sy.getUser_id();
 		int user_as_id = sy.getUser_as_id();
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String st_registerdate = f.format(new Date());
 		if (!user_authorization.equals("2")) {
 			return "没有权限添加！";
 		}
-		JacksonJsonParser jsonParser = new JacksonJsonParser();
-		Map<String, Object> map = jsonParser.parseMap(json);
+		Map<String, Object> map = new HashMap<String, Object>();
+		// 添加请求内容
+		map.put("st_name", request.getParameter("st_name"));
 		map.put("st_user_id", user_id);
 		map.put("st_as_id", user_as_id);
+		map.put("st_registerdate", st_registerdate);
 		Major major = majorService.getMajorByScanner("ma_name", (String) map.get("st_ma_id"));
 		if (String.valueOf(major.getMa_id()) != null) {
 			map.put("st_ma_id", major.getMa_id());
 		} else {
 			return "找不到专业:" + map.get("st_ma_id");
 		}
-		String sex = (String) map.get("st_sex");
-		if (sex != null) {
-			if (sex.indexOf("男") >= 0) {
-				map.put("st_sex", "1");
-			}
-			if (sex.indexOf("女") >= 0) {
-				map.put("st_sex", "0");
-			}
+		map.put("st_admissiondate", request.getParameter("st_admissiondate"));
+		map.put("st_phone", request.getParameter("st_phone"));
+		map.put("st_address", request.getParameter("st_address"));
+		map.put("st_registerdate", request.getParameter("st_registerdate"));
+		map.put("st_born", request.getParameter("st_born"));
+		String sex = request.getParameter("st_sex");
+		if (sex.equals("男") || sex.equals("1")) {
+			map.put("st_sex", "1");
+		} else if (sex.equals("女") || sex.equals("1")) {
+			map.put("st_sex", "0");
 		} else {
 			return "性别错误:" + sex;
 		}
-		String schedule = (String) map.get("st_sc");
-		if (schedule != null || schedule != "") {
+		String schedule = request.getParameter("st_sc");
+		if (schedule != null || !schedule.equals("")) {
 			String[] scheduleList = schedule.split("~");
 			StringBuffer sb = new StringBuffer();
 			for (int i = 0; i < scheduleList.length; i++) {
@@ -180,8 +190,7 @@ public class StudentListController {
 			}
 			sb.deleteCharAt(sb.length() - 1);
 			map.put("st_sc", sb);
-		}*/
-
+		}
 		String sc_image = null;
 		try {
 			sc_image = storePic(file);
@@ -189,14 +198,12 @@ public class StudentListController {
 			e.printStackTrace();
 		}
 		System.out.println("st_image=" + sc_image);
-		/*
 		map.put("st_image", sc_image);
 		Student student = new Student(map);
 		boolean result = studentService.addStudentList(student);
 		if (result = true) {
 			return "添加成功";
 		}
-		*/
 		return "添加失败";
 	}
 
@@ -212,6 +219,9 @@ public class StudentListController {
 		return null;
 	}
 
+	/*
+	 * 存入图片数据并返回地址
+	 */
 	private String storePic(MultipartFile data) throws Exception {
 		String exName = data.getOriginalFilename().substring(data.getOriginalFilename().lastIndexOf("."));
 		String fileName = UUID.randomUUID().toString().replaceAll("-", "") + exName;

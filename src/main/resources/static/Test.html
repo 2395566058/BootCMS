@@ -21,13 +21,19 @@ else if (window.ActiveXObject){// code for IE5 and IE6
 if (xmlhttp!=null){
   xmlhttp.onreadystatechange=state_Change;
   xmlhttp.open("POST",url,true);
- // xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  //xmlhttp.setRequestHeader("Content-Type", "multipart/form-data");
-  var data=document.getElementById('b').value;
   var image=document.getElementById('c');
    var file= new FormData();
-   file.append("file",image.files[0]);
-  xmlhttp.send(file);
+   file.append("st_image",image.files[0]);
+   file.append("st_name","bbb");
+   file.append("st_ma_id","hgxhxgh");
+   file.append("st_admissiondate","bbb");
+   file.append("st_admissiondate","2019-06-21");
+   file.append("st_phone","11111111111");
+   file.append("st_address","aaaaaaaaaaaaaaaaaaaa");
+   file.append("st_born","2019-06-21");
+   file.append("st_sex","男");
+   file.append("st_sc","guku");
+ 	 xmlhttp.send(file);
 }else{
   alert("Your browser does not support XMLHTTP.");
 }
