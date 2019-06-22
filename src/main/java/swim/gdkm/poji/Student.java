@@ -45,7 +45,7 @@ public class Student {
 			this.st_born = (String) map.get("st_born");
 		}
 		if (map.get("st_id") != null) {
-			this.st_id = (Integer) map.get("st_id");
+			this.st_id = Integer.valueOf((String) map.get("st_id"));
 		}
 		if (map.get("st_user_id") != null) {
 			this.st_user_id = (Integer) map.get("st_user_id");

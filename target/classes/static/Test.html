@@ -21,10 +21,16 @@ else if (window.ActiveXObject){// code for IE5 and IE6
 if (xmlhttp!=null){
   xmlhttp.onreadystatechange=state_Change;
   xmlhttp.open("POST",url,true);
+//  xmlhttp.setRequestHeader("Content-type","multipart/form-data");
   var image=document.getElementById('c');
    var file= new FormData();
-   file.append("st_image",image.files[0]);
+   if(image.files[0]!=null){
+   	file.append("st_image",image.files[0]);
+   }
+   file.append("st_id","3");
    file.append("st_name","bbb");
+   file.append("st_user_id","aaa");
+   file.append("st_as_id","gxfjhgfh");
    file.append("st_ma_id","hgxhxgh");
    file.append("st_admissiondate","2019-06-21");
    file.append("st_phone","11111111111");

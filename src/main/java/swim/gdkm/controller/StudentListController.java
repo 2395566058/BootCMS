@@ -6,12 +6,20 @@ import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.stereotype.Controller;
@@ -20,11 +28,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import swim.gdkm.poji.Associatecollege;
 import swim.gdkm.poji.Major;
 import swim.gdkm.poji.Schedule;
 import swim.gdkm.poji.Student;
 import swim.gdkm.poji.Sysuser;
+import swim.gdkm.service.AssociatecollegeService;
 import swim.gdkm.service.MajorService;
 import swim.gdkm.service.ScheduleService;
 import swim.gdkm.service.StudentService;
@@ -43,6 +56,8 @@ public class StudentListController {
 	private SysuserService sysuserService;
 	@Autowired
 	private ScheduleService scheduleService;
+	@Autowired
+	private AssociatecollegeService associatecollegeService;
 
 	@RequestMapping(value = "/StudentList.action", method = RequestMethod.GET)
 	public String toLogin() {
@@ -153,7 +168,6 @@ public class StudentListController {
 			return "没有权限添加！";
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
-		// 添加请求内容
 		map.put("st_name", request.getParameter("st_name"));
 		map.put("st_user_id", user_id);
 		map.put("st_as_id", user_as_id);
@@ -196,7 +210,6 @@ public class StudentListController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("st_image=" + sc_image);
 		map.put("st_image", sc_image);
 		Student student = new Student(map);
 		boolean result = studentService.addStudentList(student);
@@ -207,24 +220,180 @@ public class StudentListController {
 	}
 
 	/*
-	 * 返回数据 修改Student表数据
+	 * 返回数据 修改Student表数据 不包含st_image
 	 */
-	@RequestMapping(value = "/updateStudentList.action", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateStudent.action", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateStudentList(String json, HttpServletRequest request) {
+	public String updateStudentList(HttpServletRequest request) throws FileUploadException {
 		Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
 		String user_authorization = sy.getUser_authorization();
 		if (!user_authorization.equals("2")) {
 			return "没有权限更改！";
 		}
-		JacksonJsonParser jsonParser = new JacksonJsonParser();
-		Map<String, Object> map = jsonParser.parseMap(json);
-		Student student = new Student(map);
-		boolean result = studentService.updateStudent(student);
-		if(result=true) {
+		Map<String, String[]> map = request.getParameterMap();
+		Set<Entry<String, String[]>> set = map.entrySet();
+		Iterator<Entry<String, String[]>> it = set.iterator();
+		Map<String, Object> newmap = new HashMap<String, Object>();
+		while (it.hasNext()) {
+			Entry<String, String[]> entry = it.next();
+			newmap.put(entry.getKey(), JtoString(entry.getValue()));
+		}
+		String st_user_id = (String) newmap.get("st_user_id");
+		String st_as_id = (String) newmap.get("st_as_id");
+		Associatecollege associatecollege = associatecollegeService.getAssociatecollegeByScanner("as_name", st_as_id);
+		if (associatecollege.getAs_id() != 0) {
+			// 该院系存在
+			Map<String, Object> map1 = new HashMap<String, Object>();
+			map1.put("user_name", st_user_id);
+			map1.put("user_as_id", associatecollege.getAs_id());
+			List<Sysuser> sysuser = sysuserService.getSysuserByScannerMap(map1, "user_id", 0);
+			// 该管理员存在
+			if (sysuser.size() != 0) {
+				newmap.put("st_user_id", sysuser.get(0).getUser_id());
+				newmap.put("st_as_id", associatecollege.getAs_id());
+			} else {
+				return "该管理人不存在！";
+			}
+			String st_ma_id = (String) newmap.get("st_ma_id");
+			Major major = majorService.getMajorByScanner("ma_name", st_ma_id);
+			if (major.getMa_as_id() != associatecollege.getAs_id()) {
+				return "专业与院系不符！";
+			} else {
+				newmap.put("st_ma_id", major.getMa_id());
+			}
+		} else {
+			return "该院系不存在！";
+		}
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String st_registerdate = f.format(new Date());
+		newmap.put("st_registerdate", st_registerdate);
+		String sex = (String) newmap.get("st_sex");
+		if (sex.equals("男") || sex.equals("1")) {
+			newmap.put("st_sex", "1");
+		} else if (sex.equals("女") || sex.equals("1")) {
+			newmap.put("st_sex", "0");
+		} else {
+			return "性别错误:" + sex;
+		}
+		String schedule = (String) newmap.get("st_sc");
+		if (schedule != null || !schedule.equals("")) {
+			String[] scheduleList = schedule.split("~");
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < scheduleList.length; i++) {
+				Schedule sc = scheduleService.getScheduleByScanner("sc_name", scheduleList[i]);
+				if (sc.getSc_id() == 0) {
+					return "找不到课程:" + scheduleList[i];
+				}
+				sb.append(sc.getSc_id() + ",");
+			}
+			sb.deleteCharAt(sb.length() - 1);
+			newmap.put("st_sc", sb.toString());
+		}
+		List<Student> aa = studentService.getStudentByScanner("st_id", (String) newmap.get("st_id"));
+		newmap.put("st_image", aa.get(0).getSt_image());
+		Student student = new Student(newmap);
+		boolean result = studentService.addStudentList(student);
+		if (result = true) {
 			return "更改成功";
 		}
 		return "更改失败";
+	}
+
+	/*
+	 * 返回数据 修改Student表数据 包含st_image
+	 */
+	@RequestMapping(value = "/updateStudentIncludeImage.action", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateStudentListIncludeImage(@RequestParam("st_image") MultipartFile file,HttpServletRequest request) throws FileUploadException {
+		Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
+		String user_authorization = sy.getUser_authorization();
+		if (!user_authorization.equals("2")) {
+			return "没有权限更改！";
+		}
+		Map<String, String[]> map = request.getParameterMap();
+		Set<Entry<String, String[]>> set = map.entrySet();
+		Iterator<Entry<String, String[]>> it = set.iterator();
+		Map<String, Object> newmap = new HashMap<String, Object>();
+		while (it.hasNext()) {
+			Entry<String, String[]> entry = it.next();
+			newmap.put(entry.getKey(), JtoString(entry.getValue()));
+		}
+		String st_user_id = (String) newmap.get("st_user_id");
+		String st_as_id = (String) newmap.get("st_as_id");
+		Associatecollege associatecollege = associatecollegeService.getAssociatecollegeByScanner("as_name", st_as_id);
+		if (associatecollege.getAs_id() != 0) {
+			// 该院系存在
+			Map<String, Object> map1 = new HashMap<String, Object>();
+			map1.put("user_name", st_user_id);
+			map1.put("user_as_id", associatecollege.getAs_id());
+			List<Sysuser> sysuser = sysuserService.getSysuserByScannerMap(map1, "user_id", 0);
+			// 该管理员存在
+			if (sysuser.size() != 0) {
+				newmap.put("st_user_id", sysuser.get(0).getUser_id());
+				newmap.put("st_as_id", associatecollege.getAs_id());
+			} else {
+				return "该管理人不存在！";
+			}
+			String st_ma_id = (String) newmap.get("st_ma_id");
+			Major major = majorService.getMajorByScanner("ma_name", st_ma_id);
+			if (major.getMa_as_id() != associatecollege.getAs_id()) {
+				return "专业与院系不符！";
+			} else {
+				newmap.put("st_ma_id", major.getMa_id());
+			}
+		} else {
+			return "该院系不存在！";
+		}
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String st_registerdate = f.format(new Date());
+		newmap.put("st_registerdate", st_registerdate);
+		String sex = (String) newmap.get("st_sex");
+		if (sex.equals("男") || sex.equals("1")) {
+			newmap.put("st_sex", "1");
+		} else if (sex.equals("女") || sex.equals("1")) {
+			newmap.put("st_sex", "0");
+		} else {
+			return "性别错误:" + sex;
+		}
+		String schedule = (String) newmap.get("st_sc");
+		if (schedule != null || !schedule.equals("")) {
+			String[] scheduleList = schedule.split("~");
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < scheduleList.length; i++) {
+				Schedule sc = scheduleService.getScheduleByScanner("sc_name", scheduleList[i]);
+				if (sc.getSc_id() == 0) {
+					return "找不到课程:" + scheduleList[i];
+				}
+				sb.append(sc.getSc_id() + ",");
+			}
+			sb.deleteCharAt(sb.length() - 1);
+			newmap.put("st_sc", sb.toString());
+		}
+		String sc_image = null;
+		try {
+			sc_image = storePic(file);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		newmap.put("st_image", sc_image);
+		Student student = new Student(newmap);
+		boolean result = studentService.addStudentList(student);
+		if (result = true) {
+			return "更改成功";
+		}
+		return "更改失败";
+	}
+	
+	
+	public String JtoString(String[] data) {
+		if (data.length == 0 || data == null) {
+			return null;
+		}
+		String newdata = "";
+		for (int i = 0; i < data.length; i++) {
+			newdata = newdata + data[i];
+		}
+		return newdata.toString();
 	}
 
 	/*

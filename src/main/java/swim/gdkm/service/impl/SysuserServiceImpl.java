@@ -1,6 +1,7 @@
 package swim.gdkm.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,12 @@ public class SysuserServiceImpl implements SysuserService {
 	@Override
 	public List<Sysuser> getSysuserByScanner(String type, String code) {
 		List<Sysuser> sysuser = sysuserDao.getSysuserByScanner(type, code);
+		return sysuser;
+	}
+
+	@Override
+	public List<Sysuser> getSysuserByScannerMap(Map map, String updown, int updowntype) {
+		List<Sysuser> sysuser=sysuserDao.getSysuserByScannerMap(map, updown, updowntype);
 		return sysuser;
 	}
 
