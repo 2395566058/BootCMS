@@ -31,7 +31,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		if (request.getSession().getAttribute("USER") != null) {
 			Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
 			String authorization = sy.getUser_authorization();
-			if (url.indexOf("BootCMS/error") < 0) {
+			if (url.indexOf("/BootCMS/error") < 0) {
 				// 路径无误
 				if (authorization.equals("1")) {
 					if (url.indexOf("/ClassApply.action") == 8 || url.indexOf("/Fix.action") == 8
@@ -49,7 +49,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			request.getRequestDispatcher("/StudentList.cation").forward(request, response);
 		} else {
 			// 未登录
-			if (url.indexOf("BootCMS/error") < 0) {
+			if (url.indexOf("/BootCMS/error") < 0) {
 				// 路径无误，不允许访问
 				request.setAttribute("msg", "登录之后才能访问！");
 				request.getRequestDispatcher("/Login.action").forward(request, response);
