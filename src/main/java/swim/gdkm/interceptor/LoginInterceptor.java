@@ -24,6 +24,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 			// 访问主页，直接进入
 			return true;
 		}
+		if (url.equals("/BootCMS/")) {
+			Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
+			request.getRequestDispatcher("/Login.action").forward(request, response);
+			return true;
+		}
 		if (request.getSession().getAttribute("USER") != null) {
 			Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
 			String authorization = sy.getUser_authorization();
