@@ -26,7 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		}
 		if (url.equals("/BootCMS/")) {
 			request.getRequestDispatcher("/Login.action").forward(request, response);
-			return true;
+			return false;
 		}
 		if (request.getSession().getAttribute("USER") != null) {
 			Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
@@ -39,7 +39,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 						// 权限不够
 						request.setAttribute("msg", "你的权限不够！");
 						request.getRequestDispatcher("/StudentList.action").forward(request, response);
-						return true;
+						return false;
 					}
 				}
 				return true;
@@ -53,13 +53,13 @@ public class LoginInterceptor implements HandlerInterceptor {
 				// 路径无误，不允许访问
 				request.setAttribute("msg", "登录之后才能访问！");
 				request.getRequestDispatcher("/Login.action").forward(request, response);
-				return true;
+				return false;
 			}
 			request.setAttribute("msg", "找不到该页面！");
 			request.getRequestDispatcher("/Login.action").forward(request, response);
-			return true;
+			return false;
 		}
-		return true;
+		return false;
 	}
 
 	@Override
