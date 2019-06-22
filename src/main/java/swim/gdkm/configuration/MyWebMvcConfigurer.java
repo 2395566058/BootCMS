@@ -23,7 +23,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/images/*").addResourceLocations("file:/root/BootCMSData/images/");
+		registry.addResourceHandler("/images/**").addResourceLocations("file:/root/BootCMSData/images/");
 		WebMvcConfigurer.super.addResourceHandlers(registry);
 	}
 }
