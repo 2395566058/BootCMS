@@ -166,7 +166,7 @@ public class StudentListController {
 		map.put("st_admissiondate", request.getParameter("st_admissiondate"));
 		map.put("st_phone", request.getParameter("st_phone"));
 		map.put("st_address", request.getParameter("st_address"));
-		map.put("st_registerdate",st_registerdate);
+		map.put("st_registerdate", st_registerdate);
 		map.put("st_born", request.getParameter("st_born"));
 		String sex = request.getParameter("st_sex");
 		if (sex.equals("男") || sex.equals("1")) {
@@ -212,10 +212,19 @@ public class StudentListController {
 	@RequestMapping(value = "/updateStudentList.action", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateStudentList(String json, HttpServletRequest request) {
+		Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
+		String user_authorization = sy.getUser_authorization();
+		if (!user_authorization.equals("2")) {
+			return "没有权限更改！";
+		}
 		JacksonJsonParser jsonParser = new JacksonJsonParser();
 		Map<String, Object> map = jsonParser.parseMap(json);
-
-		return null;
+		Student student = new Student(map);
+		boolean result = studentService.updateStudent(student);
+		if(result=true) {
+			return "更改成功";
+		}
+		return "更改失败";
 	}
 
 	/*

@@ -37,7 +37,8 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Student> getStudentByScannerMap(@Param("map")Map map, @Param("updown")String updown, @Param("updowntype")int updowntype) {
+	public List<Student> getStudentByScannerMap(@Param("map") Map map, @Param("updown") String updown,
+			@Param("updowntype") int updowntype) {
 		List<Student> student = studentDao.getStudentByScannerMap(map, updown, updowntype);
 		return student;
 	}
@@ -45,6 +46,12 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public boolean addStudentList(Student student) {
 		boolean result = studentDao.addStudent(student);
+		return result;
+	}
+
+	@Override
+	public boolean updateStudent(Student student) {
+		boolean result = studentDao.updateStudent(student);
 		return result;
 	}
 

@@ -16,4 +16,5 @@ public interface StudentService {
 
 	public boolean addStudentList(Student student);
 
+	public boolean updateStudent(Student student);
 }
