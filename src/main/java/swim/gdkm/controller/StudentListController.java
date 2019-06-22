@@ -189,7 +189,7 @@ public class StudentListController {
 				sb.append(sc.getSc_id() + ",");
 			}
 			sb.deleteCharAt(sb.length() - 1);
-			map.put("st_sc", sb);
+			map.put("st_sc", sb.toString());
 		}
 		String sc_image = null;
 		try {
