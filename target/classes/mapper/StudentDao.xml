@@ -51,43 +51,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateStudent" parameterType="student">
 		UPDATE student
 		<set>
-			<if test="#{st_name}!=null">
+			<if test="st_name!=null">
 				st_name=#{st_name},
 			</if>
-			<if test="#{st_user_id}!=null">
+			<if test="st_user_id!=null">
 				st_user_id=#{st_user_id},
 			</if>
-			<if test="#{st_name}!=null">
+			<if test="st_name!=null">
 				st_name=#{st_name},
 			</if>
-			<if test="#{st_ as_id}!=null">
-				st_ as_id=#{st_ as_id},
+			<if test="st_as_id!=null">
+				st_as_id=#{st_as_id},
 			</if>
-			<if test="#{st_ma_id}!=null">
+			<if test="st_ma_id!=null">
 				st_ma_id=#{st_ma_id},
 			</if>
-			<if test="#{st_admissiondate}!=null">
+			<if test="st_admissiondate!=null">
 				st_admissiondate=#{st_admissiondate},
 			</if>
-			<if test="#{st_phone}!=null">
+			<if test="st_phone!=null">
 				st_phone=#{st_phone},
 			</if>
-			<if test="#{st_address}!=null">
+			<if test="st_address!=null">
 				st_address=#{st_address},
 			</if>
-			<if test="#{st_registerdate}!=null">
+			<if test="st_registerdate!=null">
 				st_registerdate=#{st_registerdate},
 			</if>
-			<if test="#{st_born}!=null">
+			<if test="st_born!=null">
 				st_born=#{st_born},
 			</if>
-			<if test="#{st_sex}!=null">
+			<if test="st_sex!=null">
 				st_sex=#{st_sex},
 			</if>
-			<if test="#{st_sc}!=null">
+			<if test="st_sc!=null">
 				st_sc=#{st_sc},
 			</if>
-			<if test="#{st_image}!=null">
+			<if test="st_image!=null">
 				st_image=#{st_image}
 			</if>
 		</set>

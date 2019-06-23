@@ -17,4 +17,6 @@ public interface StudentService {
 	public boolean addStudentList(Student student);
 
 	public boolean updateStudent(Student student);
+	
+	public boolean deleteStudent(int st_id);
 }

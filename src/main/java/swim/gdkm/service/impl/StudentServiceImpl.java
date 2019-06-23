@@ -55,4 +55,10 @@ public class StudentServiceImpl implements StudentService {
 		return result;
 	}
 
+	@Override
+	public boolean deleteStudent(int st_id) {
+		boolean result=studentDao.deleteStudent(st_id);
+		return result;
+	}
+
 }
