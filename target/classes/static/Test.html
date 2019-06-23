@@ -22,12 +22,13 @@ if (xmlhttp!=null){
   xmlhttp.onreadystatechange=state_Change;
   xmlhttp.open("POST",url,true);
 //  xmlhttp.setRequestHeader("Content-type","multipart/form-data");
+  var text=document.getElementById('b');
   var image=document.getElementById('c');
    var file= new FormData();
    if(image.files[0]!=null){
    	file.append("st_image",image.files[0]);
    }
-   file.append("st_id","4");
+   file.append("sc_name",text.value);
    /*
    file.append("st_name","dddd");
    file.append("st_user_id","aaa");
