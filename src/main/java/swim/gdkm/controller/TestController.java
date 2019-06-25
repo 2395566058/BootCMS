@@ -18,7 +18,7 @@ public class TestController {
 	@Autowired
 	private SysuserService sysuserService;
 
-	@RequestMapping(value = "/StudentList.action", method = RequestMethod.POST)
+	@RequestMapping(value = "/Test.action", method = RequestMethod.POST)
 	public String goTO(HttpServletRequest request,HttpServletResponse response) {
 		List<Sysuser> sys = sysuserService.getSysuserByScanner("user_code", "root");
 		request.getSession().setAttribute("USER", sys.get(0));
