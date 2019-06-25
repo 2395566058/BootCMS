@@ -73,11 +73,15 @@ public class StudentListController {
 	 */
 	@RequestMapping(value = "/StudentList.action", method = RequestMethod.POST)
 	@ResponseBody
-	public StringBuffer getInfo(String ask, int type, HttpServletRequest request) {
+	public StringBuffer getInfo(@RequestParam("ask") String ask, @RequestParam("type") String type,
+			HttpServletRequest request) {
+		System.out.println("ask=" + ask);
+		System.out.println("type=" + type);
 		List<Student> list = null;
 		Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
 		int user_as_id = sy.getUser_as_id();
-		list = studentService.getStudentByScannerUpDown("st_as_id", String.valueOf(user_as_id), ask, type);
+		list = studentService.getStudentByScannerUpDown("st_as_id", String.valueOf(user_as_id), ask,
+				Integer.valueOf(type));
 		return getJson(list);
 	}
 
@@ -260,14 +264,21 @@ public class StudentListController {
 			sb.append("\"st_born\":\"" + list.get(i).getSt_born() + "\",");
 			if (list.get(i).getSt_sex().equals("1")) {
 				sb.append("\"st_sex\":\"男\",");
+			}else {
+				sb.append("\"st_sex\":\"女\",");
 			}
-			sb.append("\"st_sex\":\"女\",");
 			Major major = majorService.getMajorByScanner("ma_id", String.valueOf(list.get(i).getSt_ma_id()));
-			sb.append("\"st_ma_id\":\"" + major.getMa_name());
+			sb.append("\"st_ma_id\":\"" + major.getMa_name() + "\",");
 			sb.append("\"st_phone\":\"" + list.get(i).getSt_phone() + "\",");
 			List<Sysuser> sysuser = sysuserService.getSysuserByScanner("user_id",
 					String.valueOf(list.get(i).getSt_user_id()));
-			sb.append("\"st_user_id\":\"" + sysuser.get(0).getUser_name() + "\"");
+			sb.append("\"st_user_id\":\"" + sysuser.get(0).getUser_name() + "\",");
+			sb.append("\"st_image\":\"" + list.get(i).getSt_image() + "\",");
+			Associatecollege associatecollege = associatecollegeService.getAssociatecollegeByScanner("as_id",
+					String.valueOf(list.get(0).getSt_as_id()));
+			sb.append("\"st_as_id\":\"" + associatecollege.getAs_name() + "\",");
+			sb.append("\"st_registerdate\":\"" + list.get(i).getSt_registerdate() + "\",");
+			sb.append("\"st_address\":\"" + list.get(i).getSt_address() + "\"");
 			sb.append("},");
 		}
 		sb.deleteCharAt(sb.length() - 1);

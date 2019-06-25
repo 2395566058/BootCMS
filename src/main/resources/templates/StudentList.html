@@ -8,49 +8,367 @@
 		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 		 crossorigin="anonymous">
 		<link rel="stylesheet" href="css/studentlist.css">
+		<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+		<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
 		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 		 crossorigin="anonymous"></script>
 		<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		 crossorigin="anonymous"></script>
 		<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		 crossorigin="anonymous"></script>
+		<script src="js/bootstrap-datetimepicker.min.js"></script>
+		<script src="js/bootstrap-datetimepicker.js"></script>
+		<script src="js/bootstrap-datetimepicker.fr.js"></script>
 		<script src="js/studentlist.js"></script>
 	</head>
-	<body>
+	<body onselectstart="return false">
 		<div class="component">
 			<nav class="fixed-top nav">
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
+				<div class="tittle">
+					<span class="font-tittle1"><b>学生管理</b></span><span class="font-tittle2"><b>系统</b></span>
+					<button class="btn btn-primary">退出</button>
+				</div>
+				<div class="list1">
+					<div class="icon"><img src="img/StudentInfo.png" style="height: 50px; position: relative; top: 23px; left: 23px;"></div>
+					<div class="sort-active">
+						<p style="color: white;font-size: 20px;"><b>学生信息查询</b></p>
+						<p style="margin-top: -20px;color: #FF8C8B;font-size: 16px;">0个分类</p>
+					</div>
+					<div class="line"></div>
+				</div>
+				<div class="list2">
+					<a href="#">
+						<div class="icon"><img src="img/Schedule.png" style="height: 50px; position: relative; top: 23px; left: 23px;"></div>
+						<div class="sort">
+							<p style="color: white;font-size: 20px;"><b>课程管理</b></p>
+							<p style="margin-top: -20px;color: #FF8C8B;font-size: 16px;">0个分类</p>
+						</div>
+					</a>
+					<div class="line"></div>
+				</div>
+				<div class="list3">
+					<a href="#">
+						<div class="icon"><img src="img/Fix.png" style="height: 50px; position: relative; top: 23px; left: 23px;"></div>
+						<div class="sort">
+							<p style="color: white;font-size: 20px;"><b>学生报修请求管理</b></p>
+							<p style="margin-top: -20px;color: #FF8C8B;font-size: 16px;">0个分类</p>
+						</div>
+					</a>
+					<div class="line"></div>
+				</div>
+				<div class="list4">
+					<a href="#">
+						<div class="icon"><img src="img/Classroom.png" style="height: 50px; position: relative; top: 23px; left: 23px;"></div>
+						<div class="sort">
+							<p style="color: white;font-size: 20px;"><b>教室申请受理</b></p>
+							<p style="margin-top: -20px;color: #FF8C8B;font-size: 16px;">0个分类</p>
+						</div>
+					</a>
+					<div class="line"></div>
+				</div>
 			</nav>
-			<div class="content-body">
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
-				<p>0</p>
+		</div>
+
+		<div class="content-body">
+			<div class="menu">
+				<div id="accordion">
+					<div class="card">
+						<div class="card-header"><a class="tittle-search" href="#collapse-1" data-toggle="collapse">筛选</a></div>
+						<div class="collapse" id="collapse-1" data-parent="#accordion">
+							<div class="card-body">
+								<!-- 名字 -->
+								<button class="btn btn-secondar" data-toggle="modal" data-target="#name">姓名<span class="select-input" id="showName"></span></button>
+								<div id="name" class="modal fade">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title">筛选-姓名</h4>
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+											</div>
+											<div class="modal-body">
+												<input class="select-import" id="contentName" name="content" />
+											</div>
+											<div class="modal-footer">
+												<button onClick="sunname()" class="btn btn-danger" data-dismiss="modal">确认</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- 入学时间 -->
+								<button class="btn btn-secondar" data-toggle="modal" data-target="#admissiondate">入学<input readonly class="select-data"
+									 id="showAdmissiondate" value="" /></button>
+								<div id="admissiondate" class="modal fade">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title">筛选-入学时间</h4>
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+											</div>
+											<div class="modal-body">
+												<div id="contentAdmissiondate" class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy MM dd"
+												 data-link-field="showAdmissiondate" data-link-format="yyyy-mm-dd">
+													<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+													<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button onClick="admissiondate()" class="btn btn-danger" data-dismiss="modal">确认</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<script>
+									$('.form_date').datetimepicker({
+									        language:  'zh-Hans',
+									        weekStart: 1,
+									        todayBtn:  1,
+											autoclose: 1,
+											todayHighlight: 1,
+											startView: 2,
+											minView: 2,
+											forceParse: 0
+									    });
+									</script>
+
+								<!-- 出生年月 -->
+								<button class="btn btn-secondar" data-toggle="modal" data-target="#born">生日<input readonly class="select-data"
+									 id="showBorn" value="" /></button>
+								<div id="born" class="modal fade">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title">筛选-出生年月</h4>
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+											</div>
+											<div class="modal-body">
+												<div id="contentBorn" class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy MM dd"
+												 data-link-field="showBorn" data-link-format="yyyy-mm-dd">
+													<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+													<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button onClick="born()" class="btn btn-danger" data-dismiss="modal">确认</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<script>
+									$('.form_date').datetimepicker({
+									        language:  'zh-Hans',
+									        weekStart: 1,
+									        todayBtn:  1,
+											autoclose: 1,
+											todayHighlight: 1,
+											startView: 2,
+											minView: 2,
+											forceParse: 0
+									    });
+									</script>
+
+								<!--性别 -->
+								<button class="btn btn-secondar" data-toggle="modal" data-target="#sex">性别<span class="select-input" id="showSex"></span></button>
+								<div id="sex" class="modal fade">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title">筛选-性别</h4>
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+											</div>
+											<div class="modal-body">
+												<div class="select-sex">
+													<button onclick="sex1()" class="btn btn-success" id="contentSex1" value="男" data-dismiss="modal">男</button>
+													<button onclick="sex2()" class="btn btn-success" id="contentSex2" value="女" data-dismiss="modal">女</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- 所属专业 -->
+								<button class="btn btn-secondar" data-toggle="modal" data-target="#major">专业<span class="select-input" id="showMajor"></span></button>
+								<div id="major" class="modal fade">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title">筛选-所属专业</h4>
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+											</div>
+											<div class="modal-body">
+												<input class="select-import" id="contentMajor" name="content" />
+											</div>
+											<div class="modal-footer">
+												<button onClick="major()" class="btn btn-danger" data-dismiss="modal">确认</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- 联系电话 -->
+								<button class="btn btn-secondar" data-toggle="modal" data-target="#phone">电话<span class="select-input" id="showPhone"></span></button>
+								<div id="phone" class="modal fade">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title">筛选-联系电话</h4>
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+											</div>
+											<div class="modal-body">
+												<input type="number" class="select-import" id="contentPhone" name="content" />
+											</div>
+											<div class="modal-footer">
+												<button onClick="phone()" class="btn btn-danger" data-dismiss="modal">确认</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- 确认 -->
+								<button class="btn btn-secondar"><img class="img-search" src="img/search.png"></button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="content">
+					<div id="tableParent" >
+						<script>
+							var tableParent = document.getElementById('tableParent');
+							var xmlhttp = null;
+							if (window.XMLHttpRequest) { // code for all new browsers
+								xmlhttp = new XMLHttpRequest();
+							} else if (window.ActiveXObject) { // code for IE5 and IE6
+								xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+							}
+							if (xmlhttp != null) {
+								xmlhttp.onreadystatechange = state_Change;
+								xmlhttp.open("POST", "http://localhost:8848/BootCMS/StudentList.action", true);
+								xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+								//xmlhttp.setRequestHeader("Content-type","multipart/form-data");
+								var ask = "st_id";
+								var type = "0";
+								xmlhttp.send("ask=" + ask + "&type=" + type);
+							} else {
+								alert("Your browser does not support XMLHTTP.");
+							}
+
+							function state_Change() {
+								if (xmlhttp.readyState == 4) { // 4 = "loaded"
+									if (xmlhttp.status == 200) { // 200 = OK
+										var array = JSON.parse(xmlhttp.responseText);
+										for (var i = 0; i < array.length; i++) {
+											var obj = array[i];
+											var div = document.createElement('div');
+											div.style.float="left";
+											div.innerHTML = 
+												"<br />"+
+													"<div class='studentcard'>"+
+														"<div class='info-head'>"+
+															obj.st_ma_id+
+														"</div>"+
+														"<div class='info-body'>"+
+															"<p>入学时间："+obj.admissiondate+"</p>"+
+															"<p style='margin-top: -4%;'>出生年月："+obj.st_born+"</p>"+
+														"</div>"+
+														"<div class='info-footer'>"+
+															"<img class='student-head' src='img/head.png'>"+
+																"<p class='student-name'>"+obj.st_name+"</p><span class='badge badge-secondary badge-pill'>"+obj.st_sex+"</span>"+
+																"<p class='student-phone'>"+obj.st_phone+"</p>"+
+																"<button class='student-detail' data-toggle='modal' data-target='#info'>资料</button>"+
+																	"<div id='info' class='modal fade'>"+
+																		"<div class='modal-dialog'>"+
+																			"<div class='modal-content'>"+
+																				"<div class='modal-body2'>"+
+																					"<button type='button' class='close2' data-dismiss='modal'>&times;</button>"+
+																						"<div class='info-studenthead-shadow'>"+
+																							"<input hidden type='file' id='avatar_file' name='avatar_file' accept='image/gif, image/jpg, image/jpeg, image/png'"+
+																							" style='width: 100%;height:100%;opacity: 0;position: absolute;left:0;top: 0;' />"+
+																						"</div>"+
+																						"<img id='avatar_img' class='info-studenthead' src='"+obj.st_image+"'>"+
+																						"<script>"+
+																							"$('#avatar_file').change(function() {"+
+																							"var file = $(this)[0].files[0];"+
+																							"var reader = new FileReader();"+
+																							"reader.readAsDataURL(file);"+
+																							"reader.onload = function() {"+
+																							"$('#avatar_img').attr('src', this.result);"+
+																							"}"+
+																							"});"+
+																						"</"+"script>"+
+																						"<span class='info-sex'>♂</span>"+
+																						"<input disabled id='st_name' class='info-name' value='"+obj.st_name+"' />"+
+																						"<input disabled id='st_phone' class='info-phone' type='number' value='"+obj.st_phone+"' />"+
+																						"<img class='img-charge' src='img/info-charge.png'>"+
+																						"<p class='tittle-charge'>管理人</p><input id='st_user_id' disabled class='info-charge' value='"+obj.st_user_id+"' />"+
+																						"<img class='img-associatecollege' src='img/info-associatecollege.png'>"+
+																						"<p class='tittle-associatecollege'>二级学院</p><input id='st_as_id' disabled class='info-associatecollege'"+
+																						" value='"+obj.st_as_id+"' />"+
+																						"<img class='img-major' src='img/info-major.png'>"+
+																							"<p class='tittle-major'>专业</p><input id='st_ma_id' disabled class='info-major' value='"+obj.st_ma_id+"' />"+
+																							"<img class='img-register' src='img/info-register.png'>"+
+																							"<p class='tittle-register'>登记时间</p><input id='st_registerdate' disabled class='info-register' value='"+obj.st_registerdate+"' />"+
+																							"<img class='img-admission' src='img/info-admission.png'>"+
+																							"<p class='tittle-admission'>入学时间</p><input id='st_admissiondate' disabled class='info-admission' value='"+obj.st_admissiondate+"' />"+
+																							"<img class='img-born' src='img/info-born.png'>"+
+																							"<p class='tittle-born'>出生日期</p><input id='st_born' disabled class='info-born' value='"+obj.st_born+"' />"+
+																							"<img class='img-address' src='img/info-address.png'>"+
+																							"<p class='tittle-address'>家庭住址</p><input id='st_address' disabled class='info-address' value='"+obj.st_address+"' />"+
+																							"<div class='info-hr'></div>"+
+																							"<img class='img-curriculum' src='img/info-curriculum.png'>"+
+																							"<p class='tittle-curriculum'>所选课程</p>"+
+																							"<div hidden id='curriculumadd' class='info-curriculumadd'>"+
+																								"<input type='text' id='test'><button id='add'>添加</button>"+
+																							"</div>"+
+																							"<div class='div-curriculum'>"+
+																								"<div class='div-test' id='container'></div>"+
+																								"<script>"+
+																									"var add = document.getElementById('add');"+
+																									"var container = document.getElementById('container');"+
+																									"var node = container.nextSibling;"+
+
+																									"add.onclick = function() {"+
+																										"var test = document.getElementById('test');"+
+																										"oDiv = document.createElement('div');"+
+																										"oDiv.innerHTML = '<div id='container1'><input disabled type='text' id='curriculum-output' value='' +"+
+																											"test.value +"+
+																											"''><input id='curriculum-delete' type='button' onclick='test(this)' value='&times;'/></div>';"+
+																										"container.parentNode.insertBefore(oDiv, node);"+
+																										"node = oDiv.nextSibling;"+
+																										"test.value = '';"+
+																									"}"+
+
+																									"function test(test) {"+
+																										"test.parentNode.parentNode.removeChild(test.parentNode);"+
+																									"}"+
+																								"</"+"script>"+
+																							"</div>"+
+																							"<button class='personnel'>"+
+																								"<img src='img/personnel.png'><br />资料"+
+																							"</button>"+
+																							"<button id='edit' class='personnel-edit'>"+
+																								"<img src='img/personnel-edit.png'><br /><span id='font-edit'>编辑</span>"+
+																							"</button>"+
+																							"<button class='personnel-delete' data-dismiss='modal'>"+
+																								"<img src='img/personnel-delete.png'><br />删除"+
+																							"</button>"+
+																						"</div>"+
+																					"</div>"+
+																				"</div>"+
+																			"</div>"+
+																		"</div>"+
+																	"</div>";
+											tableParent.appendChild(div);
+										}
+									} else {
+										alert("Problem retrieving XML data");
+									}
+								}
+							}
+						</script>
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>
