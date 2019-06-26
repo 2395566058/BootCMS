@@ -237,6 +237,12 @@ public class StudentListController {
 	@RequestMapping(value = "/deleteStudent.action", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean deleteStudent(HttpServletRequest request) {
+		Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
+		String user_authorization = sy.getUser_authorization();
+		if (!user_authorization.equals("2")) {
+			//没有权限删除
+			return false;
+		}
 		String id = request.getParameter("st_id");
 		int st_id = Integer.valueOf(id);
 		List<Fix> fix = fixService.getFixByScanner("f_st_id", id);
