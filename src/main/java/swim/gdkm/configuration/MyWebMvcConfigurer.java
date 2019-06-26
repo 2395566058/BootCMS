@@ -13,7 +13,7 @@ import swim.gdkm.interceptor.LoginInterceptor;
 @Configuration
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	String[] exclude = { "/css/*", "/img/*", "/js/*", "/images/*", "/*.html","/Logout.action" };
-
+/*
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		List<String> testList = Arrays.asList(exclude);
@@ -26,4 +26,5 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		registry.addResourceHandler("/images/**").addResourceLocations("file:/root/BootCMSData/images/");
 		WebMvcConfigurer.super.addResourceHandlers(registry);
 	}
+	*/
 }
