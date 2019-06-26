@@ -21,7 +21,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		WebMvcConfigurer.super.addInterceptors(registry);
 	}
 
-	@Overrideimg/
+	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/images/**").addResourceLocations("file:/root/BootCMSData/images/");
 		registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/img/");
