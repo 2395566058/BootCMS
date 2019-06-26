@@ -1,6 +1,6 @@
 function check(form) {
 	$.ajax({
-		url: /BootCMS/Login.action
+		url: "http://localhost:8848/BootCMS/Login.action",
 		data: {
 			"user_password": user_password,
 			"user_code": user_code

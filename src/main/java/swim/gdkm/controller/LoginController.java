@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import swim.gdkm.poji.Sysuser;
 import swim.gdkm.service.SysuserService;
+
 /*
  * 登录页面
  */
-
 @Controller
 public class LoginController {
 	@Autowired
@@ -29,7 +29,6 @@ public class LoginController {
 	/*
 	 * 登录判断
 	 */
-
 	@RequestMapping(value = "/Login.action", method = RequestMethod.POST)
 	public String checkSysuser(String user_code, String user_password, HttpServletRequest request, Model model) {
 		List<Sysuser> sys = sysuserService.getSysuserByScanner("user_code", user_code);
@@ -56,11 +55,11 @@ public class LoginController {
 	/*
 	 * 退出登录
 	 */
-
 	@RequestMapping(value = "/Logout.action", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request) {
 		request.getSession().invalidate();
-		return "Login.action";
+		request.setAttribute("msg", "已登出！");
+		return "Login.html";
 	}
 
 }

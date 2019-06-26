@@ -65,6 +65,7 @@ public class StudentListController {
 
 	@RequestMapping(value = "/StudentList.action", method = RequestMethod.GET)
 	public String toLogin() {
+		System.out.println("以get方式访问了Student.action");
 		return "StudentList.html";
 	}
 
@@ -91,6 +92,7 @@ public class StudentListController {
 	@RequestMapping(value = "/StudentListScreen.action", method = RequestMethod.POST)
 	@ResponseBody
 	public StringBuffer getInfoByScreen(String json, String ask, int type) {
+		System.out.println("json="+json);
 		JacksonJsonParser jsonParser = new JacksonJsonParser();
 		Map<String, Object> map = jsonParser.parseMap(json);
 		if (map.get("st_id") != null) {
@@ -262,9 +264,9 @@ public class StudentListController {
 			sb.append("\"st_name\":\"" + list.get(i).getSt_name() + "\",");
 			sb.append("\"st_admissiondate\":\"" + list.get(i).getSt_admissiondate() + "\",");
 			sb.append("\"st_born\":\"" + list.get(i).getSt_born() + "\",");
-			if (list.get(i).getSt_sex().equals("1")) {
+			if (list.get(i).getSt_sex().equals("1")||list.get(i).getSt_sex().equals("男")) {
 				sb.append("\"st_sex\":\"男\",");
-			}else {
+			} else {
 				sb.append("\"st_sex\":\"女\",");
 			}
 			Major major = majorService.getMajorByScanner("ma_id", String.valueOf(list.get(i).getSt_ma_id()));

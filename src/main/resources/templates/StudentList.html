@@ -26,7 +26,7 @@
 			<nav class="fixed-top nav">
 				<div class="tittle">
 					<span class="font-tittle1"><b>学生管理</b></span><span class="font-tittle2"><b>系统</b></span>
-					<button class="btn btn-primary">退出</button>
+					<button class="btn btn-primary" onclick="logout()">退出</button>
 				</div>
 				<div class="list1">
 					<div class="icon"><img src="img/StudentInfo.png" style="height: 50px; position: relative; top: 23px; left: 23px;"></div>
@@ -225,7 +225,7 @@
 								</div>
 
 								<!-- 确认 -->
-								<button class="btn btn-secondar"><img class="img-search" src="img/search.png"></button>
+								<button class="btn btn-secondar"><img class="img-search" src="img/search.png" onclick="screen()"></button>
 							</div>
 						</div>
 					</div>
@@ -244,7 +244,7 @@
 							}
 							if (xmlhttp != null) {
 								xmlhttp.onreadystatechange = state_Change;
-								xmlhttp.open("POST", "http://localhost:8848/BootCMS/StudentList.action", true);
+								xmlhttp.open("POST", "http://120.79.218.123:8848/BootCMS/StudentList.action", true);
 								xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 								//xmlhttp.setRequestHeader("Content-type","multipart/form-data");
 								var ask = "st_id";
@@ -253,10 +253,74 @@
 							} else {
 								alert("Your browser does not support XMLHTTP.");
 							}
-
+							function logout(){
+								window.location.href="http://120.79.218.123:8848/BootCMS/Logout.action";
+							}
+							function screen(){
+								var status=false;
+								var st_name=document.getElementById('showName').innerHTML;
+								var st_admissiondate=document.getElementById('showAdmissiondate').value;								
+								var st_born=document.getElementById('showBorn').value;								
+								var st_sex=document.getElementById('showSex').innerHTML;
+								var st_ma_id=document.getElementById('showMajor').innerHTML;
+								var st_phone=document.getElementById('showPhone').innerHTML;
+								var json="{";
+								if(st_name!=""){
+									st_name=st_name.substring(1, st_name.length);
+									json=json+"\"st_name\":\""+st_name+"\",";
+									status=true;
+								}
+								if(st_admissiondate!=""){
+									json=json+"\"st_admissiondate\":\""+st_admissiondate+"\",";
+									status=true;
+								}
+								if(st_born!=""){
+									json=json+"\"st_born\":\""+st_born+"\",";
+									status=true;
+								}
+								if(st_sex!=""){
+									st_sex=st_sex.substring(1, st_sex.length);
+									json=json+"\"st_sex\":\""+st_sex+"\",";
+									status=true;
+								}
+								if(st_ma_id!=""){
+									st_ma_id=st_ma_id.substring(1, st_ma_id.length);
+									json=json+"\"st_ma_id\":\""+st_ma_id+"\",";
+									status=true;
+								}
+								if(st_phone!=""){
+									st_phone=st_phone.substring(1, st_phone.length);
+									json=json+"\"st_phone\":\""+st_phone+"\",";
+									status=true;
+								}
+								if(status==true){
+									json=json.substring(0, json.length-1);
+									json=json+"}";
+									if (xmlhttp != null) {
+										xmlhttp.onreadystatechange = state_Change;
+										xmlhttp.open("POST", "http://120.79.218.123:8848/BootCMS/StudentListScreen.action", true);
+										xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+										//xmlhttp.setRequestHeader("Content-type","multipart/form-data");
+										var ask = "st_id";
+										var type = "0";
+										xmlhttp.send("json="+json+"&ask=" + ask + "&type=" + type);
+									} else {
+										alert("Your browser does not support XMLHTTP.");
+									}
+								}
+							}
 							function state_Change() {
 								if (xmlhttp.readyState == 4) { // 4 = "loaded"
 									if (xmlhttp.status == 200) { // 200 = OK
+										while(tableParent.hasChildNodes()){
+											tableParent.removeChild(tableParent.firstChild);
+										}
+										if(xmlhttp.responseText=="null"){
+											var p = document.createElement('p');
+											p.innerHTML = "没有查询到数据！";
+											tableParent.appendChild(p);
+											return;
+										}
 										var array = JSON.parse(xmlhttp.responseText);
 										for (var i = 0; i < array.length; i++) {
 											var obj = array[i];
