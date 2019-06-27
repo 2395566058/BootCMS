@@ -22,6 +22,7 @@ import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JacksonJsonParser;
+import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -92,7 +93,7 @@ public class StudentListController {
 	@RequestMapping(value = "/StudentListScreen.action", method = RequestMethod.POST)
 	@ResponseBody
 	public StringBuffer getInfoByScreen(String json, String ask, int type) {
-		System.out.println("json="+json);
+		System.out.println("json=" + json);
 		JacksonJsonParser jsonParser = new JacksonJsonParser();
 		Map<String, Object> map = jsonParser.parseMap(json);
 		if (map.get("st_id") != null) {
@@ -240,7 +241,7 @@ public class StudentListController {
 		Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
 		String user_authorization = sy.getUser_authorization();
 		if (!user_authorization.equals("2")) {
-			//没有权限删除
+			// 没有权限删除
 			return false;
 		}
 		String id = request.getParameter("st_id");
@@ -270,7 +271,7 @@ public class StudentListController {
 			sb.append("\"st_name\":\"" + list.get(i).getSt_name() + "\",");
 			sb.append("\"st_admissiondate\":\"" + list.get(i).getSt_admissiondate() + "\",");
 			sb.append("\"st_born\":\"" + list.get(i).getSt_born() + "\",");
-			if (list.get(i).getSt_sex().equals("1")||list.get(i).getSt_sex().equals("男")) {
+			if (list.get(i).getSt_sex().equals("1") || list.get(i).getSt_sex().equals("男")) {
 				sb.append("\"st_sex\":\"男\",");
 			} else {
 				sb.append("\"st_sex\":\"女\",");
@@ -335,6 +336,7 @@ public class StudentListController {
 	/*
 	 * 遍历request内容并存到newmap进行student实例化
 	 */
+	@SuppressWarnings("unused")
 	public String update(HttpServletRequest request, Map<String, Object> newmap) {
 		Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
 		String user_authorization = sy.getUser_authorization();
@@ -348,29 +350,61 @@ public class StudentListController {
 			Entry<String, String[]> entry = it.next();
 			newmap.put(entry.getKey(), JtoString(entry.getValue()));
 		}
+		if (newmap.get("st_admissiondate") != null) {
+			String isValidstr = (String) newmap.get("st_admissiondate");
+			boolean isValid = isValidDate(isValidstr);
+			if (isValid == false) {
+				return "时间格式非法！";
+			}
+		}
+		if (newmap.get("st_born") != null) {
+			String isValidstr = (String) newmap.get("st_born");
+			boolean isValid = isValidDate(isValidstr);
+			if (isValid == false) {
+				return "时间格式非法！";
+			}
+		}
 		String st_user_id = (String) newmap.get("st_user_id");
 		String st_as_id = (String) newmap.get("st_as_id");
-		Associatecollege associatecollege = associatecollegeService.getAssociatecollegeByScanner("as_name", st_as_id);
-		if (associatecollege.getAs_id() != 0) {
+		Associatecollege associatecollege = new Associatecollege();
+		if (st_as_id != null) {
+			associatecollege = associatecollegeService.getAssociatecollegeByScanner("as_name", st_as_id);
+		}
+		if (associatecollege != null) {
 			newmap.put("st_as_id", associatecollege.getAs_id());
 			// 该院系存在
 			Map<String, Object> map1 = new HashMap<String, Object>();
-			map1.put("user_name", st_user_id);
-			map1.put("user_as_id", associatecollege.getAs_id());
-			List<Sysuser> sysuser = sysuserService.getSysuserByScannerMap(map1, "user_id", 0);
-			// 该管理员存在
-			if (sysuser.size() != 0) {
-				newmap.put("st_user_id", sysuser.get(0).getUser_id());
-				newmap.put("st_as_id", associatecollege.getAs_id());
-			} else {
-				return "该管理人不存在！";
+			if (st_user_id != null) {
+				map1.put("user_name", st_user_id);
+				map1.put("user_as_id", associatecollege.getAs_id());
+				List<Sysuser> sysuser = sysuserService.getSysuserByScannerMap(map1, "user_id", 0);
+				// 该管理员存在
+				if (sysuser.size() != 0) {
+					newmap.put("st_user_id", sysuser.get(0).getUser_id());
+					newmap.put("st_as_id", associatecollege.getAs_id());
+				} else {
+					return "该管理人不存在！";
+				}
 			}
 			String st_ma_id = (String) newmap.get("st_ma_id");
-			Major major = majorService.getMajorByScanner("ma_name", st_ma_id);
-			if (major.getMa_as_id() != associatecollege.getAs_id()) {
-				return "专业与院系不符！";
-			} else {
-				newmap.put("st_ma_id", major.getMa_id());
+			Major major = new Major();
+			if (st_ma_id != null) {
+				major = majorService.getMajorByScanner("ma_name", st_ma_id);
+				if (associatecollege != null) {
+					if (major.getMa_as_id() != associatecollege.getAs_id()) {
+						return "专业与院系不符！";
+					} else {
+						newmap.put("st_ma_id", major.getMa_id());
+					}
+				} else {
+					String st_id = (String) newmap.get("st_id");
+					List<Student> student = studentService.getStudentByScanner("st_id", st_id);
+					if (major.getMa_as_id() != student.get(0).getSt_as_id()) {
+						return "专业与院系不符！";
+					} else {
+						newmap.put("st_ma_id", major.getMa_id());
+					}
+				}
 			}
 		} else {
 			return "该院系不存在！";
@@ -379,15 +413,17 @@ public class StudentListController {
 		String st_registerdate = f.format(new Date());
 		newmap.put("st_registerdate", st_registerdate);
 		String sex = (String) newmap.get("st_sex");
-		if (sex.equals("男") || sex.equals("1")) {
-			newmap.put("st_sex", "1");
-		} else if (sex.equals("女") || sex.equals("1")) {
-			newmap.put("st_sex", "0");
-		} else {
-			return "性别错误:" + sex;
+		if (sex != null) {
+			if (sex.equals("男") || sex.equals("1")) {
+				newmap.put("st_sex", "1");
+			} else if (sex.equals("女") || sex.equals("1")) {
+				newmap.put("st_sex", "0");
+			} else {
+				return "性别错误:" + sex;
+			}
 		}
 		String schedule = (String) newmap.get("st_sc");
-		if (schedule != null || !schedule.equals("")) {
+		if (schedule != null) {
 			String[] scheduleList = schedule.split("~");
 			StringBuffer sb = new StringBuffer();
 			for (int i = 0; i < scheduleList.length; i++) {
@@ -406,5 +442,18 @@ public class StudentListController {
 			return "更改成功";
 		}
 		return "更改失败";
+	}
+
+	public static boolean isValidDate(String str) {
+		boolean convertSuccess = true;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			format.setLenient(false);
+			format.parse(str);
+		} catch (java.text.ParseException e) {
+			convertSuccess = false;
+			return convertSuccess;
+		}
+		return convertSuccess;
 	}
 }

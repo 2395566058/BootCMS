@@ -54,16 +54,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="st_name!=null">
 				st_name=#{st_name},
 			</if>
-			<if test="st_user_id!=null">
+			<if test="st_user_id!=0">
 				st_user_id=#{st_user_id},
 			</if>
-			<if test="st_name!=null">
-				st_name=#{st_name},
-			</if>
-			<if test="st_as_id!=null">
+			<if test="st_as_id!=0">
 				st_as_id=#{st_as_id},
 			</if>
-			<if test="st_ma_id!=null">
+			<if test="st_ma_id!=0">
 				st_ma_id=#{st_ma_id},
 			</if>
 			<if test="st_admissiondate!=null">

@@ -235,6 +235,8 @@
 				<div class="content">
 					<div id="tableParent" >
 						<script>
+							var ip="localhost";
+							//var ip="120.79.218.123";
 							var tableParent = document.getElementById('tableParent');
 							var xmlhttp = null;
 							if (window.XMLHttpRequest) { // code for all new browsers
@@ -244,7 +246,7 @@
 							}
 							if (xmlhttp != null) {
 								xmlhttp.onreadystatechange = state_Change;
-								xmlhttp.open("POST", "http://120.79.218.123:8848/BootCMS/StudentList.action", true);
+								xmlhttp.open("POST", "http://"+ip+":8848/BootCMS/StudentList.action", true);
 								xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 								//xmlhttp.setRequestHeader("Content-type","multipart/form-data");
 								var ask = "st_id";
@@ -254,7 +256,7 @@
 								alert("Your browser does not support XMLHTTP.");
 							}
 							function logout(){
-								window.location.href="http://120.79.218.123:8848/BootCMS/Logout.action";
+								window.location.href="http://"+ip+":8848/BootCMS/Logout.action";
 							}
 							function screen(){
 								var status=false;
@@ -298,7 +300,7 @@
 									json=json+"}";
 									if (xmlhttp != null) {
 										xmlhttp.onreadystatechange = state_Change;
-										xmlhttp.open("POST", "http://120.79.218.123:8848/BootCMS/StudentListScreen.action", true);
+										xmlhttp.open("POST", "http://"+ip+":8848/BootCMS/StudentListScreen.action", true);
 										xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 										//xmlhttp.setRequestHeader("Content-type","multipart/form-data");
 										var ask = "st_id";
@@ -337,7 +339,7 @@
 															"<p style='margin-top: -4%;'>出生年月："+obj.st_born+"</p>"+
 														"</div>"+
 														"<div class='info-footer'>"+
-															"<img class='student-head' src='img/head.png'>"+
+															"<img class='student-head' src='"+obj.st_image+"'>"+
 																"<p class='student-name'>"+obj.st_name+"</p><span class='badge badge-secondary badge-pill'>"+obj.st_sex+"</span>"+
 																"<p class='student-phone'>"+obj.st_phone+"</p>"+
 																"<button class='student-detail' data-toggle='modal' data-target='#info'>资料</button>"+
@@ -345,24 +347,14 @@
 																		"<div class='modal-dialog'>"+
 																			"<div class='modal-content'>"+
 																				"<div class='modal-body2'>"+
-																					"<button type='button' class='close2' data-dismiss='modal'>&times;</button>"+
+																					"<button type='button' class='close2' onClick='closeCard()' data-dismiss='modal'>&times;</button>"+
 																						"<div class='info-studenthead-shadow'>"+
-																							"<input hidden type='file' id='avatar_file' name='avatar_file' accept='image/gif, image/jpg, image/jpeg, image/png'"+
+																							"<input hidden onChange='changeFile()' type='file' id='avatar_file' name='avatar_file' accept='image/gif, image/jpg, image/jpeg, image/png'"+
 																							" style='width: 100%;height:100%;opacity: 0;position: absolute;left:0;top: 0;' />"+
 																						"</div>"+
 																						"<img id='avatar_img' class='info-studenthead' src='"+obj.st_image+"'>"+
-																						"<script>"+
-																							"$('#avatar_file').change(function() {"+
-																							"var file = $(this)[0].files[0];"+
-																							"var reader = new FileReader();"+
-																							"reader.readAsDataURL(file);"+
-																							"reader.onload = function() {"+
-																							"$('#avatar_img').attr('src', this.result);"+
-																							"}"+
-																							"});"+
-																						"</"+"script>"+
 																						"<span class='info-sex'>♂</span>"+
-																						"<input disabled id='st_name' class='info-name' value='"+obj.st_name+"' />"+
+																						"<input disabled id='st_name' class='info-name' name='"+obj.st_id+"' value='"+obj.st_name+"' />"+
 																						"<input disabled id='st_phone' class='info-phone' type='number' value='"+obj.st_phone+"' />"+
 																						"<img class='img-charge' src='img/info-charge.png'>"+
 																						"<p class='tittle-charge'>管理人</p><input id='st_user_id' disabled class='info-charge' value='"+obj.st_user_id+"' />"+
@@ -383,35 +375,16 @@
 																							"<img class='img-curriculum' src='img/info-curriculum.png'>"+
 																							"<p class='tittle-curriculum'>所选课程</p>"+
 																							"<div hidden id='curriculumadd' class='info-curriculumadd'>"+
-																								"<input type='text' id='test'><button id='add'>添加</button>"+
+																								"<input type='text' id='test'>"+
+																								"<button id='add' onClick='onclickByadd()'>添加</button>"+
 																							"</div>"+
 																							"<div class='div-curriculum'>"+
 																								"<div class='div-test' id='container'></div>"+
-																								"<script>"+
-																									"var add = document.getElementById('add');"+
-																									"var container = document.getElementById('container');"+
-																									"var node = container.nextSibling;"+
-
-																									"add.onclick = function() {"+
-																										"var test = document.getElementById('test');"+
-																										"oDiv = document.createElement('div');"+
-																										"oDiv.innerHTML = '<div id='container1'><input disabled type='text' id='curriculum-output' value='' +"+
-																											"test.value +"+
-																											"''><input id='curriculum-delete' type='button' onclick='test(this)' value='&times;'/></div>';"+
-																										"container.parentNode.insertBefore(oDiv, node);"+
-																										"node = oDiv.nextSibling;"+
-																										"test.value = '';"+
-																									"}"+
-
-																									"function test(test) {"+
-																										"test.parentNode.parentNode.removeChild(test.parentNode);"+
-																									"}"+
-																								"</"+"script>"+
 																							"</div>"+
 																							"<button class='personnel'>"+
 																								"<img src='img/personnel.png'><br />资料"+
 																							"</button>"+
-																							"<button id='edit' class='personnel-edit'>"+
+																							"<button id='edit' onClick='onclickByedit()' class='personnel-edit'>"+
 																								"<img src='img/personnel-edit.png'><br /><span id='font-edit'>编辑</span>"+
 																							"</button>"+
 																							"<button class='personnel-delete' data-dismiss='modal'>"+
