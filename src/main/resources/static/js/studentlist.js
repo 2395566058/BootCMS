@@ -57,7 +57,6 @@ function charge() {
 }
 
 // 学生信息-编辑
-var kg = true;
 var data_st_name = null;
 var data_st_phone = null;
 var data_st_user_id = null;
@@ -67,19 +66,32 @@ var data_st_admissiondate = null;
 var data_st_address = null;
 var data_st_born = null;
 var data_avatar_file = null;
-function onclickByedit() {
-	var avatar_file = document.getElementById('avatar_file');
-	var st_name = document.getElementById('st_name');
-	var st_phone = document.getElementById('st_phone');
-	var st_user_id = document.getElementById('st_user_id');
-	var st_as_id = document.getElementById('st_as_id');
-	var st_ma_id = document.getElementById('st_ma_id');
-	var st_registerdate = document.getElementById('st_registerdate');
-	var st_admissiondate = document.getElementById('st_admissiondate');
-	var st_born = document.getElementById('st_born');
-	var st_address = document.getElementById('st_address');
-	var curriculumadd = document.getElementById('curriculumadd');
-	var edit = document.getElementById('edit');
+var data_st_sc=null;
+function onclickByedit(num) {
+	var kg = document.getElementById('font-edit' + num);
+	var avatar_file = document.getElementById("avatar_file" + num);
+	var st_name = document.getElementById('st_name' + num);
+	var st_phone = document.getElementById('st_phone' + num);
+	var st_user_id = document.getElementById('st_user_id' + num);
+	var st_as_id = document.getElementById('st_as_id' + num);
+	var st_ma_id = document.getElementById('st_ma_id' + num);
+	var st_registerdate = document.getElementById('st_registerdate' + num);
+	var st_admissiondate = document.getElementById('st_admissiondate' + num);
+	var st_born = document.getElementById('st_born' + num);
+	var st_address = document.getElementById('st_address' + num);
+	var curriculumadd = document.getElementById('curriculumadd' + num);
+	var div_curriculum = document.getElementById('div-curriculum' + num);
+	var divs = div_curriculum.getElementsByTagName("div");
+	var deletes=div_curriculum.getElementsByClassName("delete");
+	var st_sc1 = "";
+	for (var i = 0; i < divs.length; i++) {
+		var inputs = divs[i].getElementsByTagName("input");
+		st_sc1 = st_sc1 + inputs[0].value + "~";
+	}
+	st_sc1 = st_sc1.substring(0, st_sc1.length - 1);
+	if(data_st_sc==null){
+		data_st_sc=st_sc1;
+	}
 	if (data_st_name == null) {
 		data_st_name = st_name.value;
 	}
@@ -104,9 +116,16 @@ function onclickByedit() {
 	if (data_st_address == null) {
 		data_st_address = st_address.value;
 	}
-	if (kg) {
-		kg = !kg;
-		$("#font-edit").text("保存");
+	if (data_avatar_file ==null ) {
+		data_avatar_file==avatar_file.value;
+	}
+	if (kg.innerHTML == "编辑") {
+		$("#font-edit" + num).text("保存");
+		if(deletes.length!=0){
+			for(var t=0;t<deletes.length;t++){
+				deletes[t].hidden=false;
+			}
+		}
 		st_name.style.color = '#6C79C8';
 		st_phone.style.color = '#6C79C8';
 		st_user_id.style.color = '#6C79C8';
@@ -127,8 +146,12 @@ function onclickByedit() {
 		st_address.disabled = false;
 		curriculumadd.hidden = false;
 	} else {
-		kg = !kg;
-		$("#font-edit").text("编辑");
+		$("#font-edit" + num).text("编辑");
+		if(deletes.length!=0){
+			for(var t=0;t<deletes.length;t++){
+				deletes[t].hidden=true;
+			}
+		}
 		st_name.style.color = '#B93C38';
 		st_phone.style.color = '#C9423F';
 		st_user_id.style.color = '#D04937';
@@ -150,6 +173,9 @@ function onclickByedit() {
 		st_address.disabled = true;
 		curriculumadd.hidden = true;
 		var existSave = false;
+		if (st_sc1!=data_st_sc) {
+			existSave = true;
+		}
 		if (st_name.value != data_st_name) {
 			existSave = true;
 		}
@@ -174,15 +200,14 @@ function onclickByedit() {
 		if (st_address.value != data_st_address) {
 			existSave = true;
 		}
-		if (data_avatar_file != null) {
-			alert("d");
+		if (data_avatar_file != null&&data_avatar_file!="") {
 			existSave = true;
 		}
 		if (existSave == true) {
-			xmlhttp.onreadystatechange = saveStatus;
+			xmlhttp.onreadystatechange = function(){saveStatus(num)};
 			var file = new FormData();
 			file.append("st_id", st_name.name);
-			if (data_avatar_file != null) {
+			if (data_avatar_file != null&&data_avatar_file!="") {
 				xmlhttp.open("POST", "http://" + ip
 						+ ":8848/BootCMS/updateStudentIncludeImage.action",
 						true);
@@ -215,12 +240,15 @@ function onclickByedit() {
 			if (st_address.value != data_st_address) {
 				file.append("st_address", st_address.value);
 			}
+			if (st_sc1!=data_st_sc) {
+				file.append("st_sc", st_sc1);
+			}
 			xmlhttp.send(file);
 		}
 	}
 }
 
-function closeCard() {
+function closeCard(num) {
 	data_st_name = null;
 	data_st_phone = null;
 	data_st_user_id = null;
@@ -230,34 +258,47 @@ function closeCard() {
 	data_st_address = null;
 	data_st_born = null;
 	data_avatar_file = null;
+	data_st_sc=null;
 }
 
-function changeFile() {
-	var file2 = document.getElementById('avatar_file');
-	var img = document.getElementById('avatar_img');
+function changeFile(num) {
+	var file2 = document.getElementById('avatar_file' + num);
+	var img = document.getElementById('avatar_img' + num);
 	var reader = new FileReader();
 	reader.onload = function(evt) {
 		img.src = evt.target.result;
 		data_avatar_file = file2.files[0];
 	}
+	alert(num);
 	reader.readAsDataURL(file2.files[0]);
 
 }
 
-function saveStatus() {
+function saveStatus(num) {
 	if (xmlhttp.readyState == 4) {// 4 = "loaded"
 		if (xmlhttp.status == 200) {// 200 = OK
 			var msg = xmlhttp.responseText;
-			var avatar_file = document.getElementById('avatar_file');
-			var st_name = document.getElementById('st_name');
-			var st_phone = document.getElementById('st_phone');
-			var st_user_id = document.getElementById('st_user_id');
-			var st_as_id = document.getElementById('st_as_id');
-			var st_ma_id = document.getElementById('st_ma_id');
-			var st_registerdate = document.getElementById('st_registerdate');
-			var st_admissiondate = document.getElementById('st_admissiondate');
-			var st_born = document.getElementById('st_born');
-			var st_address = document.getElementById('st_address');
+			var avatar_file = document.getElementById('avatar_file' + num);
+			var st_name = document.getElementById('st_name' + num);
+			var st_phone = document.getElementById('st_phone' + num);
+			var st_user_id = document.getElementById('st_user_id' + num);
+			var st_as_id = document.getElementById('st_as_id' + num);
+			var st_ma_id = document.getElementById('st_ma_id' + num);
+			var st_registerdate = document.getElementById('st_registerdate'
+					+ num);
+			var st_admissiondate = document.getElementById('st_admissiondate'
+					+ num);
+			var st_born = document.getElementById('st_born' + num);
+			var st_address = document.getElementById('st_address' + num);
+			var div_curriculum = document.getElementById('div-curriculum' + num);
+			var divs = div_curriculum.getElementsByTagName("div");
+			var deletes=div_curriculum.getElementsByClassName("delete");
+			var st_sc1 = "";
+			for (var i = 0; i < divs.length; i++) {
+				var inputs = divs[i].getElementsByTagName("input");
+				st_sc1 = st_sc1 + inputs[0].value + "~";
+			}
+			st_sc1 = st_sc1.substring(0, st_sc1.length - 1);
 			if (msg == "更改成功") {
 				data_st_name = st_name.value;
 				data_st_phone = st_phone.value;
@@ -268,7 +309,9 @@ function saveStatus() {
 				data_st_admissiondate = st_admissiondate.value;
 				data_st_address = st_address.value;
 				data_avatar_file = avatar_file.value;
+				data_st_sc=st_sc1;
 				st_registerdate.value = getNowFormatDate();
+				
 			} else {
 				st_name.value = data_st_name;
 				st_phone.value = data_st_phone;
@@ -279,6 +322,15 @@ function saveStatus() {
 				st_admissiondate.value = data_st_admissiondate;
 				st_address.value = data_st_address;
 				avatar_file.value = data_avatar_file;
+				var st_sc2="";
+				var list_st_sc=data_st_sc.split("~");
+				for(var a=0;a<list_st_sc.length;a++){
+					st_sc2=st_sc2+"<div id='container1-"+st_name.name+"' style='width:auto;float:left;'><input disabled type='text' id='curriculum-output"
+					+ st_name.name + "' value='" + list_st_sc[a] + "' />"
+					+ "<input hidden id='curriculum-delete" + st_name.name
+					+ "' type='button' class='delete' onclick='test(this)' value='&times;'/></div>";
+				}
+				div_curriculum.innerHTML=st_sc2;			
 			}
 			alert(msg);
 		} else {
@@ -308,20 +360,23 @@ function timeAdd0(str) {
 	return str
 }
 
-function onclickByadd() {
-	var add = document.getElementById('add');
-	var container = document.getElementById('container');
-	var node = container.nextSibling;
-	var test = document.getElementById('test');
-	oDiv = document.createElement('div');
-	oDiv.id = "container1";
-	oDiv.innerHTML = "<input disabled type='text' id='curriculum-output' value='"
-			+ test.value
-			+ "'>"
-			+ "<input id='curriculum-delete' type='button' onclick='test(this)' value='&times;'/>";
-	container.parentNode.insertBefore(oDiv, node);
-	node = oDiv.nextSibling;
-	test.value = '';
+function onclickByadd(num) {
+	var add = document.getElementById('add' + num);
+	var div_curriculum = document.getElementById('div-curriculum' + num);
+	var test = document.getElementById('test' + num);
+	if (test.value != "") {
+		oDiv = document.createElement('div');
+		oDiv.id = "container1-" + num;
+		oDiv.style.width="auto";
+		oDiv.style.float="left";
+		oDiv.innerHTML="<input disabled type='text' id='curriculum-output"
+				+ num + "' value='" + test.value + "' />"
+				+ "<input id='curriculum-delete" + num
+				+ "' type='button' class='delete'  onclick='test(this)' value='&times;'/>";
+	// container.parentNode.insertBefore(oDiv, node);
+		div_curriculum.insertBefore(oDiv,div_curriculum.childNodes[0]);
+		test.value = '';
+	}
 }
 
 function test(test) {

@@ -326,6 +326,17 @@
 										var array = JSON.parse(xmlhttp.responseText);
 										for (var i = 0; i < array.length; i++) {
 											var obj = array[i];
+											var st_sc="";
+											if(obj.st_sc!=null){
+												var data_st_sc=obj.st_sc;
+												var list_st_sc=data_st_sc.split("~");
+												for(var a=0;a<list_st_sc.length;a++){
+													st_sc=st_sc+"<div id='container1-"+obj.st_id+"' style='width:auto;float:left;'><input disabled type='text' id='curriculum-output"
+													+ obj.st_id + "' value='" + list_st_sc[a] + "' />"
+													+ "<input hidden id='curriculum-delete" + obj.st_id
+													+ "' type='button' class='delete' onclick='test(this)' value='&times;'/></div>";
+												}
+											}
 											var div = document.createElement('div');
 											div.style.float="left";
 											div.innerHTML = 
@@ -342,50 +353,50 @@
 															"<img class='student-head' src='"+obj.st_image+"'>"+
 																"<p class='student-name'>"+obj.st_name+"</p><span class='badge badge-secondary badge-pill'>"+obj.st_sex+"</span>"+
 																"<p class='student-phone'>"+obj.st_phone+"</p>"+
-																"<button class='student-detail' data-toggle='modal' data-target='#info'>资料</button>"+
-																	"<div id='info' class='modal fade'>"+
+																"<button class='student-detail' data-toggle='modal' data-target='#info"+obj.st_id+"'>资料</button>"+
+																	"<div id='info"+obj.st_id+"' class='modal fade'>"+
 																		"<div class='modal-dialog'>"+
 																			"<div class='modal-content'>"+
 																				"<div class='modal-body2'>"+
-																					"<button type='button' class='close2' onClick='closeCard()' data-dismiss='modal'>&times;</button>"+
+																					"<button type='button' class='close2' onClick='closeCard("+obj.st_id+")' data-dismiss='modal'>&times;</button>"+
 																						"<div class='info-studenthead-shadow'>"+
-																							"<input hidden onChange='changeFile()' type='file' id='avatar_file' name='avatar_file' accept='image/gif, image/jpg, image/jpeg, image/png'"+
+																							"<input hidden onChange='changeFile("+obj.st_id+")' type='file' id='avatar_file"+obj.st_id+"' name='avatar_file' accept='image/gif, image/jpg, image/jpeg, image/png'"+
 																							" style='width: 100%;height:100%;opacity: 0;position: absolute;left:0;top: 0;' />"+
 																						"</div>"+
-																						"<img id='avatar_img' class='info-studenthead' src='"+obj.st_image+"'>"+
+																						"<img id='avatar_img"+obj.st_id+"' class='info-studenthead' src='"+obj.st_image+"'>"+
 																						"<span class='info-sex'>♂</span>"+
-																						"<input disabled id='st_name' class='info-name' name='"+obj.st_id+"' value='"+obj.st_name+"' />"+
-																						"<input disabled id='st_phone' class='info-phone' type='number' value='"+obj.st_phone+"' />"+
+																						"<input disabled id='st_name"+obj.st_id+"' class='info-name' name='"+obj.st_id+"' value='"+obj.st_name+"' />"+
+																						"<input disabled id='st_phone"+obj.st_id+"' class='info-phone' type='number' value='"+obj.st_phone+"' />"+
 																						"<img class='img-charge' src='img/info-charge.png'>"+
-																						"<p class='tittle-charge'>管理人</p><input id='st_user_id' disabled class='info-charge' value='"+obj.st_user_id+"' />"+
+																						"<p class='tittle-charge'>管理人</p><input id='st_user_id"+obj.st_id+"' disabled class='info-charge' value='"+obj.st_user_id+"' />"+
 																						"<img class='img-associatecollege' src='img/info-associatecollege.png'>"+
-																						"<p class='tittle-associatecollege'>二级学院</p><input id='st_as_id' disabled class='info-associatecollege'"+
+																						"<p class='tittle-associatecollege'>二级学院</p><input id='st_as_id"+obj.st_id+"' disabled class='info-associatecollege'"+
 																						" value='"+obj.st_as_id+"' />"+
 																						"<img class='img-major' src='img/info-major.png'>"+
-																							"<p class='tittle-major'>专业</p><input id='st_ma_id' disabled class='info-major' value='"+obj.st_ma_id+"' />"+
+																							"<p class='tittle-major'>专业</p><input id='st_ma_id"+obj.st_id+"' disabled class='info-major' value='"+obj.st_ma_id+"' />"+
 																							"<img class='img-register' src='img/info-register.png'>"+
-																							"<p class='tittle-register'>登记时间</p><input id='st_registerdate' disabled class='info-register' value='"+obj.st_registerdate+"' />"+
+																							"<p class='tittle-register'>登记时间</p><input id='st_registerdate"+obj.st_id+"' disabled class='info-register' value='"+obj.st_registerdate+"' />"+
 																							"<img class='img-admission' src='img/info-admission.png'>"+
-																							"<p class='tittle-admission'>入学时间</p><input id='st_admissiondate' disabled class='info-admission' value='"+obj.st_admissiondate+"' />"+
+																							"<p class='tittle-admission'>入学时间</p><input id='st_admissiondate"+obj.st_id+"' disabled class='info-admission' value='"+obj.st_admissiondate+"' />"+
 																							"<img class='img-born' src='img/info-born.png'>"+
-																							"<p class='tittle-born'>出生日期</p><input id='st_born' disabled class='info-born' value='"+obj.st_born+"' />"+
+																							"<p class='tittle-born'>出生日期</p><input id='st_born"+obj.st_id+"' disabled class='info-born' value='"+obj.st_born+"' />"+
 																							"<img class='img-address' src='img/info-address.png'>"+
-																							"<p class='tittle-address'>家庭住址</p><input id='st_address' disabled class='info-address' value='"+obj.st_address+"' />"+
+																							"<p class='tittle-address'>家庭住址</p><input id='st_address"+obj.st_id+"' disabled class='info-address' value='"+obj.st_address+"' />"+
 																							"<div class='info-hr'></div>"+
 																							"<img class='img-curriculum' src='img/info-curriculum.png'>"+
 																							"<p class='tittle-curriculum'>所选课程</p>"+
-																							"<div hidden id='curriculumadd' class='info-curriculumadd'>"+
-																								"<input type='text' id='test'>"+
-																								"<button id='add' onClick='onclickByadd()'>添加</button>"+
+																							"<div hidden id='curriculumadd"+obj.st_id+"' class='info-curriculumadd'>"+
+																								"<input type='text' id='test"+obj.st_id+"'>"+
+																								"<button id='add"+obj.st_id+"' onClick='onclickByadd("+obj.st_id+")'>添加</button>"+
 																							"</div>"+
-																							"<div class='div-curriculum'>"+
-																								"<div class='div-test' id='container'></div>"+
+																							"<div id='div-curriculum"+obj.st_id+"' class='div-curriculum'>"+
+																							st_sc+
 																							"</div>"+
 																							"<button class='personnel'>"+
 																								"<img src='img/personnel.png'><br />资料"+
 																							"</button>"+
-																							"<button id='edit' onClick='onclickByedit()' class='personnel-edit'>"+
-																								"<img src='img/personnel-edit.png'><br /><span id='font-edit'>编辑</span>"+
+																							"<button id='edit"+obj.st_id+"' onClick='onclickByedit("+obj.st_id+")' class='personnel-edit'>"+
+																								"<img src='img/personnel-edit.png'><br /><span id='font-edit"+obj.st_id+"'>编辑</span>"+
 																							"</button>"+
 																							"<button class='personnel-delete' data-dismiss='modal'>"+
 																								"<img src='img/personnel-delete.png'><br />删除"+

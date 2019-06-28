@@ -66,7 +66,6 @@ public class StudentListController {
 
 	@RequestMapping(value = "/StudentList.action", method = RequestMethod.GET)
 	public String toLogin() {
-		System.out.println("以get方式访问了Student.action");
 		return "StudentList.html";
 	}
 
@@ -77,8 +76,6 @@ public class StudentListController {
 	@ResponseBody
 	public StringBuffer getInfo(@RequestParam("ask") String ask, @RequestParam("type") String type,
 			HttpServletRequest request) {
-		System.out.println("ask=" + ask);
-		System.out.println("type=" + type);
 		List<Student> list = null;
 		Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
 		int user_as_id = sy.getUser_as_id();
@@ -93,7 +90,6 @@ public class StudentListController {
 	@RequestMapping(value = "/StudentListScreen.action", method = RequestMethod.POST)
 	@ResponseBody
 	public StringBuffer getInfoByScreen(String json, String ask, int type) {
-		System.out.println("json=" + json);
 		JacksonJsonParser jsonParser = new JacksonJsonParser();
 		Map<String, Object> map = jsonParser.parseMap(json);
 		if (map.get("st_id") != null) {
@@ -288,6 +284,16 @@ public class StudentListController {
 			sb.append("\"st_as_id\":\"" + associatecollege.getAs_name() + "\",");
 			sb.append("\"st_registerdate\":\"" + list.get(i).getSt_registerdate() + "\",");
 			sb.append("\"st_address\":\"" + list.get(i).getSt_address() + "\"");
+			if (!list.get(i).getSt_sc().equals("")) {
+				String data_st_sc = list.get(i).getSt_sc();
+				String[] list_st_sc = data_st_sc.split(",");
+				String st_sc = "";
+				for (int x = 0; x < list_st_sc.length; x++) {
+					st_sc = st_sc + scheduleService.getScheduleByScanner("sc_id", list_st_sc[x]).getSc_name() + "~";
+				}
+				st_sc = st_sc.substring(0, st_sc.length() - 1);
+				sb.append(",\"st_sc\":\"" + st_sc + "\"");
+			}
 			sb.append("},");
 		}
 		sb.deleteCharAt(sb.length() - 1);
@@ -428,7 +434,7 @@ public class StudentListController {
 			StringBuffer sb = new StringBuffer();
 			for (int i = 0; i < scheduleList.length; i++) {
 				Schedule sc = scheduleService.getScheduleByScanner("sc_name", scheduleList[i]);
-				if (sc.getSc_id() == 0) {
+				if (sc==null) {
 					return "找不到课程:" + scheduleList[i];
 				}
 				sb.append(sc.getSc_id() + ",");
