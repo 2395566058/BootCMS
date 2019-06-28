@@ -67,6 +67,7 @@ var data_st_address = null;
 var data_st_born = null;
 var data_avatar_file = null;
 var data_st_sc=null;
+var data_st_sex=null;
 function onclickByedit(num) {
 	var kg = document.getElementById('font-edit' + num);
 	var avatar_file = document.getElementById("avatar_file" + num);
@@ -83,6 +84,7 @@ function onclickByedit(num) {
 	var div_curriculum = document.getElementById('div-curriculum' + num);
 	var divs = div_curriculum.getElementsByTagName("div");
 	var deletes=div_curriculum.getElementsByClassName("delete");
+	var st_sex=document.getElementById('img-sex'+num);
 	var st_sc1 = "";
 	for (var i = 0; i < divs.length; i++) {
 		var inputs = divs[i].getElementsByTagName("input");
@@ -91,6 +93,9 @@ function onclickByedit(num) {
 	st_sc1 = st_sc1.substring(0, st_sc1.length - 1);
 	if(data_st_sc==null){
 		data_st_sc=st_sc1;
+	}
+	if (data_st_sex == null) {
+		data_st_sex = st_sex.innerHTML;
 	}
 	if (data_st_name == null) {
 		data_st_name = st_name.value;
@@ -135,6 +140,8 @@ function onclickByedit(num) {
 		st_admissiondate.style.color = '#6C79C8';
 		st_born.style.color = '#6C79C8';
 		st_address.style.color = '#6C79C8';
+		st_sex.style.cursor="pointer";
+		st_sex.onclick=function (){switchSex(this);};
 		avatar_file.hidden = false;
 		st_name.disabled = false;
 		st_phone.disabled = false;
@@ -161,6 +168,8 @@ function onclickByedit(num) {
 		st_admissiondate.style.color = '#D04937';
 		st_born.style.color = '#D04937';
 		st_address.style.color = '#D04937';
+		st_sex.onclick=false;
+		st_sex.style.cursor="auto";
 		avatar_file.hidden = true;
 		st_name.disabled = true;
 		st_phone.disabled = true;
@@ -174,6 +183,9 @@ function onclickByedit(num) {
 		curriculumadd.hidden = true;
 		var existSave = false;
 		if (st_sc1!=data_st_sc) {
+			existSave = true;
+		}
+		if (st_sex.innerHTML != data_st_sex) {
 			existSave = true;
 		}
 		if (st_name.value != data_st_name) {
@@ -243,22 +255,41 @@ function onclickByedit(num) {
 			if (st_sc1!=data_st_sc) {
 				file.append("st_sc", st_sc1);
 			}
+			if (st_sex.innerHTML != data_st_sex) {
+				var sex=st_sex.innerHTML;
+				if(sex=="♂"){
+					sex="男";
+				}else{
+					sex="女";
+				}
+				file.append("st_sex",sex);
+			}
 			xmlhttp.send(file);
 		}
 	}
 }
 
+function switchSex(obj){
+	var sex=obj.innerHTML;
+	if(sex=="♂"){
+		obj.innerHTML="♀";
+	}else{
+		obj.innerHTML="♂";
+	}
+}
+
 function closeCard(num) {
-	data_st_name = null;
-	data_st_phone = null;
-	data_st_user_id = null;
-	data_st_as_id = null;
-	data_st_ma_id = null;
-	data_st_admissiondate = null;
-	data_st_address = null;
-	data_st_born = null;
-	data_avatar_file = null;
-	data_st_sc=null;
+	 data_st_name = null;
+	 data_st_phone = null;
+	 data_st_user_id = null;
+	 data_st_as_id = null;
+	 data_st_ma_id = null;
+	 data_st_admissiondate = null;
+	 data_st_address = null;
+	 data_st_born = null;
+	 data_avatar_file = null;
+	 data_st_sc=null;
+	 data_st_sex=null;
 }
 
 function changeFile(num) {
@@ -282,6 +313,7 @@ function saveStatus(num) {
 			var st_name = document.getElementById('st_name' + num);
 			var st_phone = document.getElementById('st_phone' + num);
 			var st_user_id = document.getElementById('st_user_id' + num);
+			var st_sex = document.getElementById('img-sex' + num);
 			var st_as_id = document.getElementById('st_as_id' + num);
 			var st_ma_id = document.getElementById('st_ma_id' + num);
 			var st_registerdate = document.getElementById('st_registerdate'
@@ -293,6 +325,8 @@ function saveStatus(num) {
 			var div_curriculum = document.getElementById('div-curriculum' + num);
 			var divs = div_curriculum.getElementsByTagName("div");
 			var deletes=div_curriculum.getElementsByClassName("delete");
+			var consloe_st_sex= document.getElementById('consloe-st_sex'+num)
+			
 			var st_sc1 = "";
 			for (var i = 0; i < divs.length; i++) {
 				var inputs = divs[i].getElementsByTagName("input");
@@ -311,6 +345,12 @@ function saveStatus(num) {
 				data_avatar_file = avatar_file.value;
 				data_st_sc=st_sc1;
 				st_registerdate.value = getNowFormatDate();
+				if(st_sex.value=="♂"){
+					consloe_st_sex.innerHTML="男";
+				}else{
+					consloe_st_sex.innerHTML="女";
+				}
+				data_st_sex=st_sex.innerHTML;
 				
 			} else {
 				st_name.value = data_st_name;
@@ -322,6 +362,12 @@ function saveStatus(num) {
 				st_admissiondate.value = data_st_admissiondate;
 				st_address.value = data_st_address;
 				avatar_file.value = data_avatar_file;
+				if(data_st_sex.value=="♂"){
+					consloe_st_sex.value="男";
+				}else{
+					consloe_st_sex.value="女";
+				}
+				st_sex.innerHTML=data_st_sex;
 				var st_sc2="";
 				var list_st_sc=data_st_sc.split("~");
 				for(var a=0;a<list_st_sc.length;a++){

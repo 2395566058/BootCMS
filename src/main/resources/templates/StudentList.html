@@ -327,6 +327,12 @@
 										for (var i = 0; i < array.length; i++) {
 											var obj = array[i];
 											var st_sc="";
+											var img_sex="";
+											if(obj.st_sex=="男"){
+												img_sex="♂";
+											}else{
+												img_sex="♀";
+											}
 											if(obj.st_sc!=null){
 												var data_st_sc=obj.st_sc;
 												var list_st_sc=data_st_sc.split("~");
@@ -346,12 +352,12 @@
 															obj.st_ma_id+
 														"</div>"+
 														"<div class='info-body'>"+
-															"<p>入学时间："+obj.admissiondate+"</p>"+
+															"<p>入学时间："+obj.st_admissiondate+"</p>"+
 															"<p style='margin-top: -4%;'>出生年月："+obj.st_born+"</p>"+
 														"</div>"+
 														"<div class='info-footer'>"+
 															"<img class='student-head' src='"+obj.st_image+"'>"+
-																"<p class='student-name'>"+obj.st_name+"</p><span class='badge badge-secondary badge-pill'>"+obj.st_sex+"</span>"+
+																"<p class='student-name'>"+obj.st_name+"</p><span id='consloe-st_sex"+obj.st_id+"' class='badge badge-secondary badge-pill'>"+obj.st_sex+"</span>"+
 																"<p class='student-phone'>"+obj.st_phone+"</p>"+
 																"<button class='student-detail' data-toggle='modal' data-target='#info"+obj.st_id+"'>资料</button>"+
 																	"<div id='info"+obj.st_id+"' class='modal fade'>"+
@@ -363,8 +369,10 @@
 																							"<input hidden onChange='changeFile("+obj.st_id+")' type='file' id='avatar_file"+obj.st_id+"' name='avatar_file' accept='image/gif, image/jpg, image/jpeg, image/png'"+
 																							" style='width: 100%;height:100%;opacity: 0;position: absolute;left:0;top: 0;' />"+
 																						"</div>"+
+																						"<span id='img-sex"+obj.st_id+"' class='info-sex'>"+
+																						img_sex+
+																						"</span>"+
 																						"<img id='avatar_img"+obj.st_id+"' class='info-studenthead' src='"+obj.st_image+"'>"+
-																						"<span class='info-sex'>♂</span>"+
 																						"<input disabled id='st_name"+obj.st_id+"' class='info-name' name='"+obj.st_id+"' value='"+obj.st_name+"' />"+
 																						"<input disabled id='st_phone"+obj.st_id+"' class='info-phone' type='number' value='"+obj.st_phone+"' />"+
 																						"<img class='img-charge' src='img/info-charge.png'>"+

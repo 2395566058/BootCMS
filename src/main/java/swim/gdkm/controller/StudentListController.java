@@ -13,25 +13,15 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.ibatis.annotations.Param;
-import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
-import org.apache.tomcat.util.http.fileupload.RequestContext;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JacksonJsonParser;
-import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import swim.gdkm.poji.Associatecollege;
 import swim.gdkm.poji.Fix;
@@ -422,7 +412,7 @@ public class StudentListController {
 		if (sex != null) {
 			if (sex.equals("男") || sex.equals("1")) {
 				newmap.put("st_sex", "1");
-			} else if (sex.equals("女") || sex.equals("1")) {
+			} else if (sex.equals("女") || sex.equals("0")) {
 				newmap.put("st_sex", "0");
 			} else {
 				return "性别错误:" + sex;
@@ -434,7 +424,7 @@ public class StudentListController {
 			StringBuffer sb = new StringBuffer();
 			for (int i = 0; i < scheduleList.length; i++) {
 				Schedule sc = scheduleService.getScheduleByScanner("sc_name", scheduleList[i]);
-				if (sc==null) {
+				if (sc == null) {
 					return "找不到课程:" + scheduleList[i];
 				}
 				sb.append(sc.getSc_id() + ",");
@@ -450,6 +440,9 @@ public class StudentListController {
 		return "更改失败";
 	}
 
+	/*
+	 * 判断字符串是否为时间格式
+	 */
 	public static boolean isValidDate(String str) {
 		boolean convertSuccess = true;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
