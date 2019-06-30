@@ -27,7 +27,7 @@ public class ScheduleController {
 	public String getHtml() {
 		return "Schedule.html";
 	}
-	
+
 	/*
 	 * 返回数据 获取整张schedule表数据
 	 */
@@ -37,17 +37,17 @@ public class ScheduleController {
 		List<Schedule> sc = scheduleService.getAllList();
 		return getJson(sc).toString();
 	}
-	
+
 	/*
 	 * 返回数据 通过特定条件选择schedule表的行数据
 	 */
 	@RequestMapping(value = "/getScheduleByScreen.action", method = RequestMethod.POST)
 	@ResponseBody
-	public String getScheduleByScreen(String type,String code) {
+	public String getScheduleByScreen(String type, String code) {
 		List<Schedule> sc = scheduleService.getScheduleByScanner(type, code);
 		return getJson(sc).toString();
 	}
-	
+
 	/*
 	 * 返回数据 通过id选择schedule表的行数据
 	 */
@@ -55,20 +55,20 @@ public class ScheduleController {
 	@ResponseBody
 	public String getScheduleById(int sc_id) {
 		Schedule sc = scheduleService.getScheduleById(sc_id);
-		List<Schedule> list=null;
+		List<Schedule> list = null;
 		list.add(sc);
 		return getJson(list).toString();
 	}
-	
+
 	/*
 	 * 返回数据 添加一行schedule表数据
 	 */
 	@RequestMapping(value = "/addSchedule.action", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean addSchedule(HttpServletRequest request) {
-		Map<String,Object> map=getRequestMap(request);
-		Schedule sc=new Schedule(map);
-		boolean result=scheduleService.addScheduleList(sc);
+		Map<String, Object> map = getRequestMap(request);
+		Schedule sc = new Schedule(map);
+		boolean result = scheduleService.addScheduleList(sc);
 		return result;
 	}
 
@@ -78,9 +78,9 @@ public class ScheduleController {
 	@RequestMapping(value = "/updateSchedule.action", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean updateSchedule(HttpServletRequest request) {
-		Map<String,Object> map=getRequestMap(request);
-		Schedule sc=new Schedule(map);
-		boolean result=scheduleService.updateScheduleList(sc);
+		Map<String, Object> map = getRequestMap(request);
+		Schedule sc = new Schedule(map);
+		boolean result = scheduleService.updateScheduleList(sc);
 		return result;
 	}
 
@@ -90,10 +90,10 @@ public class ScheduleController {
 	@RequestMapping(value = "/deleteSchedule.action", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean deleteSchedule(int sc_id) {
-		boolean result=scheduleService.deleteScheduleList(sc_id);
+		boolean result = scheduleService.deleteScheduleList(sc_id);
 		return result;
 	}
-	
+
 	/*
 	 * 将数据转成Json格式以待发送
 	 */
@@ -104,7 +104,6 @@ public class ScheduleController {
 		}
 		for (int i = 0; i < list.size(); i++) {
 			Schedule schedule = list.get(i);
-
 			int sc_id = schedule.getSc_id();
 			String sc_name = schedule.getSc_name();
 			String sc_start = schedule.getSc_start();
@@ -113,7 +112,6 @@ public class ScheduleController {
 			String sc_time = schedule.getSc_time();
 			int sc_cl_id = schedule.getSc_cl_id();
 			int sc_user_id = schedule.getSc_user_id();
-
 			sb.append("{");
 			sb.append("\"st_id\":\"" + sc_id + "\",");
 			sb.append("\"sc_name\":\"" + sc_name + "\",");
@@ -129,7 +127,7 @@ public class ScheduleController {
 		sb.append("]");
 		return sb;
 	}
-	
+
 	/*
 	 * 把String数组转为String
 	 */
@@ -143,14 +141,14 @@ public class ScheduleController {
 		}
 		return newdata.toString();
 	}
-	
+
 	/*
 	 * 遍历request内容并存到map
 	 */
-	public static Map<String,Object> getRequestMap(HttpServletRequest request) {
+	public static Map<String, Object> getRequestMap(HttpServletRequest request) {
 		Map<String, String[]> map = request.getParameterMap();
 		Set<Entry<String, String[]>> set = map.entrySet();
-		Map<String, Object> newmap=new HashMap<String, Object>();
+		Map<String, Object> newmap = new HashMap<String, Object>();
 		Iterator<Entry<String, String[]>> it = set.iterator();
 		while (it.hasNext()) {
 			Entry<String, String[]> entry = it.next();
