@@ -11,11 +11,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="schedule">
 		SELECT * FROM schedule WHERE ${type} = #{code}
 	</select>
+	
+	<select id="getScheduleById" parameterType="Integer"
+		resultType="schedule">
+		SELECT * FROM schedule WHERE sc_id = #{sc_id}
+	</select>
 
 	<insert id="addSchedule" parameterType="schedule">
 		INSERT INTO schedule
 		VALUES (0,#{sc_name},#{sc_start},#{sc_end},#{sc_week},
-		#{sc_time},#{sc_classroom},#{sc_user_id})
+		#{sc_time},#{sc_cl_id},#{sc_user_id})
 	</insert>
 
 	<delete id="deleteSchedule" parameterType="Integer">
@@ -26,25 +31,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateSchedule" parameterType="schedule">
 		UPDATE schedule
 		<set>
-			<if test="#{sc_name}!=null">
+			<if test="sc_name!=null">
 				sc_name=#{sc_name},
 			</if>
-			<if test="#{sc_start}!=null">
+			<if test="sc_start!=null">
 				sc_start=#{sc_start},
 			</if>
-			<if test="#{sc_end}!=null">
+			<if test="sc_end!=null">
 				sc_end=#{sc_end},
 			</if>
-			<if test="#{sc_week}!=null">
+			<if test="sc_week!=null">
 				sc_week=#{sc_week},
 			</if>
-			<if test="#{sc_time}!=null">
+			<if test="sc_time!=null">
 				sc_time=#{sc_time},
 			</if>
-			<if test="#{sc_classroom}!=null">
+			<if test="sc_cl_id!=0">
 				sc_classroom=#{sc_classroom}
 			</if>
-			<if test="#{sc_user_id}!=null">
+			<if test="sc_user_id!=0">
 				sc_user_id=#{sc_user_id}
 			</if>
 		</set>

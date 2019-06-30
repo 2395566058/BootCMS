@@ -7,5 +7,13 @@ import swim.gdkm.poji.Schedule;
 public interface ScheduleService {
 	public List<Schedule> getAllList();
 
-	public Schedule getScheduleByScanner(String type, String code);
+	public List<Schedule> getScheduleByScanner(String type, String code);
+	
+	public Schedule getScheduleById(int sc_id);
+	
+	public boolean addScheduleList(Schedule schedule);
+	
+	public boolean updateScheduleList(Schedule schedule);
+	
+	public boolean deleteScheduleList(int sc_id);
 }

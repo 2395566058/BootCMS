@@ -163,11 +163,11 @@ public class StudentListController {
 			String[] scheduleList = schedule.split("~");
 			StringBuffer sb = new StringBuffer();
 			for (int i = 0; i < scheduleList.length; i++) {
-				Schedule sc = scheduleService.getScheduleByScanner("sc_name", scheduleList[i]);
-				if (sc.getSc_id() == 0) {
+				List<Schedule> sc = scheduleService.getScheduleByScanner("sc_name", scheduleList[i]);
+				if (sc == null) {
 					return "找不到课程:" + scheduleList[i];
 				}
-				sb.append(sc.getSc_id() + ",");
+				sb.append(sc.get(0).getSc_id() + ",");
 			}
 			sb.deleteCharAt(sb.length() - 1);
 			map.put("st_sc", sb.toString());
@@ -242,6 +242,7 @@ public class StudentListController {
 			}
 		}
 		boolean result = studentService.deleteStudent(st_id);
+		System.out.println(result);
 		return result;
 	}
 
@@ -279,7 +280,7 @@ public class StudentListController {
 				String[] list_st_sc = data_st_sc.split(",");
 				String st_sc = "";
 				for (int x = 0; x < list_st_sc.length; x++) {
-					st_sc = st_sc + scheduleService.getScheduleByScanner("sc_id", list_st_sc[x]).getSc_name() + "~";
+					st_sc = st_sc + scheduleService.getScheduleById(Integer.valueOf(list_st_sc[x])).getSc_name() + "~";
 				}
 				st_sc = st_sc.substring(0, st_sc.length() - 1);
 				sb.append(",\"st_sc\":\"" + st_sc + "\"");
@@ -423,11 +424,11 @@ public class StudentListController {
 			String[] scheduleList = schedule.split("~");
 			StringBuffer sb = new StringBuffer();
 			for (int i = 0; i < scheduleList.length; i++) {
-				Schedule sc = scheduleService.getScheduleByScanner("sc_name", scheduleList[i]);
+				List<Schedule> sc = scheduleService.getScheduleByScanner("sc_name", scheduleList[i]);
 				if (sc == null) {
 					return "找不到课程:" + scheduleList[i];
 				}
-				sb.append(sc.getSc_id() + ",");
+				sb.append(sc.get(0).getSc_id() + ",");
 			}
 			sb.deleteCharAt(sb.length() - 1);
 			newmap.put("st_sc", sb.toString());

@@ -10,11 +10,13 @@ import swim.gdkm.poji.Sysuser;
 public interface ScheduleDao {
 	public List<Schedule> getAllList();
 
-	public Schedule getScheduleByScanner(@Param("type") String type, @Param("code") String code);
-	
-	public int addSchedule(Schedule schedule);
+	public List<Schedule> getScheduleByScanner(@Param("type") String type, @Param("code") String code);
 
-	public int deleteSchedule(int sc_id);
+	public Schedule getScheduleById(@Param("sc_id")int sc_id);
 
-	public int updateSchedule(Schedule schedule);
+	public boolean addSchedule(Schedule schedule);
+
+	public boolean deleteSchedule(int sc_id);
+
+	public boolean updateSchedule(Schedule schedule);
 }

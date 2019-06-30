@@ -418,7 +418,7 @@ function onclickByadd(num) {
 		oDiv.innerHTML="<input disabled type='text' id='curriculum-output"
 				+ num + "' value='" + test.value + "' />"
 				+ "<input id='curriculum-delete" + num
-				+ "' type='button' class='delete'  onclick='test(this)' value='&times;'/>";
+				+ "' type='button' class='delete'  onclick='test(this)' value='&times;' />";
 	// container.parentNode.insertBefore(oDiv, node);
 		div_curriculum.insertBefore(oDiv,div_curriculum.childNodes[0]);
 		test.value = '';
@@ -427,4 +427,116 @@ function onclickByadd(num) {
 
 function test(test) {
 	test.parentNode.parentNode.removeChild(test.parentNode);
+}
+
+function chooseDelete(num){
+	if(confirm("你确定要删除该学生卡吗？")){
+		deleteStudent(num);
+	}
+}
+
+function deleteStudent(num){
+	var xmlhttp2 = null;
+	if (window.XMLHttpRequest) {
+		xmlhttp2 = new XMLHttpRequest();
+	} else if (window.ActiveXObject) {
+		xmlhttp2 = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	if (xmlhttp2 != null) {
+		xmlhttp2.onreadystatechange = function(){deleteStatus(xmlhttp2,num)};
+		xmlhttp2.open("POST", "http://"+ip+":8848/BootCMS/deleteStudent.action", true);
+		xmlhttp2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xmlhttp2.send("st_id=" + num);
+	} else {
+		alert("Your browser does not support XMLHTTP.");
+	}
+}
+
+function deleteStatus(xmlhttp2,num) {
+	if (xmlhttp2.readyState == 4) {
+		if (xmlhttp2.status == 200) {
+			var result = xmlhttp2.responseText;
+			if(result=="true"){
+				alert("删除成功");
+				var studentCard = document.getElementById("studentCard"+num);
+				studentCard.parentNode.removeChild(studentCard);
+			}else{
+				alert("删除失败");
+			}
+		} else {
+			alert("Problem retrieving XML data");
+		}
+	}
+}
+
+function addStudent(){
+	var avatar_file = document.getElementById("avatar_file0");
+	var st_name = document.getElementById('st_name0');
+	var st_phone = document.getElementById('st_phone0');
+	var st_ma_id = document.getElementById('st_ma_id0');
+	var st_registerdate = document.getElementById('st_registerdate0');
+	var st_admissiondate = document.getElementById('st_admissiondate0');
+	var st_born = document.getElementById('st_born0');
+	var st_address = document.getElementById('st_address0');
+	var curriculumadd = document.getElementById('curriculumadd0');
+	var div_curriculum = document.getElementById('div-curriculum0');
+	var divs = div_curriculum.getElementsByTagName("div");
+	var st_sex = div_curriculum.getElementsByTagName("img-sex0");
+	
+	var form_st_name=st_name.value;
+	var form_st_ma_id=st_ma_id.value;
+	var form_st_admissiondate=st_admissiondate.value;
+	var form_st_phone=st_phone.value;
+	var form_st_address=st_address.value;
+	var form_st_born=st_born.value;
+	var form_st_sex="";
+	if(st_sex.innerHTML=="♂"){
+		form_st_sex="男";
+	}else{
+		form_st_sex="女";
+	}
+	var form_st_sc="";
+	if(divs.length!="0"){
+		for(var i=0;i<divs.length;i++){
+			var div=divs[i];
+			var input = div.getElementsByTagName("input");
+			form_st_sc=form_st_sc+input.value+"~";
+		}
+		form_st_sc = form_st_sc.substring(0, form_st_sc.length - 1);
+	}
+	var form_st_image=avatar_file.files[0];
+	var xmlhttp3 = null;
+	if (window.XMLHttpRequest) {
+		xmlhttp3 = new XMLHttpRequest();
+	} else if (window.ActiveXObject) {
+		xmlhttp3 = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	if (xmlhttp3 != null) {
+		xmlhttp3.onreadystatechange = function (){addStatus(xmlhttp3)};
+		xmlhttp3.open("POST", "http://"+ip+":8848/BootCMS/AddStudentList.action", true);
+		var file = new FormData();
+		file.append("st_name", form_st_name);
+		file.append("st_ma_id", form_st_ma_id);
+		file.append("st_admissiondate", form_st_admissiondate);
+		file.append("st_phone", form_st_phone);
+		file.append("st_address", form_st_address);
+		file.append("st_born", form_st_born);
+		file.append("st_sex", form_st_sex);
+		file.append("st_sc", form_st_sc);
+		file.append("st_image", form_st_image);
+		xmlhttp3.send(file);
+	} else {
+		alert("Your browser does not support XMLHTTP.");
+	}
+}
+
+function addStatus(xmlhttp3){
+	if (xmlhttp3.readyState == 4) {
+		if (xmlhttp3.status == 200) {
+			var result = xmlhttp3.responseText;
+			alert(result);
+		} else {
+			alert("Problem retrieving XML data");
+		}
+	}
 }
