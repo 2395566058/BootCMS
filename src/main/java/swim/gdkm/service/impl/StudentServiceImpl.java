@@ -31,7 +31,6 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public List<Student> getStudentByScannerUpDown(@Param("type") String type, @Param("code") String code,
 			@Param("updown") String updown, @Param("updowntype") int updowntype) {
-		System.out.println("type=" + type + ",code=" + code + ",updown=" + updown + ",updowntype=" + updowntype);
 		List<Student> student = studentDao.getStudentByScannerUpDown(type, code, updown, updowntype);
 		return student;
 	}

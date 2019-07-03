@@ -27,7 +27,7 @@ public class Schedule {
 			this.sc_week = (String) map.get("sc_week");
 		}
 		if (map.get("sc_cl_id") != null) {
-			this.sc_cl_id = (int) map.get("sc_cl_id");
+			this.sc_cl_id =  Integer.valueOf((String) map.get("sc_cl_id"));
 		}
 		if (map.get("sc_start") != null) {
 			this.sc_start = (String) map.get("sc_start");
@@ -39,7 +39,7 @@ public class Schedule {
 			this.sc_time = (String) map.get("sc_time");
 		}
 		if (map.get("sc_user_id") != null) {
-			this.sc_user_id = (int) map.get("sc_user_id");
+			this.sc_user_id =  Integer.valueOf((String) map.get("sc_user_id"));
 		}
 	}
 

@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getSysuserByScanner" parameterType="String"
 		resultType="sysuser">
-		SELECT * FROM sysuser WHERE ${type} = #{code}
+		SELECT * FROM sysuser WHERE ${type} = #{code} 
 	</select>
 	
 	<select id="getSysuserByScannerMap" resultType="sysuser">

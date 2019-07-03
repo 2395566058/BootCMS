@@ -1,5 +1,7 @@
 package swim.gdkm.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -11,21 +13,31 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import swim.gdkm.poji.Classes;
 import swim.gdkm.poji.Schedule;
+import swim.gdkm.poji.Sysuser;
+import swim.gdkm.service.ClassesService;
 import swim.gdkm.service.ScheduleService;
+import swim.gdkm.service.StudentService;
+import swim.gdkm.service.SysuserService;
 
 @Controller
 public class ScheduleController {
 	@Autowired
 	private ScheduleService scheduleService;
+	@Autowired
+	private ClassesService classesService;
+	@Autowired
+	private SysuserService sysuserService;
 
-	@RequestMapping(value = "/Schedule.action", method = RequestMethod.GET)
+	@RequestMapping(value = "/Curriculum.action", method = RequestMethod.GET)
 	public String getHtml() {
-		return "Schedule.html";
+		return "Curriculum.html";
 	}
 
 	/*
@@ -35,7 +47,7 @@ public class ScheduleController {
 	@ResponseBody
 	public String getScheduleAll() {
 		List<Schedule> sc = scheduleService.getAllList();
-		return getJson(sc).toString();
+		return getJson(sc,classesService,sysuserService).toString();
 	}
 
 	/*
@@ -45,7 +57,7 @@ public class ScheduleController {
 	@ResponseBody
 	public String getScheduleByScreen(String type, String code) {
 		List<Schedule> sc = scheduleService.getScheduleByScanner(type, code);
-		return getJson(sc).toString();
+		return getJson(sc,classesService,sysuserService).toString();
 	}
 
 	/*
@@ -57,7 +69,7 @@ public class ScheduleController {
 		Schedule sc = scheduleService.getScheduleById(sc_id);
 		List<Schedule> list = null;
 		list.add(sc);
-		return getJson(list).toString();
+		return getJson(list,classesService,sysuserService).toString();
 	}
 
 	/*
@@ -65,11 +77,48 @@ public class ScheduleController {
 	 */
 	@RequestMapping(value = "/addSchedule.action", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean addSchedule(HttpServletRequest request) {
+	public String addSchedule(HttpServletRequest request) {
+		Sysuser sy = (Sysuser) request.getSession().getAttribute("USER");
+		String user_authorization = sy.getUser_authorization();
+		int user_id = sy.getUser_id();
+		int user_as_id = sy.getUser_as_id();
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String st_registerdate = f.format(new Date());
+		if (!user_authorization.equals("2")) {
+			return "没有权限添加！";
+		}
 		Map<String, Object> map = getRequestMap(request);
+		String sc_start=(String) map.get("sc_start");
+		String sc_end=(String) map.get("sc_end");
+		if(isValidDate(sc_start)==false) {
+			return "开始时间格式非法！";
+		}
+		if(isValidDate(sc_end)==false) {
+			return "开始时间格式非法！";
+		}
+		String sc_user_id=(String) map.get("sc_user_id");
+		List<Sysuser> sysuser=sysuserService.getSysuserByScanner("user_code",sc_user_id);
+		if(sysuser!=null) {
+			sc_user_id=String.valueOf(sysuser.get(0).getUser_id());
+			map.put("sc_user_id", sc_user_id);
+		}else {
+			return "没有该老师";
+		}
+		String sc_cl_id=(String) map.get("sc_cl_id");
+		Classes classes=classesService.getClassesByScanner("cl_name", sc_cl_id);
+		if(classes!=null) {
+			sc_cl_id=String.valueOf(classes.getCl_id());
+			System.out.println("sc_cl_id="+sc_cl_id);
+			map.put("sc_cl_id", sc_cl_id);
+		}else {
+			return "找不到该课室";
+		}
 		Schedule sc = new Schedule(map);
 		boolean result = scheduleService.addScheduleList(sc);
-		return result;
+		if(result==true) {
+			return "添加成功";
+		}
+		return "添加失败";
 	}
 
 	/*
@@ -97,7 +146,7 @@ public class ScheduleController {
 	/*
 	 * 将数据转成Json格式以待发送
 	 */
-	public static StringBuffer getJson(List<Schedule> list) {
+	public static StringBuffer getJson(List<Schedule> list,ClassesService classesService,SysuserService sysuserService) {
 		StringBuffer sb = new StringBuffer("[");
 		if (list.size() == 0) {
 			return new StringBuffer("null");
@@ -111,16 +160,18 @@ public class ScheduleController {
 			String sc_week = schedule.getSc_week();
 			String sc_time = schedule.getSc_time();
 			int sc_cl_id = schedule.getSc_cl_id();
+			String sc_cl=classesService.getClassesByScanner("cl_id", String.valueOf(sc_cl_id)).getCl_name();
 			int sc_user_id = schedule.getSc_user_id();
+			String user_name=sysuserService.getSysuserByScanner("user_id",String.valueOf(sc_user_id)).get(0).getUser_name();
 			sb.append("{");
-			sb.append("\"st_id\":\"" + sc_id + "\",");
+			sb.append("\"sc_id\":\"" + sc_id + "\",");
 			sb.append("\"sc_name\":\"" + sc_name + "\",");
 			sb.append("\"sc_start\":\"" + sc_start + "\",");
 			sb.append("\"sc_end\":\"" + sc_end + "\",");
 			sb.append("\"sc_week\":\"" + sc_week + "\",");
 			sb.append("\"sc_time\":\"" + sc_time + "\",");
-			sb.append("\"sc_cl_id\":\"" + sc_cl_id + "\",");
-			sb.append("\"sc_user_id\":\"" + sc_user_id + "\"");
+			sb.append("\"sc_cl_id\":\"" + sc_cl + "\",");
+			sb.append("\"sc_user_id\":\"" + user_name + "\"");
 			sb.append("},");
 		}
 		sb.deleteCharAt(sb.length() - 1);
@@ -155,5 +206,20 @@ public class ScheduleController {
 			newmap.put(entry.getKey(), JtoString(entry.getValue()));
 		}
 		return newmap;
+	}
+	/*
+	 * 判断是否为时间格式
+	 */
+	public static boolean isValidDate(String str) {
+		boolean convertSuccess = true;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			format.setLenient(false);
+			format.parse(str);
+		} catch (java.text.ParseException e) {
+			convertSuccess = false;
+			return convertSuccess;
+		}
+		return convertSuccess;
 	}
 }

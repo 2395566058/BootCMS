@@ -37,7 +37,7 @@
 					<div class="line"></div>
 				</div>
 				<div class="list2">
-					<a href="#">
+					<a href="/BootCMS/Curriculum.action">
 						<div class="icon"><img src="img/Schedule.png" style="height: 50px; position: relative; top: 23px; left: 23px;"></div>
 						<div class="sort">
 							<p style="color: white;font-size: 20px;"><b>课程管理</b></p>
@@ -75,102 +75,51 @@
 					<div class="card">
 						<div class="card-header">
 							<a class="tittle-search" href="#collapse-1" data-toggle="collapse">筛选</a>
-							<a class="tittle-search" href="#info" data-toggle="collapse">添加学生卡</a>
-							<div id="info" class='modal fade'>
-								<div class='modal-dialog'>
-									<div class='modal-content'>
-										<div class='modal-body2'>
-											<button type='button' class='close2' onClick="closeCardByadd()" data-dismiss='modal'>&times;</button>
-											<div class='info-studenthead-shadow'>
-												<input hidden onChange="changeFile(0)" type='file' id="avatar_file0" name='avatar_file' accept='image/gif, image/jpg, image/jpeg, image/png' 
-													style="width: 100%;height:100%;opacity: 0;position: absolute;left:0;top: 0;" />
-											</div>
-											<span id="img-sex0" class='info-sex'>♂</span>
-											<img id="avatar_img0" class='info-studenthead' src=''>
-											<input disabled id="st_name" class='info-name' name='0' value='' />
-											<input disabled id="st_phone0" class='info-phone' type='number' value='' />
-											<img class='img-charge' src='img/info-charge.png'>
-											<p class='tittle-charge'>管理人</p>
-											<input id="st_user_id0" disabled class='info-charge' value='' />
-											<img class='img-associatecollege' src='img/info-associatecollege.png'>
-											<p class='tittle-associatecollege'>二级学院</p><input id="st_as_id0" disabled class='info-associatecollege' value='' />
-											<img class='img-major' src='img/info-major.png'>
-											<p class='tittle-major'>专业</p>
-											<input id="st_ma_id0" disabled class='info-major' value='' />
-											<img class='img-register' src='img/info-register.png'>
-											<p class='tittle-register'>登记时间</p>
-											<input id="st_registerdate0" disabled class='info-register' value='' />												<img class='img-admission' src='img/info-admission.png'>
-											<p class='tittle-admission'>入学时间</p>
-											<input id="st_admissiondate0" disabled class='info-admission' value='' />
-											<img class='img-born' src='img/info-born.png'>
-											<p class='tittle-born'>出生日期</p>
-											<input id="st_born0" disabled class='info-born' value='' />
-											<img class='img-address' src='img/info-address.png'>
-											<p class='tittle-address'>家庭住址</p>
-											<input id="st_address0" disabled class='info-address' value='' />
-											<div class='info-hr'></div>
-											<img class='img-curriculum' src='img/info-curriculum.png'>
-											<p class='tittle-curriculum'>所选课程</p>
-											<div hidden id="curriculumadd0" class='info-curriculumadd'>
-											<input type='text' id='test0'>
-											<button id='add0' onClick='onclickByadd(0)'>添加</button>
-										</div>
-										<div id='div-curriculum0' class='div-curriculum'></div>
-										<button class='personnel'><img src='img/personnel.png'><br /></button>
-										<button id='edit0' onClick='onclickByedit(0)' class='personnel-edit'>
-											<img src='img/personnel-edit.png'><br /><span id='font-edit0'>编辑</span>
-										</button>
-										<button onclick='chooseDelete(0)' class='personnel-delete' data-dismiss='modal'>
-											<img src='img/personnel-delete.png'><br />删除
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="collapse" id="collapse-1" data-parent="#accordion">
-							<div class="card-body">
-								<!-- 名字 -->
-								<button class="btn btn-secondar" data-toggle="modal" data-target="#name">姓名<span class="select-input" id="showName"></span></button>
-								<div id="name" class="modal fade">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h4 class="modal-title">筛选-姓名</h4>
-												<button type="button" class="close" data-dismiss="modal">&times;</button>
-											</div>
-											<div class="modal-body">
-												<input class="select-import" id="contentName" name="content" />
-											</div>
-											<div class="modal-footer">
-												<button onClick="sunname()" class="btn btn-danger" data-dismiss="modal">确认</button>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<!-- 入学时间 -->
-								<button class="btn btn-secondar" data-toggle="modal" data-target="#admissiondate">入学<input readonly class="select-data"
-									 id="showAdmissiondate" value="" /></button>
-								<div id="admissiondate" class="modal fade">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h4 class="modal-title">筛选-入学时间</h4>
-												<button type="button" class="close" data-dismiss="modal">&times;</button>
-											</div>
-											<div class="modal-body">
-												<div id="contentAdmissiondate" class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy MM dd"
-												 data-link-field="showAdmissiondate" data-link-format="yyyy-mm-dd">
-													<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-													<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+							<div class="tittle-add" onclick="startAdd()" data-toggle="modal" data-target="#info">添加</div>
+							<div class="collapse" id="collapse-1" data-parent="#accordion">
+								<div class="card-body">
+									<!-- 名字 -->
+									<button class="btn btn-secondar" data-toggle="modal" data-target="#name">姓名<span class="select-input" id="showName"></span></button>
+									<div id="name" class="modal fade">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">筛选-姓名</h4>
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+												</div>
+												<div class="modal-body">
+													<input class="select-import" id="contentName" name="content" />
+												</div>
+												<div class="modal-footer">
+													<button onClick="sunname()" class="btn btn-danger" data-dismiss="modal">确认</button>
 												</div>
 											</div>
-											<div class="modal-footer">
-												<button onClick="admissiondate()" class="btn btn-danger" data-dismiss="modal">确认</button>
+										</div>
+									</div>
+
+									<!-- 入学时间 -->
+									<button class="btn btn-secondar" data-toggle="modal" data-target="#admissiondate">入学<input readonly class="select-data"
+										 id="showAdmissiondate" value="" /></button>
+									<div id="admissiondate" class="modal fade">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">筛选-入学时间</h4>
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+												</div>
+												<div class="modal-body">
+													<div id="contentAdmissiondate" class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy MM dd"
+													 data-link-field="showAdmissiondate" data-link-format="yyyy-mm-dd">
+														<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+														<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button onClick="admissiondate()" class="btn btn-danger" data-dismiss="modal">确认</button>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
 								<script>
 									$('.form_date').datetimepicker({
 									        language:  'zh-Hans',
@@ -182,31 +131,31 @@
 											minView: 2,
 											forceParse: 0
 									    });
-									</script>
+								</script>
 
-								<!-- 出生年月 -->
-								<button class="btn btn-secondar" data-toggle="modal" data-target="#born">生日<input readonly class="select-data"
-									 id="showBorn" value="" /></button>
-								<div id="born" class="modal fade">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h4 class="modal-title">筛选-出生年月</h4>
-												<button type="button" class="close" data-dismiss="modal">&times;</button>
-											</div>
-											<div class="modal-body">
-												<div id="contentBorn" class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy MM dd"
-												 data-link-field="showBorn" data-link-format="yyyy-mm-dd">
-													<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-													<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+									<!-- 出生年月 -->
+									<button class="btn btn-secondar" data-toggle="modal" data-target="#born">生日<input readonly class="select-data"
+										 id="showBorn" value="" /></button>
+									<div id="born" class="modal fade">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">筛选-出生年月</h4>
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
 												</div>
-											</div>
-											<div class="modal-footer">
-												<button onClick="born()" class="btn btn-danger" data-dismiss="modal">确认</button>
+												<div class="modal-body">
+													<div id="contentBorn" class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy MM dd"
+														 data-link-field="showBorn" data-link-format="yyyy-mm-dd">
+														<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+														<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button onClick="born()" class="btn btn-danger" data-dismiss="modal">确认</button>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
 								<script>
 									$('.form_date').datetimepicker({
 									        language:  'zh-Hans',
@@ -218,64 +167,64 @@
 											minView: 2,
 											forceParse: 0
 									    });
-									</script>
+								</script>
 
-								<!--性别 -->
-								<button class="btn btn-secondar" data-toggle="modal" data-target="#sex">性别<span class="select-input" id="showSex"></span></button>
-								<div id="sex" class="modal fade">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h4 class="modal-title">筛选-性别</h4>
-												<button type="button" class="close" data-dismiss="modal">&times;</button>
-											</div>
-											<div class="modal-body">
-												<div class="select-sex">
-													<button onclick="sex1()" class="btn btn-success" id="contentSex1" value="男" data-dismiss="modal">男</button>
-													<button onclick="sex2()" class="btn btn-success" id="contentSex2" value="女" data-dismiss="modal">女</button>
+									<!--性别 -->
+									<button class="btn btn-secondar" data-toggle="modal" data-target="#sex">性别<span class="select-input" id="showSex"></span></button>
+									<div id="sex" class="modal fade">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">筛选-性别</h4>
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+												</div>
+												<div class="modal-body">
+													<div class="select-sex">
+														<button onclick="sex1()" class="btn btn-success" id="contentSex1" value="男" data-dismiss="modal">男</button>
+														<button onclick="sex2()" class="btn btn-success" id="contentSex2" value="女" data-dismiss="modal">女</button>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-
-								<!-- 所属专业 -->
-								<button class="btn btn-secondar" data-toggle="modal" data-target="#major">专业<span class="select-input" id="showMajor"></span></button>
-								<div id="major" class="modal fade">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h4 class="modal-title">筛选-所属专业</h4>
-												<button type="button" class="close" data-dismiss="modal">&times;</button>
-											</div>
-											<div class="modal-body">
-												<input class="select-import" id="contentMajor" name="content" />
-											</div>
-											<div class="modal-footer">
-												<button onClick="major()" class="btn btn-danger" data-dismiss="modal">确认</button>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<!-- 联系电话 -->
-								<button class="btn btn-secondar" data-toggle="modal" data-target="#phone">电话<span class="select-input" id="showPhone"></span></button>
-								<div id="phone" class="modal fade">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h4 class="modal-title">筛选-联系电话</h4>
-												<button type="button" class="close" data-dismiss="modal">&times;</button>
-											</div>
-											<div class="modal-body">
-												<input type="number" class="select-import" id="contentPhone" name="content" />
-											</div>
-											<div class="modal-footer">
-												<button onClick="phone()" class="btn btn-danger" data-dismiss="modal">确认</button>
+	
+									<!-- 所属专业 -->
+									<button class="btn btn-secondar" data-toggle="modal" data-target="#major">专业<span class="select-input" id="showMajor"></span></button>
+									<div id="major" class="modal fade">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">筛选-所属专业</h4>
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+												</div>
+												<div class="modal-body">
+													<input class="select-import" id="contentMajor" name="content" />
+												</div>
+												<div class="modal-footer">
+													<button onClick="major()" class="btn btn-danger" data-dismiss="modal">确认</button>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
+
+									<!-- 联系电话 -->
+									<button class="btn btn-secondar" data-toggle="modal" data-target="#phone">电话<span class="select-input" id="showPhone"></span></button>
+									<div id="phone" class="modal fade">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">筛选-联系电话</h4>
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+												</div>
+												<div class="modal-body">
+													<input type="number" class="select-import" id="contentPhone" name="content" />
+												</div>
+												<div class="modal-footer">
+													<button onClick="phone()" class="btn btn-danger" data-dismiss="modal">确认</button>
+												</div>
+											</div>
+										</div>
+									</div>
 
 								<!-- 确认 -->
 								<button class="btn btn-secondar"><img class="img-search" src="img/search.png" onclick="screen()"></button>
@@ -283,7 +232,62 @@
 						</div>
 					</div>
 				</div>
-
+				<!-- 添加信息 -->
+				<div class='modal fade' id="info" data-backdrop="static" >
+						<div class='modal-dialog'>
+							<div class='modal-content'>
+								<div class='modal-body2'>
+									<button type='button' onclick="exitAdd()" class='close2' data-dismiss='modal'>&times;</button>
+									<div class='info-studenthead-shadow'>
+										<input hidden onChange="changeFile(0)" type='file' id="avatar_file0" name='avatar_file' accept='image/gif, image/jpg, image/jpeg, image/png' 
+											style="width: 100%;height:100%;opacity: 0;position: absolute;left:0;top: 0;" />
+									</div>
+									<span id="img-sex0" class='info-sex'>♂</span>
+									<img id="avatar_img0" class='info-studenthead' src='img/head.png'>
+									<input disabled id="st_name0" class='info-name' name='0' value='' placeholder="在此输入姓名" />
+									<input disabled id="st_phone0" class='info-phone' type='number' value='' placeholder="输入手机号码" />
+									<img class='img-charge' src='img/info-charge.png'>
+									<p class='tittle-charge'>管理人</p>
+									<input id="st_user_id0" disabled class='info-charge' value='同当前所登录管理者' />
+									<img class='img-associatecollege' src='img/info-associatecollege.png'>
+									<p class='tittle-associatecollege'>二级学院</p>
+									<input id="st_as_id0" disabled class='info-associatecollege' value='同当前所登录管理者' />
+									<img class='img-major' src='img/info-major.png'>
+									<p class='tittle-major'>专业</p>
+									<input id="st_ma_id0" disabled class='info-major' value='' placeholder="必输项" />
+									<img class='img-register' src='img/info-register.png'>
+									<p class='tittle-register'>登记时间</p>
+									<input id="st_registerdate0" disabled class='info-register' value='同当前北京时间' />
+									<img class='img-admission' src='img/info-admission.png'>
+									<p class='tittle-admission'>入学时间</p>
+									<input id="st_admissiondate0" disabled class='info-admission' value=''  placeholder="必输项"  />
+									<img class='img-born' src='img/info-born.png'>
+									<p class='tittle-born'>出生日期</p>
+									<input id="st_born0" disabled class='info-born' value=''  placeholder="必输项"  />
+									<img class='img-address' src='img/info-address.png'>
+									<p class='tittle-address'>家庭住址</p>
+									<input id="st_address0" disabled class='info-address' value=''  placeholder="必输项" />
+									<div class='info-hr'></div>
+									<img class='img-curriculum' src='img/info-curriculum.png'>
+									<p class='tittle-curriculum'>所选课程</p>
+									<div hidden id="curriculumadd0" class='info-curriculumadd'>
+									<input type='text' id='test0'>
+									<button id='add0' onClick='onclickByadd(0)'>添加</button>
+								</div>
+								<div id='div-curriculum0' class='div-curriculum'></div>
+								<button class='personnel'>
+									<img src='img/personnel.png'><br />资料
+								</button>
+								<button id='edit0' onClick='addStudent()' class='personnel-edit'>
+									<img src='img/personnel-edit.png'><br /><span id='font-edit0'>保存</span>
+								</button>
+								<button onclick='chooseDelete(0)' class='personnel-delete'>
+									<img src='img/personnel-delete.png'><br />删除
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<div class="content">
 					<div id="tableParent" >
@@ -303,7 +307,7 @@
 								xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 								//xmlhttp.setRequestHeader("Content-type","multipart/form-data");
 								var ask = "st_id";
-								var type = "0";
+								var type = "1";
 								xmlhttp.send("ask=" + ask + "&type=" + type);
 							} else {
 								alert("Your browser does not support XMLHTTP.");

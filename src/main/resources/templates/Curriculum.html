@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" conteng="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie-edge">
+		<title>学生后台管理系统</title>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+		 crossorigin="anonymous">
+		<link rel="stylesheet" href="css/leftnav.css">
+		<link rel="stylesheet" href="css/curriculum.css">
+		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		 crossorigin="anonymous"></script>
+		<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		 crossorigin="anonymous"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		 crossorigin="anonymous"></script>
+		<script src="js/curriculum.js"></script>
+	</head>
+	<body onselectstart="return false">
+		<div class="component">
+			<nav class="fixed-top nav">
+				<div class="tittle">
+					<span class="font-tittle1"><b>学生管理</b></span><span class="font-tittle2"><b>系统</b></span>
+					<button class="btn btn-primary">退出</button>
+				</div>
+				<div class="list1">
+					<a href="/BootCMS/StudentList.action">
+						<div class="icon"><img src="img/StudentInfo.png" style="height: 50px; position: relative; top: 23px; left: 23px;"></div>
+						<div class="sort">
+							<p style="color: white;font-size: 20px;"><b>学生信息查询</b></p>
+							<p style="margin-top: -20px;color: #FF8C8B;font-size: 16px;">0个分类</p>
+						</div>
+					</a>
+					<div class="line"></div>
+				</div>
+				<div class="list2">
+					<div class="icon"><img src="img/Schedule.png" style="height: 50px; position: relative; top: 23px; left: 23px;"></div>
+					<div class="sort-active">
+						<p style="color: white;font-size: 20px;"><b>课程管理</b></p>
+						<p style="margin-top: -20px;color: #FF8C8B;font-size: 16px;">0个分类</p>
+					</div>
+					<div class="line"></div>
+				</div>
+				<div class="list3">
+					<a href="#">
+						<div class="icon"><img src="img/Fix.png" style="height: 50px; position: relative; top: 23px; left: 23px;"></div>
+						<div class="sort">
+							<p style="color: white;font-size: 20px;"><b>学生报修请求管理</b></p>
+							<p style="margin-top: -20px;color: #FF8C8B;font-size: 16px;">0个分类</p>
+						</div>
+					</a>
+					<div class="line"></div>
+				</div>
+				<div class="list4">
+					<a href="#">
+						<div class="icon"><img src="img/Classroom.png" style="height: 50px; position: relative; top: 23px; left: 23px;"></div>
+						<div class="sort">
+							<p style="color: white;font-size: 20px;"><b>教室申请受理</b></p>
+							<p style="margin-top: -20px;color: #FF8C8B;font-size: 16px;">0个分类</p>
+						</div>
+					</a>
+					<div class="line"></div>
+				</div>
+			</nav>
+		</div>
+
+		<div class="content-body">
+			<div class="tittle-search">课程管理</div>
+
+			<!-- 第一页 -->
+			<div id="curriculum_all" class="card-colums">
+				<div onclick="course()" class="card" style="width:400px; cursor:pointer">
+					<img class="card-img-top" src="img/feature-guide-components-icon.png" alt="Card image">
+					<div class="card-body">
+						<h3 class="card-title">选修课</h3>
+						<p class="card-text">选修课程是为了适应学生的兴趣、爱好及劳动就业的需要而开设的，可供学生在一定程度上自由选择的课程。</p>
+					</div>
+				</div>
+				<div onclick="computer()" class="card card-card1" style="width:400px; cursor:pointer">
+					<img class="card-img-top" src="img/guide-cli-icon.png" style="height: 60px; width: 60px; margin-left: 20px; margin-top: 20px;"
+					 alt="Card image">
+					<div class="card-body">
+						<h5 class="card-title">信息与自动化学院</h5>
+						<p class="card-text" style="font-size: 15px;">现有计算机网络技术、软件技术、嵌入式技术与应用(物联网）、视觉传播设计与制作、影视动画、工业机器人技术六个专业，各专业平均就业率98%以上。</p>
+					</div>
+				</div>
+				<div class="card card-card2" style="width:400px; cursor:pointer">
+					<img class="card-img-top" src="img/guide-introduction-icon.png" style="height: 60px; width: 60px; margin-left: 20px; margin-top: 20px;"
+					 alt="Card image">
+					<div class="card-body">
+						<h5 class="card-title">商贸与外语学院</h5>
+						<p class="card-text" style="font-size: 15px;">现有在校生1600余人，学生就读于学院广州天河校区及清远校区。在校就读期间，我系还为学生提供专科升本科的渠道，为学生提供继续深造的机会。</p>
+					</div>
+				</div>
+				<div class="card card-card3" style="width:400px; cursor:pointer">
+					<img class="card-img-top" src="img/guide-theming-icon.png" style="height: 60px; width: 60px; margin-left: 20px; margin-top: 20px;"
+					 alt="Card image">
+					<div class="card-body">
+						<h5 class="card-title">人文艺术学院</h5>
+						<p class="card-text" style="font-size: 15px;">现有在校生约1200人，各专业平均就业率达100%，并与其他高校合作开办专升本双沟通自考辅导班，提供继续深造机会。</p>
+					</div>
+				</div>
+				<div class="card card-card4" style="width:400px; cursor:pointer">
+					<img class="card-img-top" src="img/guide-nativeapis-icon.png" style="height: 60px; width: 60px; margin-left: 20px; margin-top: 20px;"
+					 alt="Card image">
+					<div class="card-body">
+						<h5 class="card-title">经济管理学院</h5>
+						<p class="card-text" style="font-size: 15px;">现有在校生近两千人，设有工商企业管理、会计、连锁经营管理、物流管理、物业管理、酒店管理等六个专业与专业教研室。</p>
+					</div>
+				</div>
+				<div class="card card-card5" style="width:400px; cursor:pointer">
+					<img class="card-img-top" src="img/guide-installation-icon.png" style="height: 60px; width: 60px; margin-left: 20px; margin-top: 20px;"
+					 alt="Card image">
+					<div class="card-body">
+						<h5 class="card-title">动物科技学院</h5>
+						<p class="card-text" style="font-size: 15px;">现有教师36名，畜牧兽医专业是省级重点培育专业及广东省示范校重点建设专业，动物医学专业是广东省品牌建设专业。</p>
+					</div>
+				</div>
+				<div class="card card-card6" style="width:400px; cursor:pointer">
+					<img class="card-img-top" src="img/guide-resources-icon.png" style="height: 60px; width: 60px; margin-left: 20px; margin-top: 20px;"
+					 alt="Card image">
+					<div class="card-body">
+						<h5 class="card-title">食品与生物工程学院</h5>
+						<p class="card-text" style="font-size: 15px;">生物技术系创建于2001年，是学院办学特色(农业与生物特色)主要系之一，重视实践教学条件的建设与改善。现有在校学生约1200人。</p>
+					</div>
+				</div>
+				<div class="card card-card7" style="width:400px; cursor:pointer">
+					<img class="card-img-top" src="img/guide-faq-icon.png" style="height: 60px; width: 60px; margin-left: 20px; margin-top: 20px;"
+					 alt="Card image">
+					<div class="card-body">
+						<h5 class="card-title">园林园艺学院</h5>
+						<p class="card-text" style="font-size: 15px;">环境艺术系目前有园艺技术、茶艺与茶叶营销、园林工程技术、风景园林设计、环境艺术设计、建筑工程技术等6个专业。</p>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+			<!-- 第二页 -->
+
+			<!-- 选修课 -->
+			<!-- 导航条 -->
+			<div hidden id="course_path" class="course-path">
+				<p><span onclick="catalog()">分类<span>&nbsp;>&nbsp;<span class="path-active">选修课</span></p>
+			</div>
+
+
+			<!-- 编辑（删除选修课） -->
+			<div hidden id="course_input" class="course-input">
+				<div class="input-icon" id="iconB">
+					<img class="icon_input" id="icon" src="img/input_1.png">
+				</div>
+				<p id="editC">编 辑</p>
+			</div>
+
+
+			<!-- 存放选修课卡片的方框 -->
+
+			<!-- 添加 -->
+			<div hidden id='course_all' class='course-all'>
+				<div data-toggle='modal' data-target='#CourseAdd' class='input-add'>+</div>
+			</div>
+
+
+			<!-- 编辑弹出框 -->
+			<div id="CourseAdd" class="modal fade" data-backdrop="static">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">选修课</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+							<!-- 添加课程名 -->
+							<p>
+								新课程<input class="input-1" id="sc_name" placeholder="未命名课程" />
+							</p>
+							<br />
+							<!-- 开始日期 -->
+							<div class="apposition-1">
+								<p>开始<br /><input class="input-2" id="sc_start" placeholder="xxxx-xx-xx" /></p>
+							</div>
+							<!-- 结束日期 -->
+							<div class="apposition-2">
+								<p>结束<br /><input class="input-2" id="sc_end" placeholder="xxxx-xx-xx" /></p>
+							</div>
+
+
+							<!-- 详细上课时间点 -->
+
+							<!-- 星期日 -->
+							<div hidden id="sunday_frame">
+								<div class="apposition-1 from-1">
+									<p>从
+										<div class="dropdown">
+											<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="buttonText">时段</span>
+												<span class="caret"></span></button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item" onclick="shows($(this).text())">上午</a>
+												<a href="#" class="dropdown-item" onclick="shows($(this).text())">下午</a>
+											</div>
+											<script>
+												function shows(a) {
+													$('.buttonText').text(a)
+												}
+											</script>
+										</div>
+										<input class="input-3" id="from-sun" placeholder="xx:xx" />
+									</p>
+								</div>
+								<!-- 详细下课时间点 -->
+								<div class="apposition-2 from-1">
+									<p>到
+										<div class="dropdown">
+											<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="buttonText2">时段</span>
+												<span class="caret"></span></button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item" onclick="shows2($(this).text())">上午</a>
+												<a href="#" class="dropdown-item" onclick="shows2($(this).text())">下午</a>
+											</div>
+											<script>
+												function shows2(a) {
+													$('.buttonText2').text(a)
+												}
+											</script>
+										</div>
+										<input class="input-4" id="to-sun" placeholder="xx:xx" />
+									</p>
+								</div>
+							</div>
+							<!-- 星期一 -->
+							<div hidden id="monday_frame">
+								<div class="apposition-1 from-1">
+									<p>从
+										<div class="dropdown">
+											<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="buttonText3">时段</span>
+												<span class="caret"></span></button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item" onclick="shows3($(this).text())">上午</a>
+												<a href="#" class="dropdown-item" onclick="shows3($(this).text())">下午</a>
+											</div>
+											<script>
+												function shows3(a) {
+													$('.buttonText3').text(a)
+												}
+											</script>
+										</div>
+										<input class="input-3" id="from-mon" placeholder="xx:xx" />
+									</p>
+								</div>
+								<!-- 详细下课时间点 -->
+								<div class="apposition-2 from-1">
+									<p>到
+										<div class="dropdown">
+											<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="buttonText4">时段</span>
+												<span class="caret"></span></button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item" onclick="shows4($(this).text())">上午</a>
+												<a href="#" class="dropdown-item" onclick="shows4($(this).text())">下午</a>
+											</div>
+											<script>
+												function shows4(a) {
+													$('.buttonText4').text(a)
+												}
+											</script>
+										</div>
+										<input class="input-4" id="to-mon" placeholder="xx:xx" />
+									</p>
+								</div>
+							</div>
+							<!-- 星期二 -->
+							<div hidden id="tuesday_frame">
+								<div class="apposition-1 from-1">
+									<p>从
+										<div class="dropdown">
+											<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="buttonText5">时段</span>
+												<span class="caret"></span></button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item" onclick="shows5($(this).text())">上午</a>
+												<a href="#" class="dropdown-item" onclick="shows5($(this).text())">下午</a>
+											</div>
+											<script>
+												function shows5(a) {
+													$('.buttonText5').text(a)
+												}
+											</script>
+										</div>
+										<input class="input-3" id="from-tue" placeholder="xx:xx" />
+									</p>
+								</div>
+								<!-- 详细下课时间点 -->
+								<div class="apposition-2 from-1">
+									<p>到
+										<div class="dropdown">
+											<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="buttonText6">时段</span>
+												<span class="caret"></span></button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item" onclick="shows6($(this).text())">上午</a>
+												<a href="#" class="dropdown-item" onclick="shows6($(this).text())">下午</a>
+											</div>
+											<script>
+												function shows6(a) {
+													$('.buttonText6').text(a)
+												}
+											</script>
+										</div>
+										<input class="input-4" id="to-tue" placeholder="xx:xx" />
+									</p>
+								</div>
+							</div>
+							<!-- 星期三 -->
+							<div hidden id="wednesday_frame">
+								<div class="apposition-1 from-1">
+									<p>从
+										<div class="dropdown">
+											<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="buttonText7">时段</span>
+												<span class="caret"></span></button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item" onclick="shows7($(this).text())">上午</a>
+												<a href="#" class="dropdown-item" onclick="shows7($(this).text())">下午</a>
+											</div>
+											<script>
+												function shows7(a) {
+													$('.buttonText7').text(a)
+												}
+											</script>
+										</div>
+										<input class="input-3" id="from-wed" placeholder="xx:xx" />
+									</p>
+								</div>
+								<!-- 详细下课时间点 -->
+								<div class="apposition-2 from-1">
+									<p>到
+										<div class="dropdown">
+											<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="buttonText8">时段</span>
+												<span class="caret"></span></button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item" onclick="shows8($(this).text())">上午</a>
+												<a href="#" class="dropdown-item" onclick="shows8($(this).text())">下午</a>
+											</div>
+											<script>
+												function shows8(a) {
+													$('.buttonText8').text(a)
+												}
+											</script>
+										</div>
+										<input class="input-4" id="to-wed" placeholder="xx:xx" />
+									</p>
+								</div>
+							</div>
+							<!-- 星期四 -->
+							<div hidden id="thursday_frame">
+								<div class="apposition-1 from-1">
+									<p>从
+										<div class="dropdown">
+											<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="buttonText9">时段</span>
+												<span class="caret"></span></button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item" onclick="shows9($(this).text())">上午</a>
+												<a href="#" class="dropdown-item" onclick="shows9($(this).text())">下午</a>
+											</div>
+											<script>
+												function shows9(a) {
+													$('.buttonText9').text(a)
+												}
+											</script>
+										</div>
+										<input class="input-3" id="from-thu" placeholder="xx:xx" />
+									</p>
+								</div>
+								<!-- 详细下课时间点 -->
+								<div class="apposition-2 from-1">
+									<p>到
+										<div class="dropdown">
+											<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="buttonText10">时段</span>
+												<span class="caret"></span></button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item" onclick="shows10($(this).text())">上午</a>
+												<a href="#" class="dropdown-item" onclick="shows10($(this).text())">下午</a>
+											</div>
+											<script>
+												function shows10(a) {
+													$('.buttonText10').text(a)
+												}
+											</script>
+										</div>
+										<input class="input-4" id="to-thu" placeholder="xx:xx" />
+									</p>
+								</div>
+							</div>
+							<!-- 星期五 -->
+							<div hidden id="friday_frame">
+								<div class="apposition-1 from-1">
+									<p>从
+										<div class="dropdown">
+											<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="buttonText11">时段</span>
+												<span class="caret"></span></button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item" onclick="shows11($(this).text())">上午</a>
+												<a href="#" class="dropdown-item" onclick="shows11($(this).text())">下午</a>
+											</div>
+											<script>
+												function shows11(a) {
+													$('.buttonText11').text(a)
+												}
+											</script>
+										</div>
+										<input class="input-3" id="from-fri" placeholder="xx:xx" />
+									</p>
+								</div>
+								<!-- 详细下课时间点 -->
+								<div class="apposition-2 from-1">
+									<p>到
+										<div class="dropdown">
+											<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="buttonText12">时段</span>
+												<span class="caret"></span></button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item" onclick="shows12($(this).text())">上午</a>
+												<a href="#" class="dropdown-item" onclick="shows12($(this).text())">下午</a>
+											</div>
+											<script>
+												function shows12(a) {
+													$('.buttonText12').text(a)
+												}
+											</script>
+										</div>
+										<input class="input-4" id="to-fri" placeholder="xx:xx" />
+									</p>
+								</div>
+							</div>
+							<!-- 星期六 -->
+							<div hidden id="saturday_frame">
+								<div class="apposition-1 from-1">
+									<p>从
+										<div class="dropdown">
+											<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="buttonText13">时段</span>
+												<span class="caret"></span></button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item" onclick="shows13($(this).text())">上午</a>
+												<a href="#" class="dropdown-item" onclick="shows13($(this).text())">下午</a>
+											</div>
+											<script>
+												function shows13(a) {
+													$('.buttonText13').text(a)
+												}
+											</script>
+										</div>
+										<input class="input-3" id="from-sat" placeholder="xx:xx" />
+									</p>
+								</div>
+								<!-- 详细下课时间点 -->
+								<div class="apposition-2 from-1">
+									<p>到
+										<div class="dropdown">
+											<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="buttonText14">时段</span>
+												<span class="caret"></span></button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item" onclick="shows14($(this).text())">上午</a>
+												<a href="#" class="dropdown-item" onclick="shows14($(this).text())">下午</a>
+											</div>
+											<script>
+												function shows14(a) {
+													$('.buttonText14').text(a)
+												}
+											</script>
+										</div>
+										<input class="input-4" id="to-sat" placeholder="xx:xx" />
+									</p>
+								</div>
+							</div>
+
+
+							<!-- 选择星期 -->
+							<p class="week">
+								周期
+								<div class="btn-group">
+									<button id="sun" class="btn btn-secondary" onclick="sun()">周日</button>
+									<button id="mon" class="btn btn-secondary" onclick="mon()">周一</button>
+									<button id="tue" class="btn btn-secondary" onclick="tue()">周二</button>
+									<button id="wed" class="btn btn-secondary" onclick="wed()">周三</button>
+									<button id="thu" class="btn btn-secondary" onclick="thu()">周四</button>
+									<button id="fri" class="btn btn-secondary" onclick="fri()">周五</button>
+									<button id="sat" class="btn btn-secondary" onclick="sat()">周六</button>
+								</div>
+							</p>
+							<br />
+							<!-- 上课地点 -->
+							<div class="apposition-1 from-2">
+								<p>学楼<br /><input class="input-2" id="sc_build" placeholder="学楼号" /></p>
+							</div>
+							<div class="apposition-2 from-2">
+								<p>教室<br /><input class="input-2" id="sc_classroom" placeholder="教室号" /></p>
+							</div>
+							<!-- 老师 -->
+							<p class="tutor">
+								老师<input class="input-1" id="sc_user_id" placeholder="授课老师" />
+							</p>
+						</div>
+						<div class="modal-footer">
+							<button onClick="addSchedule()" class="btn btn-danger">确认</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+			<!-- 信息与自动化学院 -->
+
+			<!-- 第二页 -->
+			<!-- 导航条 -->
+			<div hidden onclick="catalog2()" id="computer_path" class="course-path">
+				<p><span onclick="">分类<span>&nbsp;>&nbsp;<span class="path-active">信息与自动化学院</span></p>
+			</div>
+			<!-- 专业选择 -->
+			<div hidden id="computer_all" class="computer-catalog">
+				<!-- 计算机网络技术 -->
+				<div onclick="network()" class="network">
+					<div class="outframe">
+						<img class="network-img" src="img/Network.png">
+					</div>
+					<h5>计算机网络技术</h5>
+					<p>从事网络系统规划设计和施工管理，企业私有云和公有云构建，动态商务网站的开发设计和管理维护工作的高技能人才。</p>
+				</div>
+				<!-- 软件技术 -->
+				<div onclick="softerware()" class="network">
+					<div class="outframe">
+						<img class="network-img" src="img/Softerware.png">
+					</div>
+					<h5>软件技术</h5>
+					<p>掌握软件设计的基本方法和技术，具有在J2EE和Android体系架构上进行应用软件开发、软件测试与软件技术支持等工作能力。</p>
+				</div>
+				<!-- 嵌入式技术与应用(物联网) -->
+				<div class="network">
+					<div class="outframe">
+						<img class="network-img" src="img/EmbeddedChips.png">
+					</div>
+					<h5>嵌入式技术与应用(物联网)</h5>
+					<p>从事嵌入式系统设计、物联网产品设计、自动化控制、无线传感网络、智能家居、远程监控、移动开发等相关工作的高技能型人才。</p>
+				</div>
+				<!-- 工业机器人技术 -->
+				<div class="network">
+					<div class="outframe">
+						<img class="network-img" src="img/Robot.png">
+					</div>
+					<h5>工业机器人技术</h5>
+					<p>从事工业机器人操作、工业机器人调试、工业机器人生产线维护、工业机器人设备集成和改造等职业岗位任职要求的高技能型人才。</p>
+				</div>
+			</div>
+
+
+
+
+
+			<!-- 第三页 -->
+
+			<!-- 计算机网络技术 -->
+			<!-- 导航条 -->
+			<div hidden onclick="path2()" id="network_path" class="course-path">
+				<p><span>分类<span>&nbsp;>&nbsp;信息与自动化学院&nbsp;>&nbsp;<span class="path-active">计算机网络技术</span></p>
+			</div>
+
+			<div hidden id="network_all" class="course-all">
+				<!-- 计算机网络技术展示卡 -->
+				<div class="course-card">
+					<!-- 卡片左半边 -->
+					<div class="card-left">
+						<p id="sc_name" class="course-name">网页设计</p>
+						<p id="sc_user_id" class="course-tutor">你猜</p>
+					</div>
+					<!-- 卡片右半边 -->
+					<div class="card-right">
+						<!-- 开始 -->
+						<p class="tittle-start">开始</p>
+						<div class="divider1"></div>
+						<p id="sc_start" class="content-start">2019年6月30日</p>
+						<!-- 结束 -->
+						<p class="tittle-end">结束</p>
+						<div class="divider2"></div>
+						<p id="sc_end" class="content-end">2019年9月1日</p>
+						<!-- 地点 -->
+						<p class="tittle-classroom">地点</p>
+						<div class="divider6"></div>
+						<p id="sc_build" class="content-classroom1">综合楼</p>
+						<p id="sc_classroom" class="content-classroom2">608</p>
+						<!-- 更多 -->
+						<div class="more" data-toggle="modal" data-target="#network_more">
+							<p class="more-font">更&nbsp;多</p>
+						</div>
+
+						<!-- 更多（弹出窗） -->
+						<div class="modal fade" id="network_more" data-backdrop="static">
+							<div class='modal-dialog'>
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5>课程详细信息</h5>
+										<button class="close" data-dismiss="modal">&times;</button>
+									</div>
+									<div class="modal-body">
+										<p>课程名：<span id=""></span></p>
+										<p>开始：<span id=""></span></p>
+										<p>结束：<span id=""></span></p>
+										<hr/>
+										<!-- 周日：08:45 - 11:55 -->
+										<p>周日：<span id=""></span> - <span id=""></span></p>
+										<p>周一：<span id=""></span> - <span id=""></span></p>
+										<p>周二：<span id=""></span> - <span id=""></span></p>
+										<p>周三：<span id=""></span> - <span id=""></span></p>
+										<p>周四：<span id=""></span> - <span id=""></span></p>
+										<p>周五：<span id=""></span> - <span id=""></span></p>
+										<p>周六：<span id=""></span> - <span id=""></span></p>
+										<hr/>
+										<!-- 地点：综合楼 608 -->
+										<p>地点：<span id=""></span>&nbsp;<span id=""></span></p>
+										<p>老师：<span id=""></span></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			<!-- 软件技术 -->
+			<!-- 导航条 -->
+			<div hidden onclick="path3()" id="softerware_path" class="course-path">
+				<p><span>分类<span>&nbsp;>&nbsp;信息与自动化学院&nbsp;>&nbsp;<span class="path-active">软件技术</span></p>
+			</div>
+			
+			<div hidden id="softerware_all" class="course-all">
+				<!-- 计算机网络技术展示卡 -->
+				<div class="course-card">
+					<!-- 卡片左半边 -->
+					<div class="card-left">
+						<p id="sc_name" class="course-name">Java程序设计</p>
+						<p id="sc_user_id" class="course-tutor">你猜</p>
+					</div>
+					<!-- 卡片右半边 -->
+					<div class="card-right">
+						<!-- 开始 -->
+						<p class="tittle-start">开始</p>
+						<div class="divider1"></div>
+						<p id="sc_start" class="content-start">2019年6月30日</p>
+						<!-- 结束 -->
+						<p class="tittle-end">结束</p>
+						<div class="divider2"></div>
+						<p id="sc_end" class="content-end">2019年9月1日</p>
+						<!-- 地点 -->
+						<p class="tittle-classroom">地点</p>
+						<div class="divider6"></div>
+						<p id="sc_build" class="content-classroom1">综合楼</p>
+						<p id="sc_classroom" class="content-classroom2">608</p>
+						<!-- 更多 -->
+						<div class="more" data-toggle="modal" data-target="#softerware_more">
+							<p class="more-font">更&nbsp;多</p>
+						</div>
+			
+						<!-- 更多（弹出窗） -->
+						<div class="modal fade" id="softerware_more" data-backdrop="static">
+							<div class='modal-dialog'>
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5>课程详细信息</h5>
+										<button class="close" data-dismiss="modal">&times;</button>
+									</div>
+									<div class="modal-body">
+										<p>课程名：<span id=""></span></p>
+										<p>开始：<span id=""></span></p>
+										<p>结束：<span id=""></span></p>
+										<hr/>
+										<!-- 周日：08:45 - 11:55 -->
+										<p>周日：<span id=""></span> - <span id=""></span></p>
+										<p>周一：<span id=""></span> - <span id=""></span></p>
+										<p>周二：<span id=""></span> - <span id=""></span></p>
+										<p>周三：<span id=""></span> - <span id=""></span></p>
+										<p>周四：<span id=""></span> - <span id=""></span></p>
+										<p>周五：<span id=""></span> - <span id=""></span></p>
+										<p>周六：<span id=""></span> - <span id=""></span></p>
+										<hr/>
+										<!-- 地点：综合楼 608 -->
+										<p>地点：<span id=""></span>&nbsp;<span id=""></span></p>
+										<p>老师：<span id=""></span></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</body>
+</html>

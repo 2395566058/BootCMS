@@ -37,7 +37,6 @@ public class LoginController {
 				if (sys.get(i).getUser_passowrd().equals(user_password)) {
 					if (sys.get(i).getUser_state().equals("0")) {
 						request.setAttribute("msg", "账号已被停用！");
-						System.out.println("执行跳转");
 						return "Login.html";
 					}
 					request.getSession().setAttribute("USER", sys.get(i));

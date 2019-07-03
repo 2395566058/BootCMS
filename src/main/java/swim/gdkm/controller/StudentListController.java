@@ -140,7 +140,7 @@ public class StudentListController {
 		map.put("st_user_id", user_id);
 		map.put("st_as_id", user_as_id);
 		Major major = majorService.getMajorByScanner("ma_name", request.getParameter("st_ma_id"));
-		if (String.valueOf(major.getMa_id()) != null || !String.valueOf(major.getMa_id()).equals("")) {
+		if (major!= null) {
 			map.put("st_ma_id", major.getMa_id());
 		} else {
 			return "找不到专业:" + map.get("st_ma_id");
@@ -159,7 +159,7 @@ public class StudentListController {
 			return "性别错误:" + sex;
 		}
 		String schedule = request.getParameter("st_sc");
-		if (schedule != null || !schedule.equals("")) {
+		if (schedule != null&& !schedule.equals("")) {
 			String[] scheduleList = schedule.split("~");
 			StringBuffer sb = new StringBuffer();
 			for (int i = 0; i < scheduleList.length; i++) {
@@ -242,7 +242,6 @@ public class StudentListController {
 			}
 		}
 		boolean result = studentService.deleteStudent(st_id);
-		System.out.println(result);
 		return result;
 	}
 
@@ -275,7 +274,8 @@ public class StudentListController {
 			sb.append("\"st_as_id\":\"" + associatecollege.getAs_name() + "\",");
 			sb.append("\"st_registerdate\":\"" + list.get(i).getSt_registerdate() + "\",");
 			sb.append("\"st_address\":\"" + list.get(i).getSt_address() + "\"");
-			if (!list.get(i).getSt_sc().equals("")) {
+			String a=list.get(i).getSt_sc();
+			if (a!=null&&!a.equals("")) {
 				String data_st_sc = list.get(i).getSt_sc();
 				String[] list_st_sc = data_st_sc.split(",");
 				String st_sc = "";
@@ -425,7 +425,7 @@ public class StudentListController {
 			StringBuffer sb = new StringBuffer();
 			for (int i = 0; i < scheduleList.length; i++) {
 				List<Schedule> sc = scheduleService.getScheduleByScanner("sc_name", scheduleList[i]);
-				if (sc == null) {
+				if (sc.size()==0) {
 					return "找不到课程:" + scheduleList[i];
 				}
 				sb.append(sc.get(0).getSc_id() + ",");

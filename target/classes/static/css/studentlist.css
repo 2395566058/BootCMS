@@ -2,10 +2,6 @@ body {
 	background: #F7F1F1;
 }
 
-.delete{
-	
-}
-
 a {
 	text-decoration: none;
 }
@@ -18,12 +14,17 @@ input {
 	outline: none;
 }
 
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 }
 
-.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus,
-	.btn.active.focus {
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
 	outline: none;
 	box-shadow: none;
 }
@@ -145,6 +146,20 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .tittle-search:focus {
+	color: #DE4945;
+}
+
+.tittle-add {
+	cursor: pointer;
+	width: 90px;
+	position: absolute;
+	top: 30px;
+	left: 200px;
+	font-size: 45px;
+	color: #AAAAAA;
+}
+
+.tittle-add:hover {
 	color: #DE4945;
 }
 
@@ -422,6 +437,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .close2 {
+	cursor: pointer;
 	position: absolute;
 	top: -5px;
 	left: 20px;
@@ -757,6 +773,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	position: absolute;
 	top: 90%;
 	left: 12%;
+	background: red;
 }
 
 .div-test {
@@ -769,7 +786,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 #test {
 	width: 200px;
 	height: 34px;
-	border: 1.5px solid #A44752;
+	border:1.5px solid #A44752;
 	border-right: none;
 	border-top-left-radius: 1em;
 	border-bottom-left-radius: 1em;
@@ -794,7 +811,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	color: white;
 }
 
-#curriculum-output {
+#curriculum-output{
 	width: 162px;
 	height: 42px;
 	background: #E0C3C4;
@@ -825,7 +842,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	left: 88%;
 }
 
-#container1 {
+#container1{
 	float: left;
 	position: relative;
 	margin-left: 40px;
@@ -835,6 +852,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .personnel {
+	cursor: pointer;
 	height: 300px;
 	width: 200px;
 	position: absolute;
@@ -855,6 +873,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .personnel-edit {
+	cursor: pointer;
 	height: 300px;
 	width: 200px;
 	position: absolute;
@@ -878,6 +897,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .personnel-delete {
+	cursor: pointer;
 	height: 300px;
 	width: 200px;
 	position: absolute;
