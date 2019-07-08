@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Param;
 
 public interface StudentDao {
 	public List<Student> getAllList();
-	
 
 	public List<Student> getStudentByScanner(@Param("type") String type, @Param("code") String code);
 
@@ -21,6 +20,11 @@ public interface StudentDao {
 	public boolean addStudent(Student student);
 
 	public boolean deleteStudent(int st_id);
-	
+
 	public boolean updateStudent(Student student);
+
+	public int likescheduleBySc_id(String sc_id);
+	
+	public boolean updatelikeBysc_id(String sc_id);
+
 }

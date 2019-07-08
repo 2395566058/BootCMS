@@ -34,6 +34,8 @@ public class ScheduleController {
 	private ClassesService classesService;
 	@Autowired
 	private SysuserService sysuserService;
+	@Autowired
+	private StudentService studentService;
 
 	@RequestMapping(value = "/Curriculum.action", method = RequestMethod.GET)
 	public String getHtml() {
@@ -136,6 +138,16 @@ public class ScheduleController {
 		boolean result = scheduleService.updateScheduleList(sc);
 		return result;
 	}
+	
+	/*
+	 * 获取要删除的课程有几个人在学习
+	 */
+	@RequestMapping(value = "/booleanDeleteSchedule.action", method = RequestMethod.POST)
+	@ResponseBody
+	public int booleanDeleteSchedule(int sc_id) {
+		int result=studentService.likescheduleBySc_id("%"+sc_id+"%");
+		return result;
+	}
 
 	/*
 	 * 返回数据 删除一行schedule表数据
@@ -144,6 +156,11 @@ public class ScheduleController {
 	@ResponseBody
 	public boolean deleteSchedule(int sc_id) {
 		boolean result = scheduleService.deleteScheduleList(sc_id);
+		if(result==true) {
+			String aa=sc_id+",";
+			studentService.updatelikeBysc_id(aa);
+			studentService.updatelikeBysc_id(String.valueOf(sc_id));
+		}
 		return result;
 	}
 

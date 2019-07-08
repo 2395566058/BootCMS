@@ -39,6 +39,11 @@ window.onload = function() {
 			icon.src = "img/input_2.png";
 			editC.style.color = 'white';
 			editC.innerHTML = '完 成';
+			var course_all=document.getElementById('course_all');
+			var buttons = course_all.getElementsByTagName("Button");
+			for(var t=0;t<buttons.length;t++){
+				buttons[t].hidden=false;
+			}
 			count++;
 		} else {
 			$("#course_input").removeClass("edit1");
@@ -46,6 +51,11 @@ window.onload = function() {
 			icon.src = "img/input_1.png";
 			editC.style.color = '#A2404D';
 			editC.innerHTML = '编 辑';
+			var course_all=document.getElementById('course_all');
+			var buttons = course_all.getElementsByTagName("Button");
+			for(var t=0;t<buttons.length;t++){
+				buttons[t].hidden=true;
+			}
 			count = 0;
 		}
 	}
@@ -280,7 +290,7 @@ function path3() {
 	$("#softerware_all").addClass("visible_all2");
 }
 
-var ip="localhost";
+var ip="120.79.218.123";
 function showScheduleList(){  // 页面刷新触发
 	var xmlhttp = null;
 	var parentDiv=document.getElementById("course_all");  // !!!!!!!!!!!!循环的父容器
@@ -348,7 +358,8 @@ function showScheduleList(){  // 页面刷新触发
 					div.id="ScheduleCard"+obj.sc_id;
 					div.setAttribute("name","deleteCard");
 					div.innerHTML = 
-						"<div class='course-card'>"+
+						"<div class='course-card' id='wentdelete"+obj.sc_id+"' >"+
+						"<button hidden class='curriculum_delet' onclick='booleanDeleteSchedule("+obj.sc_id+")' >x</button>"+
 						"<div class='card-left'>"+
 						"<p id='sc_name"+obj.sc_id+"' class='course-name'>"+obj.sc_name+"</p>"+
 						"<p id='sc_user_id"+obj.sc_id+"' class='course-tutor'>"+obj.sc_user_id+"</p>"+
@@ -486,15 +497,14 @@ function booleanDeleteSchedule(sc_id){   // 确认是否删除课程
 			if (xmlhttp.status == 200) {
 				var msg=xmlhttp.responseText;
 				if(confirm("当前有"+msg+"人报了这门课程，确定要删除该课程吗？")){
-					var result=DeleteSchedule(sc_id);
-					alert(result);
+					DeleteSchedule(sc_id);
 				}
 			}else{
 				alert("Problem retrieving XML data");
 			}
 		}
 	};
-	xmlhttp.open("POST", "http://"+ip+":8848/BootCMS/booleanDeleteSchedule.action", true);
+	xmlhttp.open("POST", "/BootCMS/booleanDeleteSchedule.action", true);
 	xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xmlhttp.send("sc_id="+sc_id);
 }
@@ -510,13 +520,24 @@ function DeleteSchedule(sc_id){   // 删除课程
 		if (xmlhttp.readyState == 4) {
 			if (xmlhttp.status == 200) {
 				var msg=xmlhttp.responseText;
-				return msg;
+				if(msg=="true"){
+					alert("删除成功！");
+					var course_all=document.getElementById('course_all');
+					var wentdelete=document.getElementById('ScheduleCard'+sc_id);
+					course_all.removeChild(wentdelete);
+				}else{
+					alert("删除失败！");
+				}
 			}else{
 				return "Problem retrieving XML data";
 			}
 		}
 	};
-	xmlhttp.open("POST", "http://"+ip+":8848/BootCMS/DeleteSchedule.action", true);
+	xmlhttp.open("POST", "/BootCMS/deleteSchedule.action", true);
 	xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xmlhttp.send("sc_id="+sc_id);
+}
+
+function logout(){
+	window.location.href="http://"+ip+":8848/BootCMS/Logout.action";
 }

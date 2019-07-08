@@ -60,4 +60,16 @@ public class StudentServiceImpl implements StudentService {
 		return result;
 	}
 
+	@Override
+	public int likescheduleBySc_id(String sc_id) {
+		int result=studentDao.likescheduleBySc_id(sc_id);
+		return result;
+	}
+
+	@Override
+	public boolean updatelikeBysc_id(String sc_id) {
+		boolean result=studentDao.updatelikeBysc_id(sc_id);
+		return result;
+	}
+
 }

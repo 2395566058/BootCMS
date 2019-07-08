@@ -19,4 +19,8 @@ public interface StudentService {
 	public boolean updateStudent(Student student);
 	
 	public boolean deleteStudent(int st_id);
+	
+	public int likescheduleBySc_id(String sc_id);
+	
+	public boolean updatelikeBysc_id(String sc_id);
 }

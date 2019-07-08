@@ -90,4 +90,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</set>
 		WHERE st_id=#{st_id}
 	</update>
+	<select id="likescheduleBySc_id" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM student WHERE st_sc LIKE #{sc_id}
+	</select>
+	<update id="updatelikeBysc_id" parameterType="String">
+		 UPDATE student SET st_sc=REPLACE(st_sc,#{sc_id}, '')
+	</update>
 </mapper>
