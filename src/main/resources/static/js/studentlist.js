@@ -300,7 +300,6 @@ function changeFile(num) {
 		img.src = evt.target.result;
 		data_avatar_file = file2.files[0];
 	}
-	alert(num);
 	reader.readAsDataURL(file2.files[0]);
 
 }
@@ -419,7 +418,6 @@ function onclickByadd(num) {
 				+ num + "' value='" + test.value + "' />"
 				+ "<input id='curriculum-delete" + num
 				+ "' type='button' class='delete'  onclick='test(this)' value='&times;' />";
-	// container.parentNode.insertBefore(oDiv, node);
 		div_curriculum.insertBefore(oDiv,div_curriculum.childNodes[0]);
 		test.value = '';
 	}
@@ -481,7 +479,7 @@ function addStudent(){
 	var curriculumadd = document.getElementById('curriculumadd0');
 	var div_curriculum = document.getElementById('div-curriculum0');
 	var divs = div_curriculum.getElementsByTagName("div");
-	var st_sex = div_curriculum.getElementsByTagName("img-sex0");
+	var st_sex =  document.getElementById("img-sex0");
 	
 	var form_st_name=st_name.value;
 	var form_st_ma_id=st_ma_id.value;
@@ -500,7 +498,7 @@ function addStudent(){
 		for(var i=0;i<divs.length;i++){
 			var div=divs[i];
 			var input = div.getElementsByTagName("input");
-			form_st_sc=form_st_sc+input.value+"~";
+			form_st_sc=form_st_sc+input[0].value+"~";
 		}
 		form_st_sc = form_st_sc.substring(0, form_st_sc.length - 1);
 	}
@@ -510,6 +508,34 @@ function addStudent(){
 		xmlhttp3 = new XMLHttpRequest();
 	} else if (window.ActiveXObject) {
 		xmlhttp3 = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	if(form_st_name==null||form_st_name==""){
+		alert("姓名不能为空！");
+		return;
+	}
+	if(form_st_ma_id==null||form_st_ma_id==""){
+		alert("专业不能为空！");
+		return;
+	}
+	if(form_st_admissiondate==null||form_st_admissiondate==""){
+		alert("入学时间不能为空！");
+		return;
+	}
+	if(form_st_phone==null||form_st_phone==""){
+		alert("手机号码不能为空！");
+		return;
+	}
+	if(form_st_address==null||form_st_address==""){
+		alert("家庭地址不能为空！");
+		return;
+	}
+	if(form_st_born==null||form_st_born==""){
+		alert("出生日期不能为空！");
+		return;
+	}
+	if(form_st_image==null){
+		alert("头像不能为空！");
+		return;
 	}
 	if (xmlhttp3 != null) {
 		xmlhttp3.onreadystatechange = function (){addStatus(xmlhttp3)};
@@ -535,8 +561,15 @@ function addStatus(xmlhttp3){
 		if (xmlhttp3.status == 200) {
 			var result = xmlhttp3.responseText;
 			alert(result);
+			if(result=="添加成功"){
+				location.reload();
+			}
 		} else {
 			alert("Problem retrieving XML data");
 		}
 	}
+}
+
+function exitAdd(){
+	
 }

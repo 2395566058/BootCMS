@@ -143,7 +143,7 @@ public class StudentListController {
 		if (major!= null) {
 			map.put("st_ma_id", major.getMa_id());
 		} else {
-			return "找不到专业:" + map.get("st_ma_id");
+			return "找不到专业:" + request.getParameter("st_ma_id");
 		}
 		map.put("st_admissiondate", request.getParameter("st_admissiondate"));
 		map.put("st_phone", request.getParameter("st_phone"));
@@ -364,8 +364,10 @@ public class StudentListController {
 		String st_user_id = (String) newmap.get("st_user_id");
 		String st_as_id = (String) newmap.get("st_as_id");
 		Associatecollege associatecollege = new Associatecollege();
-		if (st_as_id != null) {
-			associatecollege = associatecollegeService.getAssociatecollegeByScanner("as_name", st_as_id);
+		if (st_as_id == null) {
+			associatecollege.setAs_id(sy.getUser_as_id());
+		}else {
+			associatecollege=associatecollegeService.getAssociatecollegeByScanner("as_id", st_as_id);
 		}
 		if (associatecollege != null) {
 			newmap.put("st_as_id", associatecollege.getAs_id());
@@ -387,8 +389,13 @@ public class StudentListController {
 			Major major = new Major();
 			if (st_ma_id != null) {
 				major = majorService.getMajorByScanner("ma_name", st_ma_id);
+				if(major==null) {
+					return "找不到该专业！";
+				}
 				if (associatecollege != null) {
 					if (major.getMa_as_id() != associatecollege.getAs_id()) {
+						System.out.println("major.getMa_as_id()="+major.getMa_as_id());
+						System.out.println(" associatecollege.getAs_id()="+ associatecollege.getAs_id());
 						return "专业与院系不符！";
 					} else {
 						newmap.put("st_ma_id", major.getMa_id());

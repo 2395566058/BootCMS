@@ -88,6 +88,10 @@ public class ScheduleController {
 			return "没有权限添加！";
 		}
 		Map<String, Object> map = getRequestMap(request);
+		String sc_name=(String) map.get("sc_name");
+		if(scheduleService.getScheduleByScanner("sc_name",sc_name).size()!=0) {
+			return "已有相同名字课程！";
+		}
 		String sc_start=(String) map.get("sc_start");
 		String sc_end=(String) map.get("sc_end");
 		if(isValidDate(sc_start)==false) {

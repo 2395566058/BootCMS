@@ -75,7 +75,7 @@
 					<div class="card">
 						<div class="card-header">
 							<a class="tittle-search" href="#collapse-1" data-toggle="collapse">筛选</a>
-							<div class="tittle-add" onclick="startAdd()" data-toggle="modal" data-target="#info">添加</div>
+							<div class="tittle-add" data-toggle="modal" data-target="#info">添加</div>
 							<div class="collapse" id="collapse-1" data-parent="#accordion">
 								<div class="card-body">
 									<!-- 名字 -->
@@ -239,13 +239,13 @@
 								<div class='modal-body2'>
 									<button type='button' onclick="exitAdd()" class='close2' data-dismiss='modal'>&times;</button>
 									<div class='info-studenthead-shadow'>
-										<input hidden onChange="changeFile(0)" type='file' id="avatar_file0" name='avatar_file' accept='image/gif, image/jpg, image/jpeg, image/png' 
+										<input onChange="changeFile(0)" type='file' id="avatar_file0" name='avatar_file' accept='image/gif, image/jpg, image/jpeg, image/png' 
 											style="width: 100%;height:100%;opacity: 0;position: absolute;left:0;top: 0;" />
 									</div>
-									<span id="img-sex0" class='info-sex'>♂</span>
+									<span onclick="switchSex(this)" id="img-sex0" class='info-sex'>♂</span>
 									<img id="avatar_img0" class='info-studenthead' src='img/head.png'>
-									<input disabled id="st_name0" class='info-name' name='0' value='' placeholder="在此输入姓名" />
-									<input disabled id="st_phone0" class='info-phone' type='number' value='' placeholder="输入手机号码" />
+									<input id="st_name0" class='info-name' name='0' value='' placeholder="在此输入姓名" />
+									<input id="st_phone0" class='info-phone' type='number' value='' placeholder="输入手机号码" />
 									<img class='img-charge' src='img/info-charge.png'>
 									<p class='tittle-charge'>管理人</p>
 									<input id="st_user_id0" disabled class='info-charge' value='同当前所登录管理者' />
@@ -254,23 +254,23 @@
 									<input id="st_as_id0" disabled class='info-associatecollege' value='同当前所登录管理者' />
 									<img class='img-major' src='img/info-major.png'>
 									<p class='tittle-major'>专业</p>
-									<input id="st_ma_id0" disabled class='info-major' value='' placeholder="必输项" />
+									<input id="st_ma_id0" class='info-major' value='' placeholder="必输项" />
 									<img class='img-register' src='img/info-register.png'>
 									<p class='tittle-register'>登记时间</p>
 									<input id="st_registerdate0" disabled class='info-register' value='同当前北京时间' />
 									<img class='img-admission' src='img/info-admission.png'>
 									<p class='tittle-admission'>入学时间</p>
-									<input id="st_admissiondate0" disabled class='info-admission' value=''  placeholder="必输项"  />
+									<input id="st_admissiondate0" class='info-admission' value=''  placeholder="必输项"  />
 									<img class='img-born' src='img/info-born.png'>
 									<p class='tittle-born'>出生日期</p>
-									<input id="st_born0" disabled class='info-born' value=''  placeholder="必输项"  />
+									<input id="st_born0" class='info-born' value=''  placeholder="必输项"  />
 									<img class='img-address' src='img/info-address.png'>
 									<p class='tittle-address'>家庭住址</p>
-									<input id="st_address0" disabled class='info-address' value=''  placeholder="必输项" />
+									<input id="st_address0" class='info-address' value=''  placeholder="必输项" />
 									<div class='info-hr'></div>
 									<img class='img-curriculum' src='img/info-curriculum.png'>
 									<p class='tittle-curriculum'>所选课程</p>
-									<div hidden id="curriculumadd0" class='info-curriculumadd'>
+									<div id="curriculumadd0" class='info-curriculumadd'>
 									<input type='text' id='test0'>
 									<button id='add0' onClick='onclickByadd(0)'>添加</button>
 								</div>
