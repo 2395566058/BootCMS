@@ -220,13 +220,11 @@ function onclickByedit(num) {
 			var file = new FormData();
 			file.append("st_id", st_name.name);
 			if (data_avatar_file != null&&data_avatar_file!="") {
-				xmlhttp.open("POST", "http://" + ip
-						+ ":8848/BootCMS/updateStudentIncludeImage.action",
+				xmlhttp.open("POST", "/BootCMS/updateStudentIncludeImage.action",
 						true);
 				file.append("st_image", avatar_file.files[0]);
 			} else {
-				xmlhttp.open("POST", "http://" + ip
-						+ ":8848/BootCMS/updateStudent.action", true);
+				xmlhttp.open("POST", "/BootCMS/updateStudent.action", true);
 			}
 			if (st_name.value != data_st_name) {
 				file.append("st_name", st_name.value);
@@ -442,7 +440,7 @@ function deleteStudent(num){
 	}
 	if (xmlhttp2 != null) {
 		xmlhttp2.onreadystatechange = function(){deleteStatus(xmlhttp2,num)};
-		xmlhttp2.open("POST", "http://"+ip+":8848/BootCMS/deleteStudent.action", true);
+		xmlhttp2.open("POST", "/BootCMS/deleteStudent.action", true);
 		xmlhttp2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xmlhttp2.send("st_id=" + num);
 	} else {
@@ -539,7 +537,7 @@ function addStudent(){
 	}
 	if (xmlhttp3 != null) {
 		xmlhttp3.onreadystatechange = function (){addStatus(xmlhttp3)};
-		xmlhttp3.open("POST", "http://"+ip+":8848/BootCMS/AddStudentList.action", true);
+		xmlhttp3.open("POST", "/BootCMS/AddStudentList.action", true);
 		var file = new FormData();
 		file.append("st_name", form_st_name);
 		file.append("st_ma_id", form_st_ma_id);

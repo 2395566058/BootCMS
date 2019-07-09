@@ -284,7 +284,7 @@
 							}
 							if (xmlhttp != null) {
 								xmlhttp.onreadystatechange = state_Change;
-								xmlhttp.open("POST", "http://"+ip+":8848/BootCMS/StudentList.action", true);
+								xmlhttp.open("POST", "/BootCMS/StudentList.action", true);
 								xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 								//xmlhttp.setRequestHeader("Content-type","multipart/form-data");
 								var ask = "st_id";
@@ -338,7 +338,7 @@
 									json=json+"}";
 									if (xmlhttp != null) {
 										xmlhttp.onreadystatechange = state_Change;
-										xmlhttp.open("POST", "http://"+ip+":8848/BootCMS/StudentListScreen.action", true);
+										xmlhttp.open("POST", "/BootCMS/StudentListScreen.action", true);
 										xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 										//xmlhttp.setRequestHeader("Content-type","multipart/form-data");
 										var ask = "st_id";

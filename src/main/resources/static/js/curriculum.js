@@ -393,7 +393,7 @@ function showScheduleList(){  // 页面刷新触发
 			}
 		}
 	};
-	xmlhttp.open("POST", "http://"+ip+":8848/BootCMS/getScheduleAll.action", true);
+	xmlhttp.open("POST", "/BootCMS/getScheduleAll.action", true);
 	xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xmlhttp.send();
 }
@@ -478,7 +478,7 @@ function addSchedule(){     //添加新课程
 			}
 		}
 	};
-	xmlhttp.open("POST", "http://"+ip+":8848/BootCMS/addSchedule.action", true);
+	xmlhttp.open("POST", "/BootCMS/addSchedule.action", true);
 	xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xmlhttp.send("sc_name="+sc_name.value+"&sc_start="+sc_start.value+"&sc_end="+sc_end.value+"&sc_cl_id="+sc_build.value+"-"+
 			sc_classroom.value+"&sc_user_id="+sc_user_id.value+"&sc_week="+sc_week+"&sc_time="+sc_time);
